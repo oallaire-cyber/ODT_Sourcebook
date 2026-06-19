@@ -1,0 +1,1828 @@
+version: '3.0'
+name: HORIZON-LEO Demo
+description: 'Full demonstration schema (Orbital Dynamics / HORIZON-LEO): core risk
+  model plus context nodes, context edges and analysis scopes.'
+entities:
+  risk:
+    neo4j_label: Risk
+    levels:
+    - id: business
+      label: Business
+      description: Consequence-oriented risks managed by program leadership
+      color: '#9b59b6'
+      shape: diamond
+      emoji: ◆
+      size: 35
+    - id: operational
+      label: Operational
+      description: Cause-oriented risks managed by functional teams
+      color: '#3498db'
+      shape: dot
+      emoji: ●
+      size: 30
+    categories:
+    - id: programme
+      label: Programme
+      description: Programme-level risks
+      color: '#9b59b6'
+    - id: product
+      label: Product
+      description: Product / engineering risks
+      color: '#3498db'
+    - id: industrial
+      label: Industrial
+      description: Industrial / manufacturing risks
+      color: '#27ae60'
+    - id: supply_chain
+      label: Supply Chain
+      description: Supply chain and logistics risks
+      color: '#e74c3c'
+    - id: corporate
+      label: Corporate
+      description: Corporate / governance risks
+      color: '#34495e'
+    - id: financial
+      label: Financial
+      description: Financial and funding risks
+      color: '#16a085'
+    - id: commercial
+      label: Commercial
+      description: Commercial / market risks
+      color: '#f39c12'
+    - id: regulatory
+      label: Regulatory
+      description: Regulatory and compliance risks
+      color: '#c0392b'
+    - id: hr
+      label: HR
+      description: People / organisational risks
+      color: '#8e44ad'
+    - id: engineering
+      label: Engineering
+      description: Engineering / technical risks
+      color: '#2980b9'
+    - id: it
+      label: IT
+      description: Information-technology risks
+      color: '#2c3e50'
+    - id: security
+      label: Security
+      description: Security and threat risks
+      color: '#d35400'
+    statuses:
+    - id: active
+      label: Active
+      description: Currently active risks
+      is_active: true
+    - id: contingent
+      label: Contingent
+      description: Potential risks awaiting activation
+      is_active: true
+    - id: archived
+      label: Archived
+      description: Closed or inactive risks
+      is_active: false
+    - id: accepted
+      label: Accepted
+      description: Formally accepted; excluded from active exposure analysis
+      is_active: false
+    - id: watching
+      label: Watching
+      description: Accepted risk monitored for trigger re-activation
+      is_active: false
+    - id: suppressed
+      label: Suppressed
+      description: Exposure dropped below acceptance threshold
+      is_active: false
+    - id: closed
+      label: Closed
+      description: Risk condition no longer exists; retained for audit
+      is_active: false
+    origins:
+    - id: new
+      label: New
+      description: Newly identified risks
+    - id: legacy
+      label: Legacy
+      description: Inherited or historical risks
+    attributes:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Risk name
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Risk description
+    - name: owner
+      type: string
+      required: false
+      default: null
+      description: Risk owner
+    - name: probability
+      type: float
+      required: false
+      default: null
+      description: Likelihood rating (1-10)
+      engine_required: true
+    - name: severity
+      type: float
+      required: false
+      default: null
+      description: Severity rating (1-10) — intrinsic intensity of the risk event
+      engine_required: true
+    - name: trigger_condition
+      type: string
+      required: false
+      default: null
+      description: Condition string that, when met, re-activates a Watching/Suppressed
+        risk
+    - name: acceptance_date
+      type: date
+      required: false
+      default: null
+      description: ISO date when risk was formally accepted
+    - name: acceptance_owner
+      type: string
+      required: false
+      default: null
+      description: Person who formally accepted the risk
+    - name: archive_date
+      type: date
+      required: false
+      default: null
+      description: ISO date when risk was archived
+    - name: is_template
+      type: boolean
+      required: false
+      default: false
+      description: If true, this is a GenericRisk template — excluded from exposure
+        calculations and canvas display
+    - name: annual_probability
+      type: float
+      required: false
+      default: null
+      description: 'Frequency (U16): annual Poisson event rate λ in events/year. Populated
+        by analyst direct entry (priority) or the likelihood_to_lambda lookup-table
+        fallback — no SPICE dependency. Distinct from the 1–10 likelihood score, which
+        is unchanged and still drives exposure.'
+    - name: magnitude_point_estimate
+      type: float
+      required: false
+      default: null
+      description: 'Magnitude Tier-2 fallback (U18): expert single expected/median
+        loss for this Business Risk (perimeter currency), used when no current SPICE
+        coverage exists. Priority: SPICE-fitted > this analyst estimate > YAML domain
+        default.'
+    - name: magnitude_low
+      type: float
+      required: false
+      default: null
+      description: Optional P10 (low) loss for the Tier-2 fallback — pairs with magnitude_high
+        to shape the distribution tail; if omitted, spread inherits the domain YAML
+        default.
+    - name: magnitude_high
+      type: float
+      required: false
+      default: null
+      description: Optional P90 (high) loss for the Tier-2 fallback — pairs with magnitude_low
+        to shape the distribution tail; if omitted, spread inherits the domain YAML
+        default.
+    custom_attributes: []
+    subtypes:
+    - id: generic
+      label: Generic
+      applies_to:
+      - business
+      - operational
+      extension_fields: []
+    - id: cyber_entry_point
+      label: Cyber — Entry Point-Oriented
+      applies_to:
+      - operational
+      extension_fields:
+      - name: entry_point_type
+        type: enum
+        required: false
+        description: Type of entry point being exploited
+        values:
+        - Network
+        - Physical
+        - Human
+        - Supply Chain
+        - Cloud
+      - name: exploitation_technique
+        type: string
+        required: false
+        description: Technique or vector used
+      - name: detection_difficulty
+        type: enum
+        required: false
+        description: How difficult this attack vector is to detect
+        values:
+        - Low
+        - Medium
+        - High
+        - Very High
+    - id: cyber_target_oriented
+      label: Cyber — Target-Oriented
+      applies_to:
+      - operational
+      extension_fields:
+      - name: target_type
+        type: enum
+        required: false
+        description: Nature of the targeted asset
+        values:
+        - Functional Target
+        - Technical Target
+        - Data Asset
+        - Personnel
+      - name: threat_actor_category
+        type: string
+        required: false
+        description: Category of threat actor
+      - name: attack_objective
+        type: string
+        required: false
+        description: Attacker's primary objective
+    - id: supply_chain
+      label: Supply Chain / Industrial
+      applies_to:
+      - operational
+      extension_fields:
+      - name: supplier_tier
+        type: enum
+        required: false
+        description: Supplier tier in the supply chain
+        values:
+        - Tier 1
+        - Tier 2
+        - Tier 3
+        - Internal
+      - name: criticality_class
+        type: enum
+        required: false
+        description: Criticality classification of the supplier
+        values:
+        - Critical
+        - Important
+        - Standard
+      - name: single_source
+        type: boolean
+        required: false
+        description: Whether this is a single-source dependency
+    - id: engineering_technical
+      label: Engineering / Technical
+      applies_to:
+      - operational
+      extension_fields:
+      - name: affected_subsystem
+        type: string
+        required: false
+        description: Subsystem or component affected
+      - name: qualification_stage
+        type: enum
+        required: false
+        description: Programme stage at which the risk materialises
+        values:
+        - Design
+        - Prototype
+        - Test
+        - Qualification
+        - Production
+      - name: failure_mode
+        type: string
+        required: false
+        description: Primary failure mode description
+    - id: programme_schedule
+      label: Programme / Schedule
+      applies_to:
+      - business
+      - operational
+      extension_fields:
+      - name: milestone_impacted
+        type: string
+        required: false
+        description: Key milestone at risk
+      - name: schedule_buffer_weeks
+        type: integer
+        required: false
+        description: Available schedule buffer in weeks
+      - name: workstream
+        type: string
+        required: false
+        description: Affected workstream or work package
+    - id: regulatory_compliance
+      label: Regulatory / Compliance
+      applies_to:
+      - business
+      - operational
+      extension_fields:
+      - name: regulatory_body
+        type: string
+        required: false
+        description: Relevant regulatory authority
+      - name: applicable_standard
+        type: string
+        required: false
+        description: Standard or regulation reference
+      - name: licence_stage
+        type: string
+        required: false
+        description: Current licensing stage
+    - id: financial_contractual
+      label: Financial / Contractual
+      applies_to:
+      - business
+      - operational
+      extension_fields:
+      - name: contract_type
+        type: enum
+        required: false
+        description: Type of contract involved
+        values:
+        - Fixed Price
+        - T&M
+        - Framework
+        - Joint Venture
+      - name: penalty_clause
+        type: boolean
+        required: false
+        description: Whether a penalty clause applies
+      - name: financial_ceiling_meur
+        type: float
+        required: false
+        description: Financial ceiling in M€
+    - id: strategic
+      label: Strategic
+      applies_to:
+      - business
+      extension_fields:
+      - name: strategic_horizon
+        type: enum
+        required: false
+        description: Time horizon of the strategic risk
+        values:
+        - Short-term (<1yr)
+        - Medium-term (1-3yr)
+        - Long-term (>3yr)
+      - name: competitive_dimension
+        type: string
+        required: false
+        description: Competitive dimension affected
+  mitigation:
+    neo4j_label: Mitigation
+    types:
+    - id: dedicated
+      label: Dedicated
+      description: Program-specific mitigations
+      color: '#27ae60'
+      line_style: solid
+    - id: inherited
+      label: Inherited
+      description: Mitigations from other sources
+      color: '#3498db'
+      line_style: dotted
+    - id: baseline
+      label: Baseline
+      description: Standard or regulatory mitigations
+      color: '#9b59b6'
+      line_style: thick
+    statuses:
+    - id: proposed
+      label: Proposed
+      description: Planned mitigations
+      is_active: true
+    - id: in_progress
+      label: In Progress
+      description: Mitigations being implemented
+      is_active: true
+    - id: implemented
+      label: Implemented
+      description: Active mitigations
+      is_active: true
+    - id: deferred
+      label: Deferred
+      description: On-hold mitigations
+      is_active: false
+    attributes:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Mitigation name
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Mitigation description
+    - name: owner
+      type: string
+      required: false
+      default: null
+      description: Mitigation owner
+    - name: source_entity
+      type: string
+      required: false
+      default: null
+      description: Source entity for inherited mitigations
+    - name: capex
+      type: float
+      required: false
+      default: null
+      description: Capital Expenditure (CAPEX)
+    - name: opex
+      type: float
+      required: false
+      default: null
+      description: Operational Expenditure (OPEX)
+    custom_attributes: []
+relationships:
+  influences:
+    neo4j_type: INFLUENCES
+    default_confidence: 0.8
+    types:
+    - id: level1_op_to_bus
+      label: Level1_Op_to_Bus
+      description: Operational to Business influence
+      color: '#e74c3c'
+      line_style: solid
+    - id: level2_bus_to_bus
+      label: Level2_Bus_to_Bus
+      description: Business to Business influence
+      color: '#9b59b6'
+      line_style: solid
+    - id: level3_op_to_op
+      label: Level3_Op_to_Op
+      description: Operational to Operational influence
+      color: '#3498db'
+      line_style: dashed
+    strengths:
+    - id: weak
+      label: Weak
+      value: 0.25
+      description: Possible minor contribution
+      color: '#bdc3c7'
+    - id: moderate
+      label: Moderate
+      value: 0.5
+      description: Likely contributes
+      color: '#f39c12'
+    - id: strong
+      label: Strong
+      value: 0.75
+      description: High probability of propagation
+      color: '#e67e22'
+    - id: critical
+      label: Critical
+      value: 1.0
+      description: Direct, inevitable causation
+      color: '#e74c3c'
+  mitigates:
+    neo4j_type: MITIGATES
+    effectiveness_levels:
+    - id: low
+      label: Low
+      reduction: 0.3
+      description: Minor risk reduction
+    - id: medium
+      label: Medium
+      reduction: 0.5
+      description: Moderate risk reduction
+    - id: high
+      label: High
+      reduction: 0.7
+      description: Significant risk reduction
+    - id: critical
+      label: Critical
+      reduction: 0.9
+      description: Near-complete risk elimination
+analysis:
+  exposure:
+    base_formula: likelihood * severity
+    max_base_value: 100.0
+    propagation_decay: 0.85
+    convergence_multiplier: 0.2
+  cache_timeout_seconds: 30
+  max_influence_depth: 10
+  high_exposure_threshold_multiplier: 1.2
+  alert_thresholds:
+    high_exposure_threshold: 50.0
+    tail_risk_indicator_threshold: 25.0
+    enabled: true
+risk_lifecycle_rules:
+  acceptance_threshold: 20.0
+  severity_ceiling: 7.0
+  archive_retention_days: 180
+  quadrant_thresholds:
+    likelihood_threshold: 6.0
+    severity_threshold_frequency: 6.0
+    severity_threshold_severity: 7.0
+graph_visual_config:
+  lifecycle_opacity:
+    watching: 0.35
+    suppressed: 0.15
+    accepted: 0.4
+    closed: 0.2
+  quadrant_border_encoding: false
+  default_preset: analysis
+ui:
+  app_title: Risk Influence Map (RIM)
+  app_icon: 🎯
+  layout: wide
+  graph_height: 700px
+  graph_bgcolor: '#ffffff'
+  tabs:
+  - id: visualization
+    label: Visualization
+    icon: 📊
+    enabled: true
+  - id: risks
+    label: Risks
+    icon: 🎯
+    enabled: true
+  - id: tpos
+    label: Top Objectives
+    icon: 🏆
+    enabled: true
+  - id: mitigations
+    label: Mitigations
+    icon: 🛡️
+    enabled: true
+  - id: influences
+    label: Influences
+    icon: 🔗
+    enabled: true
+  - id: analysis
+    label: Analysis
+    icon: 📈
+    enabled: true
+  - id: import_export
+    label: Import/Export
+    icon: 📥
+    enabled: true
+  - id: context_data
+    label: Context Data
+    icon: 🧩
+    enabled: true
+  presets:
+  - id: all_elements
+    name: 🔍 All Elements
+    description: Show all risks, TPOs, and mitigations
+    filters:
+      risks:
+        levels:
+        - Business
+        - Operational
+        categories:
+        - Programme
+        - Produit
+        - Industriel
+        - Supply Chain
+        statuses:
+        - Active
+        - Contingent
+      tpos:
+        enabled: true
+      mitigations:
+        enabled: true
+  - id: risks_only
+    name: 🎯 Risks Only
+    description: Show only risks and their influences
+    filters:
+      risks:
+        levels:
+        - Business
+        - Operational
+        categories:
+        - Programme
+        - Produit
+        - Industriel
+        - Supply Chain
+        statuses:
+        - Active
+        - Contingent
+      tpos:
+        enabled: false
+      mitigations:
+        enabled: false
+  - id: business_focus
+    name: ◆ Business Focus
+    description: Focus on business risks only
+    filters:
+      risks:
+        levels:
+        - Business
+        categories:
+        - Programme
+        - Produit
+        - Industriel
+        - Supply Chain
+        statuses:
+        - Active
+        - Contingent
+      tpos:
+        enabled: true
+      mitigations:
+        enabled: false
+  - id: operational_focus
+    name: ● Operational Focus
+    description: Focus on operational risks
+    filters:
+      risks:
+        levels:
+        - Operational
+        categories:
+        - Programme
+        - Produit
+        - Industriel
+        - Supply Chain
+        statuses:
+        - Active
+        - Contingent
+      tpos:
+        enabled: false
+      mitigations:
+        enabled: true
+additional_entities:
+- id: spice_scenario
+  label: SPICE Scenario
+  neo4j_label: SpiceScenario
+  core: true
+  description: Financially quantified stress-test of how a Business Risk can catastrophically
+    materialise (Pillar 5). EBIT/FCF per-year impact trajectories are read by the
+    MagnitudeCalibrator (U18). Not part of graph exposure propagation.
+  color: '#a93226'
+  shape: triangle
+  emoji: 🎯
+  size: 32
+  attributes:
+  - name: name
+    type: string
+    required: true
+    default: null
+    description: Scenario name
+  - name: description
+    type: string
+    required: false
+    default: null
+    description: Narrative description of the scenario
+  - name: hypothesis
+    type: string
+    required: false
+    default: null
+    description: Assumptions and caveats underpinning this assessment (hypothesis
+      / caveat)
+  - name: scenario_family_id
+    type: string
+    required: true
+    default: null
+    description: UUID shared by all versions and the three cases of one conceptual
+      scenario
+  - name: version_number
+    type: integer
+    required: true
+    default: 1
+    min_value: 1
+    description: Increments per family on each reassessment
+  - name: case_type
+    type: enum
+    required: true
+    default: realistic
+    choices:
+    - best
+    - realistic
+    - pessimistic
+    description: Which of the three independently-assessed consequence trajectories
+      this is
+  - name: assessment_date
+    type: date
+    required: true
+    default: null
+    description: Date this case was assessed
+  - name: status_in_family
+    type: enum
+    required: true
+    default: draft
+    choices:
+    - draft
+    - current
+    - superseded
+    description: Exactly one 'current' per family; the MagnitudeCalibrator reads only
+      'current'
+  - name: cause_description
+    type: string
+    required: false
+    default: null
+    description: Description of the triggering cause
+  - name: cause_type
+    type: enum
+    required: false
+    default: null
+    choices:
+    - security
+    - climate
+    - hazard
+    - geopolitical
+    - other
+    description: Multi-domain cause family
+  - name: ebit_impact_y1
+    type: float
+    required: true
+    default: null
+    description: EBIT impact in recovery year 1 (perimeter currency)
+  - name: ebit_impact_y2
+    type: float
+    required: false
+    default: null
+    description: EBIT impact in recovery year 2
+  - name: ebit_impact_y3
+    type: float
+    required: false
+    default: null
+    description: EBIT impact in recovery year 3
+  - name: ebit_impact_y4
+    type: float
+    required: false
+    default: null
+    description: EBIT impact in recovery year 4
+  - name: ebit_impact_y5
+    type: float
+    required: false
+    default: null
+    description: EBIT impact in recovery year 5
+  - name: ebit_impact_y6
+    type: float
+    required: false
+    default: null
+    description: EBIT impact in recovery year 6 (recovery horizon cap)
+  - name: ebit_impact_total
+    type: float
+    required: true
+    default: null
+    description: Auto-computed sum of the populated EBIT year fields
+  - name: fcf_impact_y1
+    type: float
+    required: false
+    default: null
+    description: Cash (FCF) impact in recovery year 1
+  - name: fcf_impact_y2
+    type: float
+    required: false
+    default: null
+    description: Cash (FCF) impact in recovery year 2
+  - name: fcf_impact_y3
+    type: float
+    required: false
+    default: null
+    description: Cash (FCF) impact in recovery year 3
+  - name: fcf_impact_y4
+    type: float
+    required: false
+    default: null
+    description: Cash (FCF) impact in recovery year 4
+  - name: fcf_impact_y5
+    type: float
+    required: false
+    default: null
+    description: Cash (FCF) impact in recovery year 5
+  - name: fcf_impact_y6
+    type: float
+    required: false
+    default: null
+    description: Cash (FCF) impact in recovery year 6 (recovery horizon cap)
+  - name: fcf_impact_total
+    type: float
+    required: false
+    default: null
+    description: Auto-computed sum of the populated FCF year fields
+  - name: crisis_management_days
+    type: integer
+    required: false
+    default: null
+    description: Crisis-management duration in days
+  - name: operational_recovery_days
+    type: integer
+    required: false
+    default: null
+    description: Operational recovery duration in days
+  - name: financial_recovery_years
+    type: integer
+    required: true
+    default: 1
+    min_value: 1
+    max_value: 6
+    description: Years to financial recovery (1–6); drives which year fields are relevant
+  - name: validated
+    type: enum
+    required: false
+    default: proposed
+    choices:
+    - proposed
+    - business
+    - technical
+    - finance
+    - approved
+    description: SPICE triple-validation stage progression
+  - name: exercise_date
+    type: date
+    required: false
+    default: null
+    description: Date of the SPICE exercise that produced this assessment
+  - name: exercise_version
+    type: string
+    required: false
+    default: null
+    description: Version label of the SPICE exercise
+frequency_model:
+  curve_type: piecewise_linear
+  calibrated: false
+  likelihood_to_lambda:
+  - score: 1
+    label: Exceptional
+    central_lambda: 0.003
+    return_period_years: 300
+  - score: 2
+    label: Very rare
+    central_lambda: 0.008
+    return_period_years: 130
+  - score: 3
+    label: Rare
+    central_lambda: 0.015
+    return_period_years: 65
+  - score: 4
+    label: Unlikely
+    central_lambda: 0.035
+    return_period_years: 30
+  - score: 5
+    label: Possible
+    central_lambda: 0.075
+    return_period_years: 13
+  - score: 6
+    label: Moderate
+    central_lambda: 0.15
+    return_period_years: 7
+  - score: 7
+    label: Likely
+    central_lambda: 0.28
+    return_period_years: 3.5
+  - score: 8
+    label: Very likely
+    central_lambda: 0.47
+    return_period_years: 2
+  - score: 9
+    label: Probable
+    central_lambda: 0.93
+    return_period_years: 1
+  - score: 10
+    label: Near-certain
+    central_lambda: 2.0
+    return_period_years: 0.5
+loss_model:
+  frequency_mapping: piecewise_linear
+  magnitude_distribution: lognormal
+  monte_carlo_runs: 10000
+  var_confidence_levels:
+  - 0.95
+  - 0.99
+  - 0.995
+  resilience_thresholds:
+    robust_exceedance_probability: 0.2
+    fragile_exceedance_probability: 0.05
+  magnitude_fallback:
+    coefficient_of_variation: 1.5
+    median: null
+context_nodes:
+  business_perimeter:
+    label: Business Perimeter
+    description: 'Organisational unit holding the P&L that bears the financial consequences
+      of a scenario. Core node — ebit_baseline and fcf_baseline are read by the magnitude
+      calibrator (U18), per-perimeter LEC aggregation, F15, and F36.
+
+      '
+    color: '#8e44ad'
+    shape: box
+    emoji: 🏢
+    size: 35
+    zone: upper
+    border: double
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Business unit or perimeter name
+    - name: pl_holder
+      type: string
+      required: false
+      default: null
+      description: Legal entity or org unit holding the P&L
+    - name: ebit_baseline
+      type: float
+      required: false
+      default: null
+      description: 'Current AOP EBIT target in the perimeter currency. Reference baseline
+        for scenario impact scaling (U18, F15). Replaces legacy ebit_absolute.
+
+        '
+    - name: fcf_baseline
+      type: float
+      required: false
+      default: null
+      description: 'Current AOP FCF target in the perimeter currency (optional). Replaces
+        legacy fcf_annual.
+
+        '
+    - name: currency
+      type: string
+      required: false
+      default: EUR
+      description: ISO 4217 currency code (e.g. EUR, USD)
+    - name: spice_assessed
+      type: boolean
+      required: false
+      default: false
+      description: 'Auto-flag: true if at least one SpiceScenario is ASSESSED_AGAINST
+        this perimeter. Set by F8 on scenario save; read by F36 coverage heatmap.
+
+        '
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Free text description
+    - name: division
+      type: string
+      required: false
+      default: null
+      description: ''
+  scenario:
+    label: Scenario
+    description: 'DEPRECATED in U17. Replaced by SpiceScenario (see spice_nodes section).
+      This node type remains in the schema YAML to prevent schema_loader from rejecting
+      existing data during the migration window. Remove after the U17 Cypher migration
+      (scripts/migrations/u17_04_deprecate_scenario.cypher) has been run and verified
+      on all target databases.
+
+      '
+    color: '#bdc3c7'
+    shape: hexagon
+    emoji: 🚫
+    size: 35
+    zone: upper
+    border: dashed
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: '[DEPRECATED] Scenario name'
+    - name: annual_probability
+      type: float
+      required: false
+      default: null
+      description: '[DEPRECATED] Annual occurrence probability'
+    - name: ebit_impact_expected
+      type: float
+      required: false
+      default: null
+      description: '[DEPRECATED] Expected EBIT impact in EUR'
+    - name: recovery_days
+      type: int
+      required: false
+      default: null
+      description: '[DEPRECATED] Estimated recovery time in days'
+  entry_point:
+    label: Entry Point
+    description: ''
+    color: '#e67e22'
+    shape: box
+    emoji: 🚪
+    size: 30
+    zone: lower
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Entry point name
+    - name: exploitability
+      type: string
+      required: false
+      default: null
+      description: Exploitability rating (e.g. Low / Medium / High)
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Entry point description
+  attacker:
+    label: Attacker
+    description: ''
+    color: '#922b21'
+    shape: box
+    emoji: 👤
+    size: 30
+    zone: lower
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Attacker profile name
+    - name: capability_level
+      type: int
+      required: false
+      default: null
+      description: Capability level (1-10)
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Attacker profile description
+  tpo:
+    label: TPO
+    description: Top Program Objective. Context node (demoted from core entity in
+      the TPO→context cleanup). Stored as :ContextNode with node_type=tpo. A BusinessRisk
+      impacts a TPO via the IMPACTS_TPO context edge; no analytical engine reads any
+      TPO property.
+    color: '#f1c40f'
+    shape: hexagon
+    emoji: 🟡
+    size: 35
+    zone: upper
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Objective name
+    - name: reference
+      type: string
+      required: false
+      default: null
+      description: Short reference code (e.g. TPO-01)
+    - name: cluster
+      type: string
+      required: false
+      default: null
+      description: Cluster category
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Objective description
+  tco:
+    label: Top Company Objective
+    description: 'Single strategic objective concept. Context node — no analytical
+      engine reads any TCO property. Replaces legacy TPO context node. The THREATENS
+      edge (BusinessRisk → TCO) is Core; the TCO node itself is not. Distinct Neo4j
+      label for clean scope-selector addressability (Q-G).
+
+      '
+    color: '#f18c0f'
+    shape: hexagon
+    emoji: 🏆
+    size: 35
+    zone: upper
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Objective name
+    - name: reference
+      type: string
+      required: false
+      default: null
+      description: Short reference code (e.g. TCO-01)
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Objective description
+    - name: owner
+      type: string
+      required: false
+      default: null
+      description: Governance owner (not consumed by any engine)
+    - name: time_horizon
+      type: string
+      required: false
+      default: null
+      description: Time horizon, e.g. 'FY26' or '2025–2030'
+    - name: cluster
+      type: string
+      required: false
+      default: null
+      description: ''
+  technical_perimeter:
+    label: Technical Perimeter
+    description: 'System, site, or infrastructure where a scenario''s triggering event
+      physically occurs. Context node — no analytical engine reads any TechnicalPerimeter
+      property. Used structurally for blast-radius traversal (Q-COV-4) and scope-selector
+      Technical axis. external_id reserved for future CMDB/ISMS integration (Phase
+      6 P6b).
+
+      '
+    color: '#5dade2'
+    shape: box
+    emoji: 🖥️
+    size: 30
+    zone: lower
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Perimeter or asset name
+    - name: type
+      type: enum
+      required: true
+      default: null
+      description: Asset category
+    - name: location
+      type: string
+      required: false
+      default: null
+      description: Physical or logical location
+    - name: criticality
+      type: integer
+      required: false
+      default: null
+      description: Criticality score (1–5)
+    - name: external_id
+      type: string
+      required: false
+      default: null
+      description: 'Cross-reference to CMDB, ISMS, or other asset registry. Placeholder
+        for Phase 6 P6b integration.
+
+        '
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Free text description
+  sponsor:
+    label: Sponsor of the Attack
+    description: ''
+    color: '#7b241c'
+    shape: box
+    emoji: 🛂
+    size: 30
+    zone: lower
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: false
+      default: null
+      description: ''
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: ''
+  functional_target:
+    label: Functional Target
+    description: ''
+    color: '#5d6d7e'
+    shape: box
+    emoji: 📄
+    size: 30
+    zone: lower
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: false
+      default: null
+      description: ''
+    - name: classification
+      type: string
+      required: false
+      default: null
+      description: ''
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: ''
+  business_activity:
+    label: Business Activity
+    description: ''
+    color: '#1abc9c'
+    shape: box
+    emoji: ⚙️
+    size: 30
+    zone: upper
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: false
+      default: null
+      description: ''
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: ''
+  mitigation_objective:
+    label: Mitigation Objective
+    description: Objective declared within a SPICE scenario assessment; SpiceMitigations
+      FULFIL it with declared contribution weights. Context — no engine reads it.
+    color: '#1abc9c'
+    shape: box
+    emoji: 🎚️
+    size: 25
+    zone: lower
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Objective name
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: What the objective seeks to achieve
+    - name: importance_rank
+      type: integer
+      required: false
+      default: null
+      description: Importance ranking (1–10), parallel optional dimension
+    - name: effectiveness_rank
+      type: integer
+      required: false
+      default: null
+      description: Effectiveness ranking (1–10), parallel optional dimension
+  spice_mitigation:
+    label: SPICE Mitigation
+    description: Financial/operational control reducing a scenario consequence (insurance,
+      contractual cap, BCP, reserve fund). Acts at the financial layer only — NOT
+      in graph exposure. Context for Iteration 6 (promote to Core at F37c).
+    color: '#16a085'
+    shape: box
+    emoji: 🛡️
+    size: 25
+    zone: lower
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Control name
+    - name: type
+      type: enum
+      required: true
+      default: impact_reducing
+      description: 'Allowed: impact_reducing (reduces EBIT/FCF impact) | recovery_accelerating
+        (shortens recovery). Context-node enums document values here (the context
+        parse path does not enforce choices) — matches technical_perimeter.type.'
+    - name: status
+      type: enum
+      required: true
+      default: ongoing
+      description: 'Control lifecycle status. Allowed: ongoing | planned | recommended'
+    - name: cost_opex
+      type: float
+      required: false
+      default: null
+      description: Annual operating expenditure
+    - name: cost_capex
+      type: float
+      required: false
+      default: null
+      description: Capital expenditure required (planned/recommended)
+    - name: effectiveness_pct
+      type: float
+      required: false
+      default: null
+      description: Estimated effectiveness as % reduction on the target metric (0–100)
+    - name: coverage_amount
+      type: float
+      required: false
+      default: null
+      description: Maximum coverage amount (insurance / contractual caps)
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Free text description
+  owner:
+    label: Owner
+    description: Person, team, or org unit with formal risk accountability. STEWARDS
+      execution; BEARS consequence. Enables scope traversal by responsibility. Context.
+    color: '#7f8c8d'
+    shape: box
+    emoji: 👤
+    size: 25
+    zone: lower
+    border: solid
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Owner name
+    - name: role
+      type: string
+      required: false
+      default: null
+      description: e.g. CISO, CFO Business Unit France
+    - name: entity
+      type: string
+      required: false
+      default: null
+      description: Organisational entity
+    - name: email
+      type: string
+      required: false
+      default: null
+      description: Contact email
+context_edges:
+  exploits:
+    label: Exploits
+    neo4j_type: EXPLOITS
+    description: Attacker exploits an entry point (initial compromise)
+    from_node: attacker
+    to_node: entry_point
+    color: '#c0392b'
+    line_style: dashed
+    bidirectional: false
+    properties:
+    - name: success_probability
+      type: float
+      required: false
+      default: null
+      description: Attack success probability
+  compromises:
+    label: Compromises (lateral movement)
+    neo4j_type: COMPROMISES
+    description: Lateral movement from the entry point to the final technical target
+    from_node: entry_point
+    to_node: technical_perimeter
+    color: '#922b21'
+    line_style: dashed
+    bidirectional: false
+    properties:
+    - name: technique
+      type: string
+      required: false
+      default: null
+      description: Lateral-movement technique / TTP
+  exposes:
+    label: Exposes (target → scenario)
+    neo4j_type: EXPOSES
+    description: Compromise of the technical target realises a loss scenario
+    from_node: technical_perimeter
+    to_node: scenario
+    color: '#e67e22'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  affects:
+    label: Affects (scenario → perimeter)
+    neo4j_type: AFFECTS
+    description: A loss scenario affects a business (P&L) perimeter
+    from_node: scenario
+    to_node: business_perimeter
+    color: '#d35400'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  concerns:
+    label: Concerns (risk → asset)
+    neo4j_type: CONCERNS
+    description: An operational risk covers / concerns a technical context element
+    from_node: risk
+    to_node: technical_perimeter
+    color: '#7f8c8d'
+    line_style: dotted
+    bidirectional: false
+    properties: []
+  impacts_tpo:
+    label: Impacts Programme Objective
+    neo4j_type: IMPACTS_TPO
+    description: Risk impacts a Top Programme Objective (TPO)
+    from_node: risk
+    to_node: tpo
+    color: '#3498db'
+    line_style: solid
+    bidirectional: false
+    properties:
+    - name: impact_level
+      type: string
+      required: false
+      default: null
+      description: Severity of the risk's impact on the objective
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Free-form description of the impact
+  impacts_tco:
+    label: Impacts Company Objective
+    neo4j_type: IMPACTS_TCO
+    description: Risk impacts a Top Company Objective (TCO)
+    from_node: risk
+    to_node: tco
+    color: '#2980b9'
+    line_style: solid
+    bidirectional: false
+    properties:
+    - name: impact_level
+      type: string
+      required: false
+      default: null
+      description: Severity of the risk's impact on the objective
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: Free-form description of the impact
+  contributes_to:
+    label: Contributes To (Programme → Company)
+    neo4j_type: CONTRIBUTES_TO
+    description: A programme objective (TPO) rolls up to a company objective (TCO)
+    from_node: tpo
+    to_node: tco
+    color: '#16a085'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  instantiates:
+    label: Instantiates
+    neo4j_type: INSTANTIATES
+    description: Links a GenericRisk template to a specific risk instantiation
+    from_node: risk
+    to_node: risk
+    color: '#9b59b6'
+    line_style: dashed
+    bidirectional: false
+    properties: []
+  manages:
+    label: Manages
+    neo4j_type: MANAGES
+    description: A sponsor manages / tasks an attacker
+    from_node: sponsor
+    to_node: attacker
+    color: '#641e16'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  seeks:
+    label: Seeks (attack motive)
+    neo4j_type: SEEKS
+    description: The sponsor's motive — the functional target it wants
+    from_node: sponsor
+    to_node: functional_target
+    color: '#922b21'
+    line_style: dotted
+    bidirectional: false
+    properties: []
+  targets:
+    label: Targets
+    neo4j_type: TARGETS
+    description: An attacker targets a technical asset
+    from_node: attacker
+    to_node: technical_perimeter
+    color: '#a93226'
+    line_style: dashed
+    bidirectional: false
+    properties: []
+  uses:
+    label: Uses
+    neo4j_type: USES
+    description: A business perimeter runs a business activity
+    from_node: business_perimeter
+    to_node: business_activity
+    color: '#117a65'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  produces:
+    label: Produces
+    neo4j_type: PRODUCES
+    description: A business activity produces a functional target (e.g. design data)
+    from_node: business_activity
+    to_node: functional_target
+    color: '#148f77'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  hosted_on:
+    label: Hosted On
+    neo4j_type: HOSTED_ON
+    description: A functional target is hosted on a technical asset
+    from_node: functional_target
+    to_node: technical_perimeter
+    color: '#5d6d7e'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  illustrates:
+    label: Illustrates (scenario → business risk)
+    neo4j_type: ILLUSTRATES
+    description: SPICE scenario is a concrete instantiation of how this Business Risk
+      materialises. Primary bridge between the SPICE and graph layers. App enforces
+      target = business-level risk.
+    from_node: spice_scenario
+    to_node: risk
+    color: '#a93226'
+    line_style: solid
+    bidirectional: false
+    core: true
+    properties: []
+  caused_by:
+    label: Caused By (scenario → operational risk)
+    neo4j_type: CAUSED_BY
+    description: The scenario's cause is an existing Operational Risk in the causal
+      graph. App enforces target = operational-level risk.
+    from_node: spice_scenario
+    to_node: risk
+    color: '#cb4335'
+    line_style: dashed
+    bidirectional: false
+    properties: []
+  assessed_against:
+    label: Assessed Against (scenario → P&L perimeter)
+    neo4j_type: ASSESSED_AGAINST
+    description: The financial impact of this scenario is assessed on this P&L perimeter.
+    from_node: spice_scenario
+    to_node: business_perimeter
+    color: '#d35400'
+    line_style: solid
+    bidirectional: false
+    core: true
+    properties: []
+  occurs_at:
+    label: Occurs At (scenario → technical perimeter)
+    neo4j_type: OCCURS_AT
+    description: The triggering event physically occurs at this asset or site.
+    from_node: spice_scenario
+    to_node: technical_perimeter
+    color: '#e67e22'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  contains:
+    label: Contains (perimeter → business risk)
+    neo4j_type: CONTAINS
+    description: This P&L perimeter contains this Business Risk — defines financial
+      scope membership. App enforces target = business-level risk.
+    from_node: business_perimeter
+    to_node: risk
+    color: '#9b59b6'
+    line_style: solid
+    bidirectional: false
+    core: true
+    properties: []
+  addresses:
+    label: Addresses (scenario → objective)
+    neo4j_type: ADDRESSES
+    description: The scenario declares a mitigation objective to be fulfilled.
+    from_node: spice_scenario
+    to_node: mitigation_objective
+    color: '#1abc9c'
+    line_style: solid
+    bidirectional: false
+    core: true
+    properties: []
+  fulfils:
+    label: Fulfils (SPICE mitigation → objective)
+    neo4j_type: FULFILS
+    description: A SPICE mitigation fulfils an objective with a declared contribution
+      weight. Sum of weights per objective MAY exceed 100% (surfaced as over-coverage,
+      not an error).
+    from_node: spice_mitigation
+    to_node: mitigation_objective
+    color: '#148f77'
+    line_style: solid
+    bidirectional: false
+    core: true
+    properties:
+    - name: contribution_weight
+      type: float
+      required: false
+      default: null
+      description: This mitigation's contribution to the objective (% — may sum >100
+        per objective)
+  mitigated_by_spice:
+    label: Mitigated By SPICE (scenario → SPICE mitigation)
+    neo4j_type: MITIGATED_BY_SPICE
+    description: A financial/operational control reduces the consequence of this scenario.
+      Does NOT affect graph exposure.
+    from_node: spice_scenario
+    to_node: spice_mitigation
+    color: '#16a085'
+    line_style: solid
+    bidirectional: false
+    core: true
+    properties: []
+  stewards:
+    label: Stewards (owner → mitigation)
+    neo4j_type: STEWARDS
+    description: Execution accountability ("I am doing this work"). Polymorphic target
+      Mitigation | SpiceMitigation (declared endpoint = mitigation; app handles SpiceMitigation).
+      STEWARDS targeting any Risk node is forbidden by design.
+    from_node: owner
+    to_node: mitigation
+    color: '#7f8c8d'
+    line_style: dotted
+    bidirectional: false
+    core: true
+    properties: []
+  bears:
+    label: Bears (owner → risk)
+    neo4j_type: BEARS
+    description: 'Polymorphic consequence-bearing: OperationalRisk → technical consequence,
+      BusinessRisk → financial consequence. At most one Bearer per risk.'
+    from_node: owner
+    to_node: risk
+    color: '#566573'
+    line_style: dotted
+    bidirectional: false
+    core: true
+    properties: []
+scopes:
+- id: odt_demo
+  name: 🚀 ODT Demo - Full Example
+  description: 'Complete New Space program example: 12 business risks, 17 operational
+    risks, 15+ mitigations, 3 TPOs'
+  node_ids:
+  - RC-01
+  - RC-02
+  - RC-03
+  - RC-04
+  - RC-05
+  - RH-01
+  - RH-02
+  - RH-03
+  - RH-04
+  - RH-05
+  - RH-06
+  - RH-07
+  - RA-01
+  - RA-02
+  - RA-03
+  - RA-04
+  - RA-05
+  - ROE-01
+  - ROE-02
+  - ROE-03
+  - ROM-01
+  - ROM-02
+  - ROM-03
+  - ROM-04
+  - ROL-01
+  - ROL-02
+  - ROC-01
+  - ROC-02
+  - ROF-01
+  - ROF-02
+  - ROH-01
+  - ROH-02
+  - ROR-01
+  - ROI-01
+  - SEC-01
+  - SEC-02
+  - SEC-03
+  - SEC-04
+  - SEC-05
+  - SEC-06
+  - SEC-07
+  - SEC-08
+  - SEC-09
+  - SEC-10
+  - SEC-11
+  - SEC-12
+  - SEC-13
+  - SEC-14
+  - RCY-01
+  - RCY-02
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: true
+  color: '#2ecc71'
+- id: tc01_baseline
+  name: TC01 - Baseline
+  description: All risks at L=1, I=1 with no mitigations — Final Exposure = 1
+  node_ids:
+  - 545446b4-26eb-5572-bd14-8699594e7a40
+  - c1002844-5da5-5fcc-8fef-26c72e11efc3
+  - a3fca39e-52d0-577d-be2d-065c0a3ffe3b
+  - 3cd50776-6b8e-516c-b584-045a230744a7
+  - b8223662-3e03-40b8-a898-b3d161bbc51c
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: false
+  color: '#aed6f1'
+- id: tc02_simple_chain
+  name: TC02 - Simple Chain
+  description: Linear influence chain Op1→Op2→Bus1, all unmitigated
+  node_ids:
+  - cbc7e0a8-c4ed-5455-bff2-e63341428395
+  - 2821ca91-008b-50db-a0c3-881cc6da7621
+  - dc6e2a61-57f9-58fe-9932-8fe7b187ccb7
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: false
+  color: '#a9dfbf'
+- id: tc03_mitigation_effect
+  name: TC03 - Mitigation Effect
+  description: 8 risks demonstrating multiplicative mitigation model
+  node_ids:
+  - f0c82bbe-e107-56cd-839d-e432bd31632e
+  - cea650ca-5655-5ec6-977c-0f06c0ccdc72
+  - ea204cec-2d2e-5350-81fc-b12207ba2575
+  - b300c05d-51aa-5a58-8d24-db67c8344d2f
+  - 78d595ef-8471-5a5e-aca2-a85373e83733
+  - 529b6266-fd42-5ba0-842a-12c8a21b2d5d
+  - eea6f2c4-44a9-5c52-bdbc-622aac608a46
+  - 9913bf59-9f10-51ae-952c-546666de4325
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: false
+  color: '#f9e79f'
+- id: tc04_influence_limitation
+  name: TC04 - Influence Limitation
+  description: Upstream residual limits downstream mitigation effectiveness
+  node_ids:
+  - 132e355b-0f93-5f25-9f5d-18d2316df783
+  - e11e8386-169a-53c1-aade-eb18c631ac70
+  - 2eafec16-02c7-5052-bb93-93e3c6ea2e2a
+  - d8b6b169-814c-50be-8395-848a88985d7b
+  - 4d86ae18-0440-515f-84a6-620863f408e4
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: false
+  color: '#f1948a'
+- id: tc05_convergence
+  name: TC05 - Convergence
+  description: 4 upstream sources averaging into one convergence point
+  node_ids:
+  - 0d6ccb4d-7026-5553-ba80-9518bb8bbccb
+  - e86c8139-0c3e-549d-82ac-c48116fa066c
+  - ac04d220-f64e-51f3-b7ff-c0e0016f8c1c
+  - 71a799e3-67a2-599b-a85e-229cefe000ff
+  - 04568e76-d323-5040-9717-609e329eedf5
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: false
+  color: '#c39bd3'
+- id: tc06_full_chain
+  name: TC06 - Full Chain
+  description: Two parallel chains (one well-mitigated, one with gap) converging
+  node_ids:
+  - 60483d97-c148-5250-9216-85f4808797f6
+  - c1333b4c-354c-542f-90a0-8d8910ce307c
+  - 04c48648-3240-512c-9311-2737a110a26b
+  - e4a17955-5a1e-51e3-997f-c05614f6b569
+  - 9be2a27b-4bcd-5878-807a-cf76dc3a224e
+  - 0145477a-1d33-5723-9c4e-ac997b92bd52
+  - 579d302c-c4e2-517b-bd3b-adbcf9ad3df5
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: false
+  color: '#76d7c4'
+- id: tc07_influence_strengths
+  name: TC07 - Influence Strengths
+  description: Same unmitigated source influencing 4 targets at 4 strength levels
+  node_ids:
+  - a636b334-ecf7-56a0-bb9e-a69006c872c2
+  - a5031626-2cd5-5b6d-b322-828e1ddea443
+  - 8e072c8c-66cd-53e3-8ecb-1d599c981d89
+  - 5b34400a-87c4-5996-af66-0808b8c96fb6
+  - 4e6f18f1-4a4e-556c-89ba-d8b94a5a2055
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: false
+  color: '#f0a500'
+- id: tc08_feature_coverage
+  name: TC08 - Feature Coverage
+  description: 'Manual test dataset: 4 active risks (2 Business, 2 Operational), 2
+    lifecycle-inactive risks, 1 template. Tests lifecycle, TRI, quadrant, alerts,
+    simulation, scope.'
+  node_ids:
+  - tc08-0001-0000-0000-000000000001
+  - tc08-0001-0000-0000-000000000002
+  - tc08-0001-0000-0000-000000000003
+  - tc08-0001-0000-0000-000000000004
+  include_connected_edges: true
+  show_boundary_edges: false
+  include_connected_context_nodes: false
+  color: '#5dade2'
