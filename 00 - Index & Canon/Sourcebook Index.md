@@ -24,7 +24,7 @@ The map of the whole set. Each line below is a "product type"; click into its in
 
 ## ④ Modules — *runnable exercises & sponsor surfaces*
 - [[Module Template]] · [[ISF 2026 SPICE Workshop (external kit)]]
-- **Sponsor surfaces:** [[Sponsor One-Pager - Pricing the Cyber Tail]] · [[Sponsor Exec Briefing - Risks That Converge on the IPO]] *(live demo script to follow)*
+- **Sponsor surfaces:** [[Sponsor One-Pager - Pricing the Cyber Tail]] · [[Sponsor Exec Briefing - Risks That Converge on the IPO]] · [[Sponsor Live Demo Script - Animating the Risk Graph]]
 
 ## ⑤ GM Kit — *facilitator-only*
 - [[Elicitation Prompt Tables]] (runbook / cheat-sheet / quant pack live in the external kit)
