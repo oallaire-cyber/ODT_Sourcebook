@@ -22,8 +22,9 @@ The map of the whole set. Each line below is a "product type"; click into its in
 ## ③ Bestiary — *scenario & threat database*
 - [[Bestiary Index]] — the families, the influence web, the stat-block template
 
-## ④ Modules — *runnable exercises*
+## ④ Modules — *runnable exercises & sponsor surfaces*
 - [[Module Template]] · [[ISF 2026 SPICE Workshop (external kit)]]
+- **Sponsor surfaces:** [[Sponsor One-Pager - Pricing the Cyber Tail]] *(exec briefing + live demo script to follow)*
 
 ## ⑤ GM Kit — *facilitator-only*
 - [[Elicitation Prompt Tables]] (runbook / cheat-sheet / quant pack live in the external kit)
