@@ -26,7 +26,7 @@ python "09 - Engine Room/generate_seed.py"
 |---|---|
 | `risks` | All Risk nodes (50 total: RC/RH/RA/ROE/ROM/ROL/ROC/ROF/ROH/ROR/ROI/SEC/RCY) |
 | `objectives.tpo` | Top Programme Objectives (TPO-01..06) |
-| `objectives.tco` | Top Company Objectives (TCO-01..03) |
+| `objectives.tco` | Top Company Objectives (TCO-01..04; TCO-04 = IPO apex, owner CEO) |
 | `mitigations` | All Mitigation nodes (22 total: MIT-01..21 + MIT-CY1) |
 | `context_nodes` | Business perimeters, scenarios, entry points, attackers, technical perimeters, sponsors, functional targets, business activities |
 | `relationships.contributes_to` | TPO → TCO hierarchy (6 edges) |
@@ -59,6 +59,6 @@ EBIT/FCF figures are transcribed from the [[Bestiary Index|bestiary]] stat-block
 ## Known gaps to flag (forward work)
 > [!warning] To resolve in production
 > - `cause_type` enum = security/climate/hazard/geopolitical/other — has **no `regulatory`/`supply-chain`/`financial`**; bestiary entries use `other` + a `family` tag. Decide: extend enum or keep the tag convention. *(In effect now: RG1 & FN1 = `other`, SC1 = `security`.)*
-> - **Mitigation-Objective + SPICE-mitigation layer now seeded** (15 objectives, 9 spice mitigations, ADDRESSES/MITIGATED_BY_SPICE/FULFILS). The **STEWARD/BEAR owner layer is still NOT seeded** — separate decision, deferred.
-> - **SC1 narrative-vs-graph gap:** SC1 illustrates **RH-02** (on-orbit degradation), which has **no outgoing `INFLUENCES`** — so it converges on TCO-01 only through the objective hierarchy (RH-02→TPO-02→TCO-01), not via risk→risk influence to the company financial risks. SC1's narrative ("Phase-4 slip → revenue miss → IPO") would be literally true in the graph only with an added edge (e.g. `INFLUENCES` RH-02→RH-03) — a canonical graph change, not made unasked.
+> - **Mitigation-Objective + SPICE-mitigation layer now seeded** (18 objectives, 11 spice mitigations, ADDRESSES/MITIGATED_BY_SPICE/FULFILS). The **STEWARD/BEAR owner layer is still NOT seeded** — separate decision, deferred.
+> - ~~**SC1 narrative-vs-graph gap**~~ **Resolved (2026-06-26):** added `INFLUENCES` **RH-02 → RH-03** (INF-45), so SC1 now reaches the apex via risk→risk influence (RH-02→RH-03→RC-01→`IMPACTS_TCO` **TCO-04**), not only the objective hierarchy. Convergence apex is **TCO-04 (IPO)**; all 6 bestiary families provably converge. *(INC-03 Applied.)*
 > - **GP1 `caused-by` corrected** from `ROE-01` (software defect) to `ROM-01`+`ROL-01` (RF supply + launch) to match its narrative.

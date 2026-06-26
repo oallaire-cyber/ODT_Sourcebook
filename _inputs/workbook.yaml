@@ -931,6 +931,17 @@ objectives:
       owner: Chief Commercial Officer
       time_horizon: 2027-2029
 
+    - id: TCO-04
+      name: Achieve a successful IPO / liquidity event by H1 2029
+      description: >-
+        Company-wide capstone objective: complete the planned IPO (~$250M, Nasdaq,
+        H1 2029). The convergence apex — the company financial-risk cluster
+        (RC-01/RC-02/RC-03) impacts it directly, and the revenue ramp (TPO-01)
+        contributes to it. TCO-01 (positive EBITDA) is the headline enabler.
+        BST-FN1 is the scenario of failing this objective.
+      owner: CEO
+      time_horizon: "H1 2029"
+
 
 # =============================================================================
 # MITIGATIONS
@@ -1186,6 +1197,21 @@ context_nodes:
       description: >-
         P&L-bearing unit for the HORIZON-LEO constellation programme
 
+    - id: BP-GEO
+      name: AURORA-GEO Programme
+      pl_holder: AURORA-GEO Programme
+      ebit_baseline: 0.0
+      fcf_baseline: -10.0
+      currency: USD_M
+      spice_assessed: false
+      description: >-
+        Pre-revenue development perimeter for the AURORA-GEO optical-relay
+        programme. ebit_baseline 0 (no service revenue yet); fcf_baseline -10
+        is ODT's FY2028 internal-share development burn (Phase-C ramp) of a
+        ~$50M Phase-A/B->PDR budget co-funded ~60% by ESA/NASA. Consolidates
+        with BP-LEO (-30) to the canon company FCF of -40. Risk metric is
+        schedule & co-funding (TPO-05 PDR gate), not EBIT.
+
   # DEPRECATED — retained for migration window (U17 migration not yet run)
   scenarios:
     - id: SC-01
@@ -1257,6 +1283,7 @@ relationships:
     - {id: CTR-04, from: TPO-06, to: TCO-02}
     - {id: CTR-05, from: TPO-04, to: TCO-03}
     - {id: CTR-06, from: TPO-05, to: TCO-03}
+    - {id: CTR-07, from: TPO-01, to: TCO-04}   # revenue/EBITDA ramp is the headline IPO proof point
 
   # ─── Risk → Company Objective ───────────────────────────────────────────────
   impacts_tco:
@@ -1280,6 +1307,22 @@ relationships:
       to: TCO-01
       impact_level: High
       description: Phase-3 slip erodes revenue ramp and the company EBITDA trajectory
+    # ─── TCO-04 (IPO) — the convergence apex: the financial-risk cluster lands here
+    - id: IMC-04
+      from: RC-01
+      to: TCO-04
+      impact_level: Critical
+      description: No first-profit (EBITDA) story means no credible IPO
+    - id: IMC-05
+      from: RC-02
+      to: TCO-04
+      impact_level: Critical
+      description: Cash-runway exhaustion forces a distressed, dilutive raise before the IPO window
+    - id: IMC-06
+      from: RC-03
+      to: TCO-04
+      impact_level: Critical
+      description: Loss of investor confidence collapses the valuation multiple or pulls the IPO (down-round)
 
   # ─── Influence edges (Op→Bus | Bus→Bus | Op→Op) ────────────────────────────
   influences:
@@ -1311,6 +1354,7 @@ relationships:
     - {id: INF-22, from: RH-03, to: RC-01, type: Level2_Bus_to_Bus, strength: Critical, confidence: 1.0,  description: Revenue miss directly impacts EBITDA achievement}
     - {id: INF-23, from: RH-03, to: RC-02, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.9,  description: Revenue shortfall accelerates cash burn rate}
     - {id: INF-24, from: RH-04, to: RH-03, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.85, description: Lost competitive positioning reduces customer win rates}
+    - {id: INF-45, from: RH-02, to: RH-03, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.8,  description: Suspect/degraded on-orbit capacity forces replacement units and erodes the corporate revenue target (makes SC1's narrative literal — INC-03)}
     - {id: INF-25, from: RC-02, to: RC-03, type: Level2_Bus_to_Bus, strength: Critical, confidence: 1.0,  description: Cash runway exhaustion directly triggers investor confidence loss}
     - {id: INF-26, from: RC-04, to: RH-07, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.8,  description: Multi-jurisdiction issues compound ITU coordination challenges}
     - {id: INF-27, from: RH-07, to: RH-04, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.85, description: Spectrum limitations reduce service capability vs competitors}
@@ -1544,6 +1588,34 @@ spice:
         realistic:   {ebit: [0], fcf: [-100], fin_recovery_years: 3}
         pessimistic: {ebit: [0], fcf: [-140], fin_recovery_years: 3}
 
+    - scenario_id: BST-GA1
+      family_id: "a1e6b2c0-1f47-4c8e-9b21-000000000006"
+      name: AURORA-GEO Development Overrun & Co-Funding Shock
+      family: programme
+      cause_type: other
+      cause_description: >-
+        The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase
+        A/B-to-C development overrun, compounded in the tail by an ESA/NASA
+        co-funding/partner shock — draining ODT's cash exactly while FCF
+        discipline gates the IPO. The second perimeter reaching the IPO story.
+      hypothesis: >-
+        AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental
+        cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is
+        set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the
+        deferred expense-vs-capitalise decision (CAN-01). Cases consolidate with
+        the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic
+        -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption.
+        operational_recovery_days encodes the PDR-gate schedule slip.
+      illustrates: [RA-02, RA-04]
+      caused_by: [ROE-03]
+      assessed_against: BP-GEO
+      addresses: [MO-GA1-1, MO-GA1-2, MO-GA1-3]
+      mitigated_by: [SM-AURORA-DERISK, SM-AURORA-VARIANCE, SM-BRIDGE-FACILITY]
+      cases:
+        best:        {ebit: [0], fcf: [-6],  op_recovery_days: 90,  fin_recovery_years: 1}
+        realistic:   {ebit: [0], fcf: [-12], op_recovery_days: 180, fin_recovery_years: 2}
+        pessimistic: {ebit: [0], fcf: [-24], op_recovery_days: 365, fin_recovery_years: 3}
+
   # ─── Mitigation objectives (ADDRESSES targets) ─────────────────────────────
   mitigation_objectives:
     - {id: MO-S1-1,  name: "Separate Denver/Dublin identity & privileged-access planes", description: "Kill the single-plane weakness that lets one compromise trip the whole fleet."}
@@ -1561,6 +1633,9 @@ spice:
     - {id: MO-FN1-1, name: "Hold FY2028 FCF above the -$100M liquidity trigger", description: "Every upstream mitigation ultimately feeds this."}
     - {id: MO-FN1-2, name: "Pre-arranged bridge financing & insurance that actually pays", description: "Liquidity that survives a war/state-actor exclusion dispute."}
     - {id: MO-FN1-3, name: "Quantified, disclosed risk in the IPO file", description: "Diane's lever — disclosure rather than a purchasable control."}
+    - {id: MO-GA1-1, name: "De-risk optical ISL to TRL 4+ ahead of the PDR gate", description: "Retire the technology-maturation cost/schedule driver (RA-03/ROE-03) before it forces an overrun."}
+    - {id: MO-GA1-2, name: "Hold AURORA spend within the company FCF envelope", description: "Stage-gate funding + variance control so a GEO overrun does not push consolidated FCF through the -$60M IPO-bridge assumption."}
+    - {id: MO-GA1-3, name: "Secure ESA/NASA co-funding continuity & partner commitment", description: "Governance/relationship objective against partner withdrawal (RA-04) — no purchasable control (deliberate coverage gap)."}
 
   # ─── SPICE financial / operational mitigations ─────────────────────────────
   # cost/coverage populated only where Canon states a figure.
@@ -1579,6 +1654,7 @@ spice:
       name: Clean control-plane recovery capability
       type: recovery_accelerating
       status: planned
+      cost_capex: 1.5            # Canon: ~$1.5M one-time (S1 control pricing, ENH-06)
       description: Offline golden images + rebuild runbook to restore legitimate control fast.
       fulfils:
         - {objective: MO-S1-3, contribution_weight: 90.0}
@@ -1586,6 +1662,7 @@ spice:
       name: Denver/Dublin identity & PAM plane separation
       type: impact_reducing
       status: planned
+      cost_capex: 4.0            # Canon: ~$4M one-time (S1 control pricing, ENH-06)
       description: Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.
       fulfils:
         - {objective: MO-S1-1, contribution_weight: 100.0}
@@ -1640,3 +1717,23 @@ spice:
       fulfils:
         - {objective: MO-RG1-3, contribution_weight: 60.0}
         - {objective: MO-FN1-1, contribution_weight: 20.0}
+    - id: SM-AURORA-DERISK
+      name: AURORA optical-link risk-reduction campaign
+      type: impact_reducing
+      status: ongoing
+      description: >-
+        Pre-PDR breadboard + thermal-vacuum testing of the optical pointing
+        mechanism to retire ISL maturation risk early (financial-layer
+        counterpart of MIT-09).
+      fulfils:
+        - {objective: MO-GA1-1, contribution_weight: 80.0}
+    - id: SM-AURORA-VARIANCE
+      name: AURORA stage-gate funding & budget variance control
+      type: impact_reducing
+      status: ongoing
+      description: >-
+        Release AURORA funds against PDR/sub-system stage-gates with monthly
+        variance analysis, catching an overrun before it breaches the company
+        FCF envelope (financial-layer counterpart of MIT-14).
+      fulfils:
+        - {objective: MO-GA1-2, contribution_weight: 75.0}

@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-18 15:42
+//    Built   : 2026-06-26 13:07
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -1192,6 +1192,18 @@ CREATE (tco03:ContextNode {
   updated_at: datetime()
 });
 
+CREATE (tco04:ContextNode {
+  node_type: 'tco',
+  id: 'TCO-04',
+  reference: 'TCO-04',
+  name: 'Achieve a successful IPO / liquidity event by H1 2029',
+  description: 'Company-wide capstone objective: complete the planned IPO (~$250M, Nasdaq, H1 2029). The convergence apex — the company financial-risk cluster (RC-01/RC-02/RC-03) impacts it directly, and the revenue ramp (TPO-01) contributes to it. TCO-01 (positive EBITDA) is the headline enabler. BST-FN1 is the scenario of failing this objective.',
+  owner: 'CEO',
+  time_horizon: 'H1 2029',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
 // =============================================================================
 // MITIGATIONS
 // =============================================================================
@@ -1485,6 +1497,19 @@ CREATE (bpleo:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (bpgeo:ContextNode {
+  node_type: 'business_perimeter',
+  id: 'BP-GEO',
+  name: 'AURORA-GEO Programme',
+  pl_holder: 'AURORA-GEO Programme',
+  ebit_baseline: 0.0,
+  fcf_baseline: -10.0,
+  currency: 'USD_M',
+  spice_assessed: false,
+  description: 'Pre-revenue development perimeter for the AURORA-GEO optical-relay programme. ebit_baseline 0 (no service revenue yet); fcf_baseline -10 is ODT\'s FY2028 internal-share development burn (Phase-C ramp) of a ~$50M Phase-A/B->PDR budget co-funded ~60% by ESA/NASA. Consolidates with BP-LEO (-30) to the canon company FCF of -40. Risk metric is schedule & co-funding (TPO-05 PDR gate), not EBIT.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // --- Scenarios (deprecated — retained for migration) ---
 
@@ -1589,6 +1614,8 @@ MATCH (tpo:ContextNode {id: 'TPO-04'}), (tco:ContextNode {id: 'TCO-03'})
 CREATE (tpo)-[:CONTRIBUTES_TO {id: 'CTR-05', created_at: datetime()}]->(tco);
 MATCH (tpo:ContextNode {id: 'TPO-05'}), (tco:ContextNode {id: 'TCO-03'})
 CREATE (tpo)-[:CONTRIBUTES_TO {id: 'CTR-06', created_at: datetime()}]->(tco);
+MATCH (tpo:ContextNode {id: 'TPO-01'}), (tco:ContextNode {id: 'TCO-04'})
+CREATE (tpo)-[:CONTRIBUTES_TO {id: 'CTR-07', created_at: datetime()}]->(tco);
 
 // =============================================================================
 // IMPACTS_TCO  (Risk → Company Objective)
@@ -1620,6 +1647,27 @@ CREATE (r)-[:IMPACTS_TCO {
   id: 'IMC-CY1',
   impact_level: 'High',
   description: 'Phase-3 slip erodes revenue ramp and the company EBITDA trajectory',
+  created_at: datetime()
+}]->(tco);
+MATCH (r:Risk {id: 'RC-01'}), (tco:ContextNode {id: 'TCO-04'})
+CREATE (r)-[:IMPACTS_TCO {
+  id: 'IMC-04',
+  impact_level: 'Critical',
+  description: 'No first-profit (EBITDA) story means no credible IPO',
+  created_at: datetime()
+}]->(tco);
+MATCH (r:Risk {id: 'RC-02'}), (tco:ContextNode {id: 'TCO-04'})
+CREATE (r)-[:IMPACTS_TCO {
+  id: 'IMC-05',
+  impact_level: 'Critical',
+  description: 'Cash-runway exhaustion forces a distressed, dilutive raise before the IPO window',
+  created_at: datetime()
+}]->(tco);
+MATCH (r:Risk {id: 'RC-03'}), (tco:ContextNode {id: 'TCO-04'})
+CREATE (r)-[:IMPACTS_TCO {
+  id: 'IMC-06',
+  impact_level: 'Critical',
+  description: 'Loss of investor confidence collapses the valuation multiple or pulls the IPO (down-round)',
   created_at: datetime()
 }]->(tco);
 
@@ -1864,6 +1912,16 @@ CREATE (source)-[:INFLUENCES {
   strength: 'Strong',
   description: 'Lost competitive positioning reduces customer win rates',
   confidence: 0.85,
+  created_at: datetime(),
+  last_validated: datetime()
+}]->(target);
+MATCH (source:Risk {id: 'RH-02'}), (target:Risk {id: 'RH-03'})
+CREATE (source)-[:INFLUENCES {
+  id: 'INF-45',
+  influence_type: 'Level2_Bus_to_Bus',
+  strength: 'Strong',
+  description: 'Suspect/degraded on-orbit capacity forces replacement units and erodes the corporate revenue target (makes SC1\'s narrative literal — INC-03)',
+  confidence: 0.8,
   created_at: datetime(),
   last_validated: datetime()
 }]->(target);
@@ -2608,6 +2666,30 @@ CREATE (mofn13:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (moga11:ContextNode {
+  node_type: 'mitigation_objective',
+  id: 'MO-GA1-1',
+  name: 'De-risk optical ISL to TRL 4+ ahead of the PDR gate',
+  description: 'Retire the technology-maturation cost/schedule driver (RA-03/ROE-03) before it forces an overrun.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (moga12:ContextNode {
+  node_type: 'mitigation_objective',
+  id: 'MO-GA1-2',
+  name: 'Hold AURORA spend within the company FCF envelope',
+  description: 'Stage-gate funding + variance control so a GEO overrun does not push consolidated FCF through the -$60M IPO-bridge assumption.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (moga13:ContextNode {
+  node_type: 'mitigation_objective',
+  id: 'MO-GA1-3',
+  name: 'Secure ESA/NASA co-funding continuity & partner commitment',
+  description: 'Governance/relationship objective against partner withdrawal (RA-04) — no purchasable control (deliberate coverage gap).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // =============================================================================
 // SPICE — FINANCIAL / OPERATIONAL MITIGATIONS
@@ -2630,6 +2712,7 @@ CREATE (smctrlrecovery:ContextNode {
   name: 'Clean control-plane recovery capability',
   type: 'recovery_accelerating',
   status: 'planned',
+  cost_capex: 1.5,
   description: 'Offline golden images + rebuild runbook to restore legitimate control fast.',
   created_at: datetime(),
   updated_at: datetime()
@@ -2640,6 +2723,7 @@ CREATE (smidentitysplit:ContextNode {
   name: 'Denver/Dublin identity & PAM plane separation',
   type: 'impact_reducing',
   status: 'planned',
+  cost_capex: 4.0,
   description: 'Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.',
   created_at: datetime(),
   updated_at: datetime()
@@ -2702,6 +2786,26 @@ CREATE (smrevenuediversify:ContextNode {
   type: 'impact_reducing',
   status: 'planned',
   description: 'Reduce 30% gov-segment concentration; broaden commercial backlog.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (smauroraderisk:ContextNode {
+  node_type: 'spice_mitigation',
+  id: 'SM-AURORA-DERISK',
+  name: 'AURORA optical-link risk-reduction campaign',
+  type: 'impact_reducing',
+  status: 'ongoing',
+  description: 'Pre-PDR breadboard + thermal-vacuum testing of the optical pointing mechanism to retire ISL maturation risk early (financial-layer counterpart of MIT-09).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (smauroravariance:ContextNode {
+  node_type: 'spice_mitigation',
+  id: 'SM-AURORA-VARIANCE',
+  name: 'AURORA stage-gate funding & budget variance control',
+  type: 'impact_reducing',
+  status: 'ongoing',
+  description: 'Release AURORA funds against PDR/sub-system stage-gates with monthly variance analysis, catching an overrun before it breaches the company FCF envelope (financial-layer counterpart of MIT-14).',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -3033,6 +3137,72 @@ CREATE (bstfn1pessimistic:SpiceScenario {
   updated_at: datetime()
 });
 
+// --- BST-GA1 — AURORA-GEO Development Overrun & Co-Funding Shock ---
+
+CREATE (bstga1best:SpiceScenario {
+  id: 'BST-GA1-best',
+  name: 'AURORA-GEO Development Overrun & Co-Funding Shock (best)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000006',
+  version_number: 1,
+  case_type: 'best',
+  status_in_family: 'current',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
+  cause_type: 'other',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the deferred expense-vs-capitalise decision (CAN-01). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  ebit_impact_y1: 0.0,
+  ebit_impact_total: 0.0,
+  fcf_impact_y1: -6.0,
+  fcf_impact_total: -6.0,
+  operational_recovery_days: 90,
+  financial_recovery_years: 1,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bstga1realistic:SpiceScenario {
+  id: 'BST-GA1-realistic',
+  name: 'AURORA-GEO Development Overrun & Co-Funding Shock (realistic)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000006',
+  version_number: 1,
+  case_type: 'realistic',
+  status_in_family: 'current',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
+  cause_type: 'other',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the deferred expense-vs-capitalise decision (CAN-01). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  ebit_impact_y1: 0.0,
+  ebit_impact_total: 0.0,
+  fcf_impact_y1: -12.0,
+  fcf_impact_total: -12.0,
+  operational_recovery_days: 180,
+  financial_recovery_years: 2,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bstga1pessimistic:SpiceScenario {
+  id: 'BST-GA1-pessimistic',
+  name: 'AURORA-GEO Development Overrun & Co-Funding Shock (pessimistic)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000006',
+  version_number: 1,
+  case_type: 'pessimistic',
+  status_in_family: 'current',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
+  cause_type: 'other',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the deferred expense-vs-capitalise decision (CAN-01). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  ebit_impact_y1: 0.0,
+  ebit_impact_total: 0.0,
+  fcf_impact_y1: -24.0,
+  fcf_impact_total: -24.0,
+  operational_recovery_days: 365,
+  financial_recovery_years: 3,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
 // =============================================================================
 // SPICE EDGES  (ILLUSTRATES / CAUSED_BY / ASSESSED_AGAINST / OCCURS_AT)
 // =============================================================================
@@ -3077,6 +3247,14 @@ MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:Risk {id: 'RC-03'})
 CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-FN1-RC-03', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'BP-LEO'})
 CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-FN1', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Risk {id: 'RA-02'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GA1-RA-02', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Risk {id: 'RA-04'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GA1-RA-04', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Risk {id: 'ROE-03'})
+CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-GA1-ROE-03', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'BP-GEO'})
+CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-GA1', created_at: datetime()}]->(b);
 
 // =============================================================================
 // SPICE EDGES  (ADDRESSES / MITIGATED_BY_SPICE — realistic case)
@@ -3132,6 +3310,18 @@ MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'SM-BRIDG
 CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-FN1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'SM-CYBER-INS'})
 CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-FN1-SM-CYBER-INS', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-1'})
+CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-1', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-2'})
+CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-2', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-3'})
+CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-3', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'SM-AURORA-DERISK'})
+CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-GA1-SM-AURORA-DERISK', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'SM-AURORA-VARIANCE'})
+CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-GA1-SM-AURORA-VARIANCE', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'SM-BRIDGE-FACILITY'})
+CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-GA1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
 
 // =============================================================================
 // SPICE EDGES  (FULFILS — spice mitigation → objective)
@@ -3167,6 +3357,10 @@ MATCH (a:ContextNode {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-RG1-
 CREATE (a)-[:FULFILS {id: 'FUL-SM-REVENUE-DIVERSIFY-MO-RG1-3', created_at: datetime(), contribution_weight: 60.0}]->(b);
 MATCH (a:ContextNode {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-FN1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-REVENUE-DIVERSIFY-MO-FN1-1', created_at: datetime(), contribution_weight: 20.0}]->(b);
+MATCH (a:ContextNode {id: 'SM-AURORA-DERISK'}), (b:ContextNode {id: 'MO-GA1-1'})
+CREATE (a)-[:FULFILS {id: 'FUL-SM-AURORA-DERISK-MO-GA1-1', created_at: datetime(), contribution_weight: 80.0}]->(b);
+MATCH (a:ContextNode {id: 'SM-AURORA-VARIANCE'}), (b:ContextNode {id: 'MO-GA1-2'})
+CREATE (a)-[:FULFILS {id: 'FUL-SM-AURORA-VARIANCE-MO-GA1-2', created_at: datetime(), contribution_weight: 75.0}]->(b);
 
 
 // =============================================================================
@@ -3265,9 +3459,10 @@ RETURN o.id AS Objective, o.name AS Name,
 ORDER BY Objective;
 
 // Convergence proof: every scenario family ultimately illustrates a risk that
-// influences the company EBITDA objective (TCO-01) — the bestiary thesis
+// influences the IPO objective (TCO-04) — the bestiary thesis. TCO-04 is the
+// apex; the financial-risk cluster (RC-01/RC-02/RC-03) IMPACTS_TCO it directly.
 MATCH (s:SpiceScenario)-[:ILLUSTRATES]->(r:Risk)
-OPTIONAL MATCH path = (r)-[:INFLUENCES*0..4]->(:Risk)-[:IMPACTS_TCO]->(tco:ContextNode {id: 'TCO-01'})
+OPTIONAL MATCH path = (r)-[:INFLUENCES*0..4]->(:Risk)-[:IMPACTS_TCO]->(tco:ContextNode {id: 'TCO-04'})
 RETURN s.scenario_family_id AS Family, r.id AS IllustratedRisk,
-       count(path) > 0 AS ReachesEBITDA
+       count(path) > 0 AS ReachesIPO
 ORDER BY Family;

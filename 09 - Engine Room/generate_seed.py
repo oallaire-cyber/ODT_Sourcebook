@@ -423,11 +423,12 @@ RETURN o.id AS Objective, o.name AS Name,
 ORDER BY Objective;
 
 // Convergence proof: every scenario family ultimately illustrates a risk that
-// influences the company EBITDA objective (TCO-01) — the bestiary thesis
+// influences the IPO objective (TCO-04) — the bestiary thesis. TCO-04 is the
+// apex; the financial-risk cluster (RC-01/RC-02/RC-03) IMPACTS_TCO it directly.
 MATCH (s:SpiceScenario)-[:ILLUSTRATES]->(r:Risk)
-OPTIONAL MATCH path = (r)-[:INFLUENCES*0..4]->(:Risk)-[:IMPACTS_TCO]->(tco:ContextNode {id: 'TCO-01'})
+OPTIONAL MATCH path = (r)-[:INFLUENCES*0..4]->(:Risk)-[:IMPACTS_TCO]->(tco:ContextNode {id: 'TCO-04'})
 RETURN s.scenario_family_id AS Family, r.id AS IllustratedRisk,
-       count(path) > 0 AS ReachesEBITDA
+       count(path) > 0 AS ReachesIPO
 ORDER BY Family;
 """
 

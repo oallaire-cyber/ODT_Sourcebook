@@ -9,7 +9,7 @@ tags: [worldbook, rim, anchoring, status/new]
 
 | Worldbook concept | Graph object (schema) |
 |---|---|
-| ODT enterprise goals | `ContextNode{node_type:'tco'}` — TCO-01..03 |
+| ODT enterprise goals | `ContextNode{node_type:'tco'}` — TCO-01..04 (TCO-04 = IPO apex) |
 | Programme objectives | `ContextNode{node_type:'tpo'}` → `CONTRIBUTES_TO` → TCO |
 | HORIZON-LEO / AURORA-GEO as P&L units | `ContextNode{node_type:'business_perimeter'}` (BP-LEO, BP-GEO) |
 | A risk owner ([[Cast Roster|the cast]]) | `ContextNode{node_type:'owner'}` → `BEARS`/`STEWARDS` |

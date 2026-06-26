@@ -81,12 +81,42 @@ SLA credit ladder (corporate/telco, on monthly fee): **<99.5% → −5%**, **<98
 ## Insurance
 Cyber limit **$50M**, deductible **$5M**, BI after **72h**, **war/state-actor exclusion** (attribution dispute → don't bank it).
 
+## Mitigation costs — S1 cyber controls *(order-of-magnitude, one-time capex)*
+The two real S1 controls priced so the SPICE *return-on-spend* is quantitative (closes [[Canon Change & Issue Register|ENH-06]]). Costs are order-of-magnitude by design (Rule 6); both are capital projects (`cost_capex`), USD_M.
+| Control | `cost_capex` | Note |
+|---|---|---|
+| **SM-IDENTITY-SPLIT** (Denver/Dublin identity & PAM plane separation) | **~$4M** | structural re-architecture of the shared privileged-access plane across both ground sites — the heavier control |
+| **SM-CTRL-RECOVERY** (clean control-plane recovery — golden images + rebuild runbook) | **~$1.5M** | recovery-accelerating; buys crisis days back |
+| **Portfolio** | **~$5.5M** | vs the S1 tail it removes: −$69M realistic / **−$118M FCF** pessimistic (which breaches the −$100M trigger → FN1). ≈ **12×** the realistic feared loss avoided. |
+
 ## Programme (HORIZON-LEO)
 80 LEO sats, 8 polar planes, 550 km · ~$3.4M/sat incl. launch · programme budget **$273.5M** · NOC **Denver** (primary) + **Dublin** (backup, shared identity plane) · gateways **Fairbanks, Tromsø, Singapore, Perth**.
 
+## Programme (AURORA-GEO)
+GEO optical-relay (ISL) demonstrator, ESA/NASA co-funded · Phase A/B, **PDR gate Q1 2027** (TPO-05) at **TRL 4+** · second P&L perimeter (**BP-GEO**).
+| Field | Value | Note |
+|---|---|---|
+| Total Phase-A/B→PDR budget | **~$50M** | the "smaller second bet" vs LEO's $273.5M; order-of-magnitude |
+| ESA/NASA co-funding share | **~60% (~$30M)** | sovereign co-development (ESA ARTES/Partnership-style) |
+| ODT internal share | **~40% (~$20M)** | ODT's *own* cash exposure — the part that drains into company cash (RA-02 → RC-02) |
+| FY2028 ODT internal burn | **~$10M** | Phase-C development ramp; = BP-GEO `fcf_baseline` (see perimeter map) |
+
+## Business perimeters (P&L map) — consolidation
+The consolidated State-B P&L is the **sum of perimeters**. RIM scenarios are assessed against the perimeter that bears them.
+| Perimeter | Holder | `ebit_baseline` | `fcf_baseline` | Note |
+|---|---|---|---|---|
+| **BP-LEO** | HORIZON-LEO BU | 45.0 *(EBITDA-level — see [[Canon Change & Issue Register\|CAN-01]])* | **−30.0** | operating constellation |
+| **BP-GEO** | AURORA-GEO Programme | **0.0** *(pre-revenue)* | **−10.0** | development burn (ODT internal share) |
+| **Consolidated** | ODT | — | **−40.0** ✔ | LEO −30 + GEO −10 = **canon FCF −$40M** |
+> [!note] Reconciliation
+> Setting BP-GEO `fcf_baseline = −10.0` makes the perimeters **sum to the canon consolidated FCF of −$40M** — closing the FCF half of [[Canon Change & Issue Register|CAN-01]] and the [[Canon Change & Issue Register|CAN-03]] consolidation gap. The EBIT/EBITDA naming question on BP-LEO's `ebit_baseline` (45 = EBITDA, not EBIT +13) remains open under CAN-01. BP-GEO's dev opex is treated as `ebit_baseline 0` here (pre-revenue); the expense-vs-capitalise treatment of AURORA spend in consolidated EBIT is deferred to CAN-01 triage.
+
 ## Objectives (graph anchors)
-**TCO-01** Reach & sustain positive EBITDA · **TCO-02** Maintain operating licenses & flawless safety record · **TCO-03** Achieve commercial scale & customer diversification.
+**TCO-01** Reach & sustain positive EBITDA · **TCO-02** Maintain operating licenses & flawless safety record · **TCO-03** Achieve commercial scale & customer diversification · **TCO-04** Achieve a successful **IPO / liquidity event by H1 2029** *(owner CEO; the convergence apex — see below)*.
 **TPO-01..06**: EBITDA+ by Q4'28 · Phase 3 by Q2'27 · FCC license Q3'26 · first $10M+ Gov contract Q4'26 · AURORA-GEO PDR Q1'27 · zero debris incidents.
+
+> [!important] TCO-04 is the convergence apex
+> The bestiary thesis is that all risk families converge on the **financing/IPO** objective. **TCO-04 (IPO)** makes that literal: the company financial-risk cluster — **RC-01** (EBITDA miss), **RC-02** (cash runway), **RC-03** (investor confidence) — all `IMPACTS_TCO` **TCO-04**, and **TPO-01** (revenue ramp) `CONTRIBUTES_TO` it. **TCO-01 (EBITDA)** stays a real objective but is now correctly an *enabler* of the IPO, not a proxy for it. The IPO is targeted H1 2029, **~$250M, Nasdaq** (see State B table). [[BST-FN1 IPO Window Collapse (Financial)|FN1]] is the scenario of failing TCO-04.
 
 ## Hero scenario benchmark
 [[BST-S1 NOC Ground Compromise (Cyber)|S1]] ≈ **$69M** (direct $17M + indirect $52M) → turns +$13M EBIT into ≈ −$41M.

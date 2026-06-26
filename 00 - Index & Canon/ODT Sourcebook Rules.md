@@ -26,7 +26,7 @@ A note belongs to exactly one line (its folder). Cross-line links are encouraged
 - **Engine Room**: schema mapping; flags enum/seed gaps.
 
 ## 4. The interconnection principle (the thesis)
-Risks **influence each other across families**. No bestiary entry ships without its influence edges. The convergence on the financing/IPO objective ([[BST-FN1 IPO Window Collapse (Financial)|FN1]] / TCO-01) is the canonical demonstration and must be preserved as entries are added. Render in [[Influence Map]].
+Risks **influence each other across families**. No bestiary entry ships without its influence edges. The convergence on the financing/IPO objective ([[BST-FN1 IPO Window Collapse (Financial)|FN1]] / **TCO-04 IPO** — the apex; TCO-01 EBITDA is its headline enabler) is the canonical demonstration and must be preserved as entries are added. Render in [[Influence Map]].
 
 ## 5. Tone & framing
 - RPG vocabulary (Worldbook, Cast, Bestiary, GM Kit, Module) is an **internal** organising device.

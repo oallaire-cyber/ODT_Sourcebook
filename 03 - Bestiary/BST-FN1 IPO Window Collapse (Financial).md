@@ -51,7 +51,8 @@ Visible to the board immediately via the cash-flow statement and the AOP varianc
 - [[BST-SC1 Supplier Build-Chain Intrusion (Supply Chain)|SC1]] — Strong
 - [[BST-RG1 Accreditation Suspension (Regulatory)|RG1]] — Strong
 - [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] — Moderate
+- [[BST-GA1 AURORA-GEO Development Overrun (Programme)|GA1]] — Moderate *(GEO perimeter, via RA-02 → RC-02)*
 
 ## Graph anchoring
-`CAUSED_BY` → — · `ILLUSTRATES` → RC-01, RC-02, RC-03 · `ASSESSED_AGAINST` → BP-LEO. See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
+`CAUSED_BY` → — · `ILLUSTRATES` → RC-01, RC-02, RC-03 · `ASSESSED_AGAINST` → BP-LEO. FN1 is **the scenario of failing [[Canon & Figures Register|TCO-04]] (the IPO)**: all three illustrated risks `IMPACTS_TCO` → TCO-04 (IMC-04/05/06), making this the convergence apex. See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
 > [!note] Graph encoding: FN1's damage is **FCF/dilution**, not operating EBIT, so the three SpiceScenario cases store `ebit_impact = 0` and carry the loss in `fcf_impact_y1` (−60 / −100 / −140). The `hypothesis` field records this. The −$100M realistic case sits exactly on the liquidity trigger.
