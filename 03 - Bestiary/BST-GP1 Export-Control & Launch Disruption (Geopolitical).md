@@ -6,14 +6,14 @@ scenario-id: BST-GP1
 scenario-family-id: a1e6b2c0-1f47-4c8e-9b21-000000000004
 family: geopolitical
 cause-type: geopolitical
-illustrates: [RH-04]
+illustrates: [RH-04, RA-02]
 caused-by: [ROM-01, ROL-01]
 assessed-against: BP-LEO
 validated: business
 tags: [bestiary, bestiary/geopolitical, status/new]
 ---
 # 👹 BST-GP1 — Export-Control Tightening & Launch Disruption
-**Family:** geopolitical · **Cause-type (schema):** `geopolitical` · **Assessed against:** `BP-LEO` · **Illustrates:** RH-04
+**Family:** geopolitical · **Cause-type (schema):** `geopolitical` · **Assessed against:** `BP-LEO` · **Illustrates:** RH-04, RA-02
 
 ## Sponsor / cause
 No sponsor — a **shift in the geopolitical environment**: ITAR/EAR tightening, sanctions, an allied-launcher dispute, or a supplier's home-state restriction.
@@ -51,5 +51,7 @@ GP1 is **upstream of three families** — it influences supply-chain (SC1), regu
 - (none)
 
 ## Graph anchoring
-`CAUSED_BY` → ROM-01, ROL-01 · `ILLUSTRATES` → RH-04 · `ASSESSED_AGAINST` → BP-LEO. See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
-> [!note] Scaffold correction (2026-06-18): `caused-by` was `ROE-01` (a payload-software defect) — semantically wrong for a geopolitical/supplier scenario. Re-pointed to **ROM-01** (RF sole-source supplier failure) + **ROL-01** (launch availability gap), which GP1's own narrative names. The index still lists GP1 as illustrating *RH-04 / RA-02*; this entry illustrates **RH-04** only — reconcile if RA-02 (AURORA budget) should be added.
+`CAUSED_BY` → ROM-01, ROL-01 · `ILLUSTRATES` → RH-04, RA-02 · `ASSESSED_AGAINST` → BP-LEO. See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
+> [!note] Changelog
+> - 2026-06-26 (INC-02 Applied): added **RA-02** (AURORA budget overrun) as a second `ILLUSTRATES` target — a launch/export-control disruption slips AURORA and pressures its budget, giving GP1 **cross-perimeter reach** (RA-02 → RC-02 → FN1, into the GEO perimeter) and aligning this entry + the graph with the [[Bestiary Index]]. Closes the index-vs-entry mismatch.
+> - 2026-06-18 (scaffold correction): `caused-by` was `ROE-01` (a payload-software defect) — semantically wrong for a geopolitical/supplier scenario. Re-pointed to **ROM-01** (RF sole-source supplier failure) + **ROL-01** (launch availability gap), which GP1's own narrative names.

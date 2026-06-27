@@ -105,11 +105,11 @@ GEO optical-relay (ISL) demonstrator, ESA/NASA co-funded · Phase A/B, **PDR gat
 The consolidated State-B P&L is the **sum of perimeters**. RIM scenarios are assessed against the perimeter that bears them.
 | Perimeter | Holder | `ebit_baseline` | `fcf_baseline` | Note |
 |---|---|---|---|---|
-| **BP-LEO** | HORIZON-LEO BU | 45.0 *(EBITDA-level — see [[Canon Change & Issue Register\|CAN-01]])* | **−30.0** | operating constellation |
-| **BP-GEO** | AURORA-GEO Programme | **0.0** *(pre-revenue)* | **−10.0** | development burn (ODT internal share) |
-| **Consolidated** | ODT | — | **−40.0** ✔ | LEO −30 + GEO −10 = **canon FCF −$40M** |
-> [!note] Reconciliation
-> Setting BP-GEO `fcf_baseline = −10.0` makes the perimeters **sum to the canon consolidated FCF of −$40M** — closing the FCF half of [[Canon Change & Issue Register|CAN-01]] and the [[Canon Change & Issue Register|CAN-03]] consolidation gap. The EBIT/EBITDA naming question on BP-LEO's `ebit_baseline` (45 = EBITDA, not EBIT +13) remains open under CAN-01. BP-GEO's dev opex is treated as `ebit_baseline 0` here (pre-revenue); the expense-vs-capitalise treatment of AURORA spend in consolidated EBIT is deferred to CAN-01 triage.
+| **BP-LEO** | HORIZON-LEO BU | **13.0** | **−30.0** | operating constellation (bears all canon EBIT) |
+| **BP-GEO** | AURORA-GEO Programme | **0.0** *(pre-revenue; dev-spend capitalised)* | **−10.0** | development burn (ODT internal share) |
+| **Consolidated** | ODT | **+13.0** ✔ | **−40.0** ✔ | EBIT: LEO 13 + GEO 0; FCF: LEO −30 + GEO −10 = **canon EBIT +$13M / FCF −$40M** |
+> [!note] Reconciliation *(CAN-01 / CAN-03 EBIT leg closed 2026-06-26)*
+> The perimeters **sum to the canon consolidated figures**: EBIT **+13** (LEO 13 + GEO 0) and FCF **−40** (LEO −30 + GEO −10). BP-LEO's `ebit_baseline` now holds the **true EBIT (+13)**, replacing the EBITDA-level 45 it previously carried. AURORA-GEO's FY2028 dev-spend is treated as **capitalised** (it hits FCF, not EBIT), so BP-GEO stays `ebit_baseline 0` (pre-revenue) with `fcf_baseline −10`. This closes both halves of [[Canon Change & Issue Register|CAN-01]] and the EBIT leg of [[Canon Change & Issue Register|CAN-03]]. *(Revenue remains 100% LEO by design — no GEO service revenue.)*
 
 ## Objectives (graph anchors)
 **TCO-01** Reach & sustain positive EBITDA · **TCO-02** Maintain operating licenses & flawless safety record · **TCO-03** Achieve commercial scale & customer diversification · **TCO-04** Achieve a successful **IPO / liquidity event by H1 2029** *(owner CEO; the convergence apex — see below)*.

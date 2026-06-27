@@ -29,15 +29,15 @@ aliases: ["Change Register", "Issue Register", "Demo Data CCB", "CCB Log"]
 
 | ID | Type | Title | Sev | Status | Trigger / next |
 |---|---|---|---|---|---|
-| [#CAN-01](#can-01) | CAN | BP-LEO `ebit_baseline`/`fcf_baseline` vs canon | Med | Partially Applied | FCF resolved by BP-GEO; EBIT-naming open |
+| [#CAN-01](#can-01) | CAN | BP-LEO `ebit_baseline`/`fcf_baseline` vs canon | Med | Applied | — (2026-06-26; capitalise → BP-LEO EBIT 13) |
 | [#CAN-02](#can-02) | CAN | BP-GEO perimeter node missing | Med | Applied | — (2026-06-25) |
-| [#CAN-03](#can-03) | CAN | Consolidated figures are LEO-only | Med | Open | Reconciled for FCF; re-check per new line |
+| [#CAN-03](#can-03) | CAN | Consolidated figures are LEO-only | Med | Applied | — (2026-06-26; EBIT+FCF reconcile; re-check per new perimeter) |
 | [#INC-01](#inc-01) | INC | GP1 `caused-by` was a software defect | Med | Applied | — (2026-06-18) |
-| [#INC-02](#inc-02) | INC | GP1 `illustrates`: index vs entry | Low | Open | Decide RA-02 in/out |
+| [#INC-02](#inc-02) | INC | GP1 `illustrates`: index vs entry | Low | Applied | — (2026-06-26; RA-02 added) |
 | [#INC-03](#inc-03) | INC | SC1 reached apex only via objectives | Med | Applied | — (2026-06-26, INF-45 RH-02→RH-03) |
 | [#INC-04](#inc-04) | INC | CapEx $77M (commitment) vs $72M (FY28 cash) | Low | Open | Confirm intent / keep distinction |
-| [#DEC-01](#dec-01) | DEC | `cause_type` enum gaps | Low | Open | Schema decision |
-| [#DEC-02](#dec-02) | DEC | STEWARD/BEAR owner layer not seeded | Low | Open | Seed now vs platform |
+| [#DEC-01](#dec-01) | DEC | `cause_type` enum gaps | Low | Accepted | Keep `other` + family tag (Rule 2) |
+| [#DEC-02](#dec-02) | DEC | STEWARD/BEAR owner layer not seeded | Low | Deferred | Wait for platform; cast-sheet map = spec |
 | [#DEC-03](#dec-03) | DEC | Bestiary families beyond the five | Low | Open | Roadmap |
 | [#ENH-01](#enh-01) | ENH | `crisis_management_days` null everywhere | Low | Open | When canon defines |
 | [#ENH-02](#enh-02) | ENH | Single placeholder SPICE assessment date | Low | Open | SPICE exercise calendar |
@@ -46,17 +46,17 @@ aliases: ["Change Register", "Issue Register", "Demo Data CCB", "CCB Log"]
 | [#ENH-05](#enh-05) | ENH | RC-02 / RC-03 don't reach the IPO apex (GA1/AURORA convergence proof) | Med | Applied | — (2026-06-26, via TCO-04) |
 | [#ENH-06](#enh-06) | ENH | S1 control mitigations carry no cost (return-on-spend) | Low | Applied | — (2026-06-26, ~$4M + ~$1.5M capex) |
 
-**Accepted by design** (logged so they are not "fixed"): [over-coverage MO-FN1-2 = 120%](#accepted-by-design) · [coverage gaps MO-GP1-2 / MO-FN1-3](#accepted-by-design) · [FN1 `ebit_impact = 0`](#accepted-by-design).
+**Accepted by design** (logged so they are not "fixed"): [over-coverage MO-FN1-2 = 120%](#accepted-by-design) · [coverage gaps MO-GP1-2 / MO-FN1-3](#accepted-by-design) · [FN1 `ebit_impact = 0`](#accepted-by-design) · [`cause_type` = `other` for regulatory/supply-chain/financial (DEC-01)](#accepted-by-design).
 
 ---
 
 ## Canon figures & structure (CAN)
 
 ### CAN-01
-**BP-LEO `ebit_baseline` / `fcf_baseline` vs the Canon register.** `Sev Med · Partially Applied (2026-06-25)`
-The `BP-LEO` perimeter carries `ebit_baseline: 45.0` and `fcf_baseline: -30.0`. But [[Canon & Figures Register]] State B gives **EBIT +$13M**, **EBITDA +$45M**, **FCF −$40M** — so the field named `ebit_baseline` holds the *EBITDA* number, and FCF (−30) didn't match canon (−40). The schema defines `ebit_baseline` as the **EBIT** target.
-**FCF half — Applied (2026-06-25):** adding **BP-GEO** with `fcf_baseline −10.0` ([[#CAN-02]]) makes the perimeters sum to the canon consolidated **−40** (LEO −30 + GEO −10). FCF now reconciles; BP-LEO −30 is intentionally the LEO programme's share, not the company total.
-**EBIT half — still open:** `ebit_baseline 45` on BP-LEO is EBITDA-level, not EBIT +13; BP-GEO is set to `0` (pre-revenue), so consolidated `ebit_baseline` = 45 (still EBITDA-shaped). Decide: rename intent (perimeter EBITDA, deliberately) or reset to true per-perimeter EBIT — and settle AURORA dev-opex expense-vs-capitalise so the EBIT lines consolidate. Tied to [[#CAN-03]].
+**BP-LEO `ebit_baseline` / `fcf_baseline` vs the Canon register.** `Sev Med · Applied (2026-06-26)`
+The `BP-LEO` perimeter carried `ebit_baseline: 45.0` and `fcf_baseline: -30.0`. But [[Canon & Figures Register]] State B gives **EBIT +$13M**, **EBITDA +$45M**, **FCF −$40M** — so the field named `ebit_baseline` held the *EBITDA* number, and FCF (−30) didn't match canon (−40). The schema defines `ebit_baseline` as the **EBIT** target.
+**FCF half — Applied (2026-06-25):** adding **BP-GEO** with `fcf_baseline −10.0` ([[#CAN-02]]) makes the perimeters sum to the canon consolidated **−40** (LEO −30 + GEO −10). FCF reconciles; BP-LEO −30 is intentionally the LEO programme's share, not the company total.
+**EBIT half — Applied (2026-06-26):** owner decision — treat AURORA-GEO's FY2028 dev-spend as **capitalised** (it hits FCF, not EBIT), so BP-GEO stays `ebit_baseline 0` (pre-revenue) and **BP-LEO's `ebit_baseline` is reset 45 → 13.0** to hold the *true* EBIT. Consolidated EBIT now = LEO 13 + GEO 0 = **+13** ✔, and the baseline is in the same unit as the EBIT-denominated SPICE case deltas. Canon-first: [[Canon & Figures Register]] "Business perimeters" table + reconciliation note updated, then `_inputs/workbook.yaml` (BP-LEO `ebit_baseline 13.0`), then regenerated `demo_seed.cypher` (3470 lines). Closes [[#CAN-03]] EBIT leg.
 
 ### CAN-02
 **BP-GEO perimeter node missing.** `Sev Med · Applied (2026-06-25)`
@@ -65,10 +65,10 @@ Schema, [[Data Dictionary]] and canon all reference **BP-GEO** as the second P&L
 **Residual — Applied (2026-06-26):** the GEO SPICE family **BST-GA1** (AURORA-GEO Development Overrun & Co-Funding Shock) now exists, with its realistic case `ASSESSED_AGAINST` **BP-GEO** (+ MO-GA1-1/2/3, SM-AURORA-DERISK/VARIANCE). The static `spice_assessed` flag stays `false` in the seed **by convention** — it is platform-derived (schema: "set by F8 on scenario save"), exactly as BP-LEO carries `false` despite its 5 assessed scenarios. The structural edge is present, so F8/F36 will light up the coverage heatmap on load. See [[BST-GA1 AURORA-GEO Development Overrun (Programme)]].
 
 ### CAN-03
-**Consolidated company figures are effectively LEO-only.** `Sev Med · Open (FCF reconciled 2026-06-25)`
-Canon's State B P&L ($270M revenue, +$13M EBIT, −$40M FCF, etc.) is the consolidated company, but the graph modelled one perimeter (LEO). As AURORA-GEO ([[#CAN-02]]) and any further lines are added, the consolidated totals and per-perimeter splits must be reconciled so canon = sum of perimeters.
-**Progress (2026-06-25):** with **BP-GEO** added, **FCF now reconciles** (LEO −30 + GEO −10 = canon −40); a "Business perimeters (P&L map)" table in [[Canon & Figures Register]] makes the consolidation explicit. **EBIT does not yet reconcile** (perimeter `ebit_baseline`s sum to EBITDA-level 45, not EBIT +13 — see [[#CAN-01]]); revenue is still 100% LEO (no GEO revenue, by design).
-**Trigger:** each time a new business line/perimeter is added, re-reconcile against the Canon register; close once EBIT consolidation (CAN-01 EBIT half) is settled.
+**Consolidated company figures are effectively LEO-only.** `Sev Med · Applied (2026-06-26)`
+Canon's State B P&L ($270M revenue, +$13M EBIT, −$40M FCF, etc.) is the consolidated company, but the graph originally modelled one perimeter (LEO). As AURORA-GEO ([[#CAN-02]]) and any further lines are added, the consolidated totals and per-perimeter splits must be reconciled so canon = sum of perimeters.
+**Applied (2026-06-26):** with **BP-GEO** added (2025-06-25, FCF leg) and the EBIT leg settled via [[#CAN-01]] (capitalise → BP-LEO 13 / BP-GEO 0), **both EBIT and FCF now reconcile** as the sum of perimeters: EBIT 13 + 0 = **+13** ✔, FCF −30 + −10 = **−40** ✔. The "Business perimeters (P&L map)" table in [[Canon & Figures Register]] is the explicit consolidation. **Revenue is 100% LEO by design** (GEO is pre-revenue) — not a gap.
+**Standing trigger (kept):** each time a *new* business line/perimeter is added, re-reconcile against the Canon register and re-open if it doesn't sum.
 
 ---
 
@@ -79,8 +79,9 @@ Canon's State B P&L ($270M revenue, +$13M EBIT, −$40M FCF, etc.) is the consol
 `BST-GP1` (geopolitical export-control / launch) was scaffolded with `caused-by: [ROE-01]` (payload-software defect) — semantically wrong. **Applied:** re-pointed to `ROM-01` (RF sole-source supplier failure) + `ROL-01` (launch availability gap), which GP1's own narrative names. Changed in `workbook.yaml` and the GP1 entry; graph regenerated. Kept for audit.
 
 ### INC-02
-**GP1 `illustrates`: index vs entry.** `Sev Low · Open`
-[[Bestiary Index]] lists GP1 as illustrating **RH-04 / RA-02**; the entry and graph have **RH-04 only**. Decide whether RA-02 (AURORA budget overrun) should be added as a second `ILLUSTRATES` target — sensible given GP1's launch-slip effect on AURORA, but pending [[#CAN-02]].
+**GP1 `illustrates`: index vs entry.** `Sev Low · Applied (2026-06-26)`
+[[Bestiary Index]] listed GP1 as illustrating **RH-04 / RA-02**; the entry and graph had **RH-04 only**.
+**Applied (2026-06-26):** owner decision — **add RA-02** (AURORA budget overrun) as a second `ILLUSTRATES` target. A launch / export-control disruption slips AURORA and pressures its budget, so GP1 now also illustrates the GEO-perimeter risk, giving it **cross-perimeter reach** (RA-02 → RC-02 → FN1). `_inputs/workbook.yaml` GP1 `illustrates: [RH-04, RA-02]` → regenerated seed (new edge `ILL-BST-GP1-RA-02`; 73 spice edges). GP1 entry frontmatter/header/anchoring updated; index and entry now agree.
 
 ### INC-03
 **SC1 reached the apex only through the objective hierarchy.** `Sev Med · Applied (2026-06-26)`
@@ -98,13 +99,16 @@ Context v2.2 states Phase-4 CapEx as **$77.0M** in the FY2028 P&L (§4.2) but **
 ## Open decisions / policy (DEC)
 
 ### DEC-01
-**`cause_type` enum gaps.** `Sev Low · Open`
-Schema enum = `security | climate | hazard | geopolitical | other`; it has no `regulatory` / `supply-chain` / `financial`. Current convention: use `other` + the markdown `family` tag (RG1 & FN1 = `other`, SC1 = `security`). Decide: extend the schema enum, or keep the tag convention.
+**`cause_type` enum gaps.** `Sev Low · Accepted (2026-06-26)`
+Schema enum = `security | climate | hazard | geopolitical | other`; it has no `regulatory` / `supply-chain` / `financial`. Convention: use `other` + the markdown `family` tag (RG1 & FN1 = `other`, SC1 = `security`).
+**Accepted (2026-06-26):** owner decision — **keep the tag convention; do not extend the schema enum.** Rationale: `schema.yaml` is the RIM v3.0 platform contract ([[ODT Sourcebook Rules|Rule 2]] — schema-align, don't fork the enums); the markdown `family` taxonomy already carries the richer cause classification without diverging the demo from the real platform. Logged in [Accepted by design](#accepted-by-design).
 
 ### DEC-02
-**STEWARD / BEAR owner layer not seeded.** `Sev Low · Open`
-The mitigation-objective + SPICE layer is now seeded, but the owner accountability edges (`BEARS` owner→risk, `STEWARDS` owner→mitigation) defined in schema are still absent from the seed. Decide: seed now (ahead of the platform) or wait.
-**Input now available:** the cast sheets ([[Cast Roster]]) define the intended owner→risk/mitigation mapping by role-title. Seeding will require (a) `owner` context nodes per named character, and (b) reconciling **one-bearer-per-risk** conflicts — e.g. RH-02 is owned by "VP Engineering" ([[Priya Nair (VP Engineering)|Priya]]) in the workbook, but [[Sofia Adler (VP Ground & Operations)|Sofia]]'s sheet also claims to bear it. Decide cause-owner vs consequence-bearer per risk.
+**STEWARD / BEAR owner layer not seeded.** `Sev Low · Deferred (2026-06-26)`
+The mitigation-objective + SPICE layer is now seeded, but the owner accountability edges (`BEARS` owner→risk, `STEWARDS` owner→mitigation) defined in schema are still absent from the seed.
+**Deferred (2026-06-26):** owner decision — **wait for the platform** to own owner accountability rather than seed it ahead. The cast-sheet mapping stands as the **spec** for when it is built.
+**Input ready for that build:** the cast sheets ([[Cast Roster]]) define the intended owner→risk/mitigation mapping by role-title. Seeding will require (a) `owner` context nodes per named character, and (b) reconciling **one-bearer-per-risk** conflicts — e.g. RH-02 is owned by "VP Engineering" ([[Priya Nair (VP Engineering)|Priya]]) in the workbook, but [[Sofia Adler (VP Ground & Operations)|Sofia]]'s sheet also claims to bear it. **Resolution rule (set 2026-06-26):** cause-owner `BEARS` the risk, consequence-owner `STEWARDS` the mitigation.
+**Trigger:** platform supports owner accountability, or a demo surface needs owners lit up in the graph.
 
 ### DEC-03
 **Bestiary families beyond the five.** `Sev Low · Open`
@@ -150,10 +154,12 @@ Building [[THE NUMBER - Season 2 (mitigation)]] (a *return-on-spend* season) sur
 - **Over-coverage MO-FN1-2 = 120%** (SM-CYBER-INS 80% + SM-BRIDGE-FACILITY 40%). Demonstrates RIM surfacing >100% declared contribution as over-coverage, not an error.
 - **Coverage gaps: MO-GP1-2** (export-control compliance posture), **MO-FN1-3** (IPO-file disclosure) and **MO-GA1-3** (ESA/NASA co-funding continuity / partner commitment) have no `FULFILS`. These are governance/relationship objectives you don't buy a control for — they show RIM flagging an unmitigated objective.
 - **FN1 `ebit_impact = 0`.** FN1's loss is FCF/dilution (−60 / −100 / −140), not operating EBIT; the `hypothesis` field records why. The realistic −$100M case sits exactly on the canon liquidity trigger.
+- **`cause_type` = `other` for regulatory / supply-chain / financial families** ([[#DEC-01]], 2026-06-26). The RIM v3.0 schema enum has no such values; we keep `other` + the markdown `family` tag rather than fork the platform contract (Rule 2). Not a data-quality gap.
 
 ---
 
 ## Changelog
+- 2026-06-26: **Owner-decision triage pass — CAN-01, CAN-03, INC-02, DEC-01, DEC-02 closed.** **CAN-01 EBIT half Applied** (capitalise AURORA dev-spend → BP-LEO `ebit_baseline` 45→13, GEO stays 0; consolidated EBIT +13 ✔; canon-first → workbook → regenerated seed 3470 lines). **CAN-03 Applied** (EBIT + FCF both reconcile as sum of perimeters; revenue 100% LEO by design; standing per-perimeter trigger kept). **INC-02 Applied** (GP1 `illustrates` += RA-02, cross-perimeter reach; new edge `ILL-BST-GP1-RA-02`, 73 spice edges). **DEC-01 Accepted** (keep `other` + family tag, don't fork RIM v3.0 enum; added to Accepted-by-design). **DEC-02 Deferred** (wait for platform; cast-sheet map = spec; resolution rule set: cause-owner BEARS / consequence-owner STEWARDS). Open tickets remaining: INC-04, DEC-03, ENH-01/02/03/04.
 - 2026-06-26: **ENH-06 Applied** — owner priced the two S1 controls (SM-IDENTITY-SPLIT ~$4M, SM-CTRL-RECOVERY ~$1.5M, `cost_capex`, USD_M). Canon-first → workbook → regenerated seed (3468 lines). S2 return-on-spend now quantitative (~$5.5M vs −$69M/−$118M tail).
 - 2026-06-26: **+ENH-06** — S1 control mitigations (SM-IDENTITY-SPLIT / SM-CTRL-RECOVERY) carry no cost; raised while building [[THE NUMBER - Season 2 (mitigation)]] so the return-on-spend ratio can be made quantitative once the owner prices them.
 - 2026-06-26: **INC-03 Applied** — added INFLUENCES RH-02→RH-03 (INF-45); SC1 now reaches the TCO-04 apex via the risk graph. All 6 families provably converge. SC1 bestiary entry + Data Dictionary updated. Regenerated seed (3466 lines, 124 relationships).

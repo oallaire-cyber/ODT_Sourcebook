@@ -150,9 +150,9 @@ The two technology/regulatory risks carry **High**-effectiveness dedicated contr
 > [!check] ENH-05 resolved (2026-06-26) — by **TCO-04**, not an edge
 > Rather than patch one path, the owner added **TCO-04 "successful IPO by H1 2029"** as the convergence apex. The financial-risk cluster **RC-01/RC-02/RC-03 now `IMPACTS_TCO` TCO-04** (IMC-04/05/06), so GA1 (RA-02 → RC-02 → TCO-04) and FN1 both provably reach the IPO objective. TCO-01 (EBITDA) stays as the IPO's headline enabler.
 
-> [!warning] Still open
-> - **INC-02** — should [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] add `ILLUSTRATES` → **RA-02** (its launch-slip effect on AURORA)? Now also a candidate GA1 *influenced-by* edge.
-> - **CAN-01 (EBIT half)** — BP-LEO `ebit_baseline 45` holds the EBITDA-level number, not EBIT +13; and AURORA dev-opex expense-vs-capitalise treatment in consolidated EBIT is unresolved. *(deferred to CAN-01 triage)*
+> [!check] Resolved 2026-06-26 (CAN-01 / INC-02 closed)
+> - **CAN-01 (EBIT half) — closed.** AURORA dev-spend is treated as **capitalised** (hits FCF, not EBIT), so BP-GEO stays `ebit_baseline 0` and BP-LEO now carries the **true EBIT +13** (was the EBITDA-level 45). Consolidated EBIT = LEO 13 + GEO 0 = **+13** ✔, closing CAN-01 and the EBIT leg of CAN-03.
+> - **INC-02 — closed.** [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] now `ILLUSTRATES` → **RA-02** (its launch-slip effect on AURORA's budget), giving GP1 cross-perimeter reach (RA-02 → RC-02 → FN1) and aligning entry + graph with the index.
 
 ---
 *Changelog:*

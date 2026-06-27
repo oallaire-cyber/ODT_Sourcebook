@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-26 13:07
+//    Built   : 2026-06-26 18:28
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -1489,11 +1489,11 @@ CREATE (bpleo:ContextNode {
   id: 'BP-LEO',
   name: 'HORIZON-LEO Programme',
   pl_holder: 'HORIZON-LEO Business Unit',
-  ebit_baseline: 45.0,
+  ebit_baseline: 13.0,
   fcf_baseline: -30.0,
   currency: 'USD_M',
   spice_assessed: false,
-  description: 'P&L-bearing unit for the HORIZON-LEO constellation programme',
+  description: 'P&L-bearing unit for the HORIZON-LEO constellation programme. ebit_baseline 13.0 = the company\'s canon EBIT, borne entirely by LEO (GEO is pre-revenue, ebit 0); fcf_baseline -30 is LEO\'s share of the canon consolidated -40 FCF. (CAN-01/CAN-03 EBIT leg closed 2026-06-26: AURORA dev-spend capitalised, so consolidated EBIT = LEO 13 + GEO 0.)',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -3150,7 +3150,7 @@ CREATE (bstga1best:SpiceScenario {
   validated: 'business',
   cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
   cause_type: 'other',
-  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the deferred expense-vs-capitalise decision (CAN-01). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the capitalise treatment of AURORA dev-spend (CAN-01, decided 2026-06-26). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
   ebit_impact_y1: 0.0,
   ebit_impact_total: 0.0,
   fcf_impact_y1: -6.0,
@@ -3171,7 +3171,7 @@ CREATE (bstga1realistic:SpiceScenario {
   validated: 'business',
   cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
   cause_type: 'other',
-  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the deferred expense-vs-capitalise decision (CAN-01). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the capitalise treatment of AURORA dev-spend (CAN-01, decided 2026-06-26). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
   ebit_impact_y1: 0.0,
   ebit_impact_total: 0.0,
   fcf_impact_y1: -12.0,
@@ -3192,7 +3192,7 @@ CREATE (bstga1pessimistic:SpiceScenario {
   validated: 'business',
   cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
   cause_type: 'other',
-  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the deferred expense-vs-capitalise decision (CAN-01). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the capitalise treatment of AURORA dev-spend (CAN-01, decided 2026-06-26). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
   ebit_impact_y1: 0.0,
   ebit_impact_total: 0.0,
   fcf_impact_y1: -24.0,
@@ -3233,6 +3233,8 @@ MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'BP-LEO'}
 CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-RG1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'RH-04'})
 CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GP1-RH-04', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'RA-02'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GP1-RA-02', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'ROM-01'})
 CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-GP1-ROM-01', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'ROL-01'})

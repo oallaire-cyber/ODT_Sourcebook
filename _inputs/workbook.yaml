@@ -1190,12 +1190,16 @@ context_nodes:
     - id: BP-LEO
       name: HORIZON-LEO Programme
       pl_holder: HORIZON-LEO Business Unit
-      ebit_baseline: 45.0
+      ebit_baseline: 13.0
       fcf_baseline: -30.0
       currency: USD_M
       spice_assessed: false
       description: >-
-        P&L-bearing unit for the HORIZON-LEO constellation programme
+        P&L-bearing unit for the HORIZON-LEO constellation programme.
+        ebit_baseline 13.0 = the company's canon EBIT, borne entirely by LEO
+        (GEO is pre-revenue, ebit 0); fcf_baseline -30 is LEO's share of the
+        canon consolidated -40 FCF. (CAN-01/CAN-03 EBIT leg closed 2026-06-26:
+        AURORA dev-spend capitalised, so consolidated EBIT = LEO 13 + GEO 0.)
 
     - id: BP-GEO
       name: AURORA-GEO Programme
@@ -1553,7 +1557,7 @@ spice:
         Shift in the export-control / sanctions environment constrains RF supply
         and launch access — slows deployment and raises cost of capital, with no
         attacker.
-      illustrates: RH-04
+      illustrates: [RH-04, RA-02]   # RA-02 added 2026-06-26 (INC-02): GP1's launch/export-control slip pressures AURORA's budget (RA-02 -> RC-02 -> FN1), giving GP1 cross-perimeter reach and aligning entry+graph with the Bestiary Index.
       # NOTE: caused_by corrected from the scaffold value [ROE-01] (software defect,
       # semantically wrong for a geopolitical/supplier scenario) to the operational
       # risks GP1's own narrative names: RF sole-source supply + launch availability.
@@ -1602,7 +1606,8 @@ spice:
         AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental
         cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is
         set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the
-        deferred expense-vs-capitalise decision (CAN-01). Cases consolidate with
+        capitalise treatment of AURORA dev-spend (CAN-01, decided 2026-06-26).
+        Cases consolidate with
         the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic
         -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption.
         operational_recovery_days encodes the PDR-gate schedule slip.
