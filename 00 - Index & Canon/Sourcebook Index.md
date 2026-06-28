@@ -44,6 +44,7 @@ The map of the whole set. Each line below is a "product type"; click into its in
 
 ## ⑨ Engine Room — *the dataset*
 - [[Data Dictionary]] (source workbook → generated `demo_seed.cypher`)
+- [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]] — schema change request to the RIM platform (mitigation consolidation; drives W2)
 
 ## ⑩ Session Zero — *onboarding*
 - [[Training Path]]
