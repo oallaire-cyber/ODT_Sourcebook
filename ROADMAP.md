@@ -74,6 +74,7 @@ Eight streams (W1–W8) plus governance (W0). Each maps the owner's wants to con
 
 ### W0 — Governance & data integrity *(continuous)*
 Keep the spine clean while the rest grows. Canon-first, CCB triage of the open tickets ([INC-04](00%20-%20Index%20%26%20Canon/Canon%20Change%20%26%20Issue%20Register.md), DEC-03, ENH-01/02/03/04), generator validation on every regeneration, the Depth Reviews of §3.
+**Cross-project sync (RIM):** the schema is RIM-owned and RIM is the leading project / authoritative tracker; schema needs flow through **Change Requests** (either direction) — see `CLAUDE.md` → "Working with the RIM project". Sourcebook-side CRs are drafted in `09 - Engine Room` (first: [CR-01](09%20-%20Engine%20Room/CR-01%20-%20Mitigation%20Consolidation%20%26%20SPICE%20Re-assessment.md)).
 **Schema anchors:** the whole register + `generate_seed.py` VERIFY pass.
 
 ### W1 — Strategy, Objectives & Opportunities
