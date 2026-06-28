@@ -63,7 +63,7 @@ Eight streams (W1–W8) plus governance (W0). Each maps the owner's wants to con
 | # | Workstream | Owner's want | Current | Target |
 |---|---|---|---|---|
 | W0 | Governance & data integrity | (keep canon coherent as it grows) | L2 | L3 |
-| W1 | Strategy, Objectives & **Opportunities** | "business objectives" | L1→L2 | L3 |
+| W1 | Strategy, Objectives & **Opportunities** | "business objectives" | **L2** ✅ *(2026-06-28; OPP register + annex)* | L3 |
 | W2 | Mitigations, Controls & **Owners** | "mitigations" | L1 | L2 |
 | W3 | External Constraints & Environment | "external constraints" | L1 | L2 |
 | W4 | Supply Chain | "a supply chain" | L0→L1 | L2 |
@@ -164,6 +164,6 @@ The data-dense layer. **W4** (supply-chain graph), **W6** (kill-chain + perimete
 ## 7. Open strategic questions for the owner
 *(resolve as they come up; not blocking Wave 3 start)*
 - ~~**Owner layer (DEC-02):** seed `owner` BEARS/STEWARDS now?~~ ✅ **Resolved 2026-06-28** — owner said seed it; 18 owners + 50 BEARS + 33 STEWARDS now live (DEC-02 Applied).
-- **Opportunity modelling (W1):** model opportunities purely as narrative wired onto the existing objective tree, or does the owner want a distinct register/section in canon?
+- ~~**Opportunity modelling (W1):** narrative-only vs a distinct register/section in canon?~~ ✅ **Resolved 2026-06-28** — owner chose the **distinct OPP register**: OPP-01..05 are canonical narrative anchors in [[Canon & Figures Register]] (no `opportunity` schema node), elaborated in [[Annex - Objectives & Opportunities]]. **W1 complete (L2).**
 - **Realism inputs:** as we go, which real figures will the owner provide (supplier names, control costs, incident history, committee decisions) vs. which stay order-of-magnitude placeholders?
 - **Depth ceiling:** which single path do we take all the way to **L3** first for the flagship demo — the S1 cyber decision, or the AURORA-GEO commitment decision?

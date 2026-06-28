@@ -46,6 +46,7 @@ aliases: ["Change Register", "Issue Register", "Demo Data CCB", "CCB Log"]
 | [#ENH-04](#enh-04) | ENH | NMS / NOC / billing not distinct perimeter nodes | Low | Open | Enrich graph from §7 |
 | [#ENH-05](#enh-05) | ENH | RC-02 / RC-03 don't reach the IPO apex (GA1/AURORA convergence proof) | Med | Applied | — (2026-06-26, via TCO-04) |
 | [#ENH-06](#enh-06) | ENH | S1 control mitigations carry no cost (return-on-spend) | Low | Applied | — (2026-06-26, ~$4M + ~$1.5M capex) |
+| [#ENH-07](#enh-07) | ENH | RH-06 / RA-04 thread to no objective (W1 completeness) | Low | Applied | — (2026-06-28, INF-46/INF-47) |
 
 **Accepted by design** (logged so they are not "fixed"): [over-coverage MO-FN1-2 = 120%](#accepted-by-design) · [coverage gaps MO-GP1-2 / MO-FN1-3](#accepted-by-design) · [FN1 `ebit_impact = 0`](#accepted-by-design) · [`cause_type` = `other` for regulatory/supply-chain/financial (DEC-01)](#accepted-by-design).
 
@@ -152,6 +153,11 @@ The "convergence proof" verification query (`generate_seed.py` VERIFY) checks ea
 Building [[THE NUMBER - Season 2 (mitigation)]] (a *return-on-spend* season) surfaced that the two real S1 controls — **SM-IDENTITY-SPLIT** (Denver/Dublin PAM split) and **SM-CTRL-RECOVERY** (clean control-plane recovery) — had **no cost** in the workbook (by the standing rule: cost is populated only where the Canon register states a figure). The *avoided loss* side was fully canonical (S1 case deltas, −$100M trigger, $50M insurance limit) but the *spend* side was not.
 **Applied (2026-06-26):** owner set order-of-magnitude one-time capex — **SM-IDENTITY-SPLIT `cost_capex 4.0`** (~$4M) and **SM-CTRL-RECOVERY `cost_capex 1.5`** (~$1.5M), USD_M. Canon-first: new "Mitigation costs — S1 cyber controls" table in [[Canon & Figures Register]], then `_inputs/workbook.yaml`, then regenerated `demo_seed.cypher` (3468 lines). The **~$5.5M portfolio vs the −$69M realistic / −$118M FCF pessimistic tail** makes S2's return ratio (~12×) and the SPICE cost/benefit heatmap quantitative. S2 governance note updated.
 
+### ENH-07
+**Two business risks thread to no objective — W1 completeness gap.** `Sev Low · Applied (2026-06-28)`
+Building the W1 [[Annex - Objectives & Opportunities]] surfaced that, of the 17 business-level risks, **RH-06** (ground-segment capacity bottleneck) and **RA-04** (strategic-partner withdrawal) had **no path to any objective** — no `IMPACTS_TCO`/`IMPACTS_TPO` edge and no outgoing `INFLUENCES` to a risk that reaches one. The W1 invariant is that every Business Risk threads to an objective, so these two were invisible to any objective-rooted RIM view.
+**Applied (2026-06-28):** added two `INFLUENCES` edges in `_inputs/workbook.yaml` — **INF-46** (`RH-06 → RH-03`, Moderate: ground throughput ceiling constrains the corporate revenue ramp → TPO-01) and **INF-47** (`RA-04 → RA-02`, Strong: partner withdrawal forces ODT to absorb a larger AURORA budget share → RC-02 → TCO-04, tying RA-04 into the established cross-perimeter convergence). Regenerated `demo_seed.cypher` (**3883 lines, 126 relationships**). No canon figures changed (relationship structure only). **17/17** business risks now thread to an objective.
+
 ---
 
 ## Accepted by design
@@ -165,6 +171,7 @@ Building [[THE NUMBER - Season 2 (mitigation)]] (a *return-on-spend* season) sur
 ---
 
 ## Changelog
+- 2026-06-28: **ENH-07 raised & Applied — risk→objective threading completed (W1).** Building [[Annex - Objectives & Opportunities]] surfaced two orphaned business risks (RH-06, RA-04) with no path to any objective. Added `INFLUENCES` INF-46 (RH-06→RH-03) + INF-47 (RA-04→RA-02); regenerated `demo_seed.cypher` (3883 lines, 126 relationships). 17/17 business risks now thread. No canon figures changed. *(Same session: added the canonical **Opportunity Register OPP-01..05** to [[Canon & Figures Register]] — narrative anchors, no schema change — per the owner-confirmed distinct-OPP model.)*
 - 2026-06-28: **+INC-05** — contingent activation dates (2026) predate the State B (2028) reporting position; raised while writing the risk-manager brief. Parked with ENH-02 for the next time-axis pass.
 - 2026-06-28: **DEC-02 Applied — owner accountability layer seeded** (Wave 3 / W2). Un-deferred per owner decision. Added `owners:` to the workbook (18 owner nodes, 10 named cast + 8 functional roles, keyed by the existing owner-strings); gave each spice_mitigation an `owner`; extended `generate_seed.py` to emit `BEARS` (50, one per risk) and `STEWARDS` (33 = 22 core + 11 SPICE) plus VERIFY invariants. Regenerated `demo_seed.cypher` (3863 lines). One-bearer-per-risk holds by construction; STEWARDS never targets a Risk. [[Data Dictionary]] + Cast Roster updated. Not yet committed.
 - 2026-06-26: **Owner-decision triage pass — CAN-01, CAN-03, INC-02, DEC-01, DEC-02 closed.** **CAN-01 EBIT half Applied** (capitalise AURORA dev-spend → BP-LEO `ebit_baseline` 45→13, GEO stays 0; consolidated EBIT +13 ✔; canon-first → workbook → regenerated seed 3470 lines). **CAN-03 Applied** (EBIT + FCF both reconcile as sum of perimeters; revenue 100% LEO by design; standing per-perimeter trigger kept). **INC-02 Applied** (GP1 `illustrates` += RA-02, cross-perimeter reach; new edge `ILL-BST-GP1-RA-02`, 73 spice edges). **DEC-01 Accepted** (keep `other` + family tag, don't fork RIM v3.0 enum; added to Accepted-by-design). **DEC-02 Deferred** (wait for platform; cast-sheet map = spec; resolution rule set: cause-owner BEARS / consequence-owner STEWARDS). Open tickets remaining: INC-04, DEC-03, ENH-01/02/03/04.

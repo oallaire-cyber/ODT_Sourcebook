@@ -27,7 +27,7 @@ Fixed-cost-heavy operations (~75% fixed) · SLA-backed contracts · churn that c
 - **AURORA-GEO** — early-development GEO optical-relay programme, ESA/NASA co-funded, PDR-gated. The second P&L perimeter. See [[Annex - AURORA-GEO Programme]].
 
 ## The ERM bridge (why RIM exists here)
-ODT's risks are **interconnected**: a cyber event, a supplier intrusion, an export-control shift, an accreditation loss and a financing shock all converge on the same handful of enterprise objectives (deliver the constellation, hold the AOP, reach the IPO). That convergence is invisible in a flat register and visible in a graph — see [[Bestiary Index]] and [[Influence Map]].
+ODT's risks are **interconnected**: a cyber event, a supplier intrusion, an export-control shift, an accreditation loss and a financing shock all converge on the same handful of enterprise objectives (deliver the constellation, hold the AOP, reach the IPO). That convergence is invisible in a flat register and visible in a graph — see [[Bestiary Index]] and [[Influence Map]]. The objectives those risks threaten — and the **upside (opportunities)** the RIM protects — are laid out in [[Annex - Objectives & Opportunities]].
 
 ## The cast
 The people who own and price these risks: [[Cast Roster]] — [[Maya Okonkwo (Facilitator)|Maya]], [[Tom Reuter (CISO)|Tom]], [[Sofia Adler (VP Ground & Operations)|Sofia]], [[Marc Lindqvist (Finance Controller)|Marc]], [[Diane Marchetti (CFO)|Diane]].

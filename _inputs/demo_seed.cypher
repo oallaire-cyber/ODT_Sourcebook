@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-28 14:32
+//    Built   : 2026-06-28 16:44
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -2187,6 +2187,26 @@ CREATE (source)-[:INFLUENCES {
   strength: 'Strong',
   description: 'Government contract failure removes high-ARPU revenue stream from EBITDA path',
   confidence: 0.85,
+  created_at: datetime(),
+  last_validated: datetime()
+}]->(target);
+MATCH (source:Risk {id: 'RH-06'}), (target:Risk {id: 'RH-03'})
+CREATE (source)-[:INFLUENCES {
+  id: 'INF-46',
+  influence_type: 'Level2_Bus_to_Bus',
+  strength: 'Moderate',
+  description: 'Ground throughput ceiling constrains corporate service quality and the revenue ramp (threads RH-06 → RH-03 → TPO-01)',
+  confidence: 0.75,
+  created_at: datetime(),
+  last_validated: datetime()
+}]->(target);
+MATCH (source:Risk {id: 'RA-04'}), (target:Risk {id: 'RA-02'})
+CREATE (source)-[:INFLUENCES {
+  id: 'INF-47',
+  influence_type: 'Level2_Bus_to_Bus',
+  strength: 'Strong',
+  description: 'Strategic-partner withdrawal forces ODT to absorb a larger AURORA budget share, driving the overrun (threads RA-04 → RA-02 → RC-02 → TCO-04)',
+  confidence: 0.8,
   created_at: datetime(),
   last_validated: datetime()
 }]->(target);

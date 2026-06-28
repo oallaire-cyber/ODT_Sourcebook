@@ -1408,6 +1408,9 @@ relationships:
     - {id: INF-30, from: RA-03, to: RA-01, type: Level2_Bus_to_Bus, strength: Critical, confidence: 0.95, description: Optical technology maturation failure blocks PDR readiness}
     - {id: INF-31, from: RA-05, to: RA-04, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.8,  description: ITAR restrictions may force partner to withdraw from program}
     - {id: INF-32, from: RH-05, to: RC-01, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.85, description: Government contract failure removes high-ARPU revenue stream from EBITDA path}
+    # ENH-07 (2026-06-28): thread the two orphaned business risks to an objective via the graph (W1 completeness)
+    - {id: INF-46, from: RH-06, to: RH-03, type: Level2_Bus_to_Bus, strength: Moderate, confidence: 0.75, description: "Ground throughput ceiling constrains corporate service quality and the revenue ramp (threads RH-06 → RH-03 → TPO-01)"}
+    - {id: INF-47, from: RA-04, to: RA-02, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.8,  description: "Strategic-partner withdrawal forces ODT to absorb a larger AURORA budget share, driving the overrun (threads RA-04 → RA-02 → RC-02 → TCO-04)"}
 
     # Level 3 — Operational → Operational
     - {id: INF-33, from: SEC-09, to: SEC-04, type: Level3_Op_to_Op, strength: Strong,   confidence: 0.85, description: Social engineering provides initial access vector for ransomware deployment}

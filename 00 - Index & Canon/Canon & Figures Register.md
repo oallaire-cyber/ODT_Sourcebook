@@ -118,6 +118,21 @@ The consolidated State-B P&L is the **sum of perimeters**. RIM scenarios are ass
 > [!important] TCO-04 is the convergence apex
 > The bestiary thesis is that all risk families converge on the **financing/IPO** objective. **TCO-04 (IPO)** makes that literal: the company financial-risk cluster — **RC-01** (EBITDA miss), **RC-02** (cash runway), **RC-03** (investor confidence) — all `IMPACTS_TCO` **TCO-04**, and **TPO-01** (revenue ramp) `CONTRIBUTES_TO` it. **TCO-01 (EBITDA)** stays a real objective but is now correctly an *enabler* of the IPO, not a proxy for it. The IPO is targeted H1 2029, **~$250M, Nasdaq** (see State B table). [[BST-FN1 IPO Window Collapse (Financial)|FN1]] is the scenario of failing TCO-04.
 
+## Opportunity Register (the upside the RIM protects)
+> [!important] Both sides of the ledger
+> The risk graph exists to protect **value being created**, not only loss being avoided. These are the upsides ODT is reaching for; each **advances** an objective and is **threatened by** a named downside family. RIM v3.0 has no `opportunity` node type, so opportunities are **canonical narrative anchors** (OPP-IDs) wired onto the objective tree — not graph nodes. Full pairing in [[Annex - Objectives & Opportunities]]. *(Owner-confirmed model, 2026-06-28: distinct OPP register.)*
+
+| ID | Opportunity | Value at stake *(canon)* | Advances | Threatened by |
+|---|---|---|---|---|
+| **OPP-01** | **IPO / liquidity event** — the prize | **~$250M, Nasdaq, H1 2029** | **TCO-04** (apex) | **FN1** directly; the whole convergence (S1/SC1/RG1/GP1/GA1 → RC-01/02/03 → TCO-04) |
+| **OPP-02** | **AURORA-GEO second P&L** — the equity second act | **~$50M** programme (**~$20M** ODT share); **BP-GEO** perimeter | **TCO-03** (via TPO-05 PDR); reinforces TCO-04 equity story | **GA1** / RA-02 (dev overrun) / RA-04 (partner withdrawal) |
+| **OPP-03** | **Anchor Government contract** — diversification beachhead | **$10M+ ARR** by Q4 2026 | **TCO-03** (via TPO-04) | **RG1** (accreditation suspension) / **GP1** (export-control + launch) / RH-05 |
+| **OPP-04** | **Commercial scale & diversification** — reduce the 30% gov concentration | corporate backlog growth (**~$1.2M ARR/acct**, **LTV:CAC ~4.8:1**) | **TCO-03** | **S1** (severe public incident **+15–25 pts** churn) / RC-05 (reputation) / RH-04 (competition) |
+| **OPP-05** | **First profitable year** — the IPO story itself | **+$13M EBIT** (FY2028) | **TCO-01** (the headline IPO enabler) | **S1** (**$69M** turns +13 into **−41**) / SC1 / RH-01 / RH-03 |
+
+> [!note] Reading the register
+> The apex opportunity **OPP-01** is the IPO; **OPP-02..05** are the supporting bets that feed it (a credible **first-profit** story (OPP-05) + **diversified, scaling** revenue (OPP-03/04) + a **second-act** growth narrative (OPP-02) are what the IPO is sold on). Every bestiary family threatens at least one opportunity — that is the convergence thesis read from the *upside* in. No new figures: every value above is cited from this register.
+
 ## Hero scenario benchmark
 [[BST-S1 NOC Ground Compromise (Cyber)|S1]] ≈ **$69M** (direct $17M + indirect $52M) → turns +$13M EBIT into ≈ −$41M.
 
