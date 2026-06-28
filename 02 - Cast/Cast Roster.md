@@ -9,6 +9,9 @@ aliases: ["Dramatis Personae", "Org Chart", "NPC Codex"]
 
 The ODT org as **named, interviewable characters**. The five who appear in [[THE NUMBER - Season 1 (external)|THE NUMBER]] are **fully described**; the rest are named stubs to be filled in. Each character is a graph `owner` who `BEARS` risks and `STEWARDS` mitigations.
 
+> [!info] Owner layer is live in the graph (2026-06-28, [[Canon Change & Issue Register#DEC-02|DEC-02]])
+> Ten of these characters are seeded as `owner` nodes — **CEO** Elena, **CFO** Diane, **CTO** Raj, **CISO** Tom, **VP Compliance & Quality** Amara, **VP Launch Operations** Yuki, **VP Engineering** Priya, **VP Manufacturing & Supply Chain** Carlos, **VP Ground & Operations** Sofia, **VP Program Management** Henrik — plus 8 functional-role owners with no named character yet (VP Sales, Lead Software Architect, Thermal Subsystem Lead, AURORA Chief Engineer, Quality Manager, Plant Director, HR Director, IT Director). **BEARS** = faces the consequence (one per risk); **STEWARDS** = runs the mitigation (many per risk, via the mitigations). Naming a stub or splitting a functional role into a real character is now just a workbook `owners:` edit. See [[Data Dictionary#owner-accountability-layer-bears-stewards]].
+
 ## Fully described (serial cast)
 | Character | Role | Owns (themes) |
 |---|---|---|

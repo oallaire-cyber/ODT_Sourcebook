@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-26 18:28
+//    Built   : 2026-06-28 14:32
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -1594,6 +1594,191 @@ CREATE (ba01:ContextNode {
   id: 'BA-01',
   name: 'Engineering - Design',
   description: 'Design engineering activity that produces and uses the satellite design data',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+// =============================================================================
+// OWNERS  (accountability layer — BEARS / STEWARDS)
+// =============================================================================
+
+CREATE (ownceo:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-CEO',
+  name: 'Elena Vasquez',
+  role: 'CEO / co-founder',
+  entity: 'Executive',
+  email: 'elena.vasquez@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (owncfo:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-CFO',
+  name: 'Diane Marchetti',
+  role: 'CFO',
+  entity: 'Finance',
+  email: 'diane.marchetti@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (owncto:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-CTO',
+  name: 'Raj Patel',
+  role: 'CTO / co-founder',
+  entity: 'Engineering & Technology',
+  email: 'raj.patel@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownciso:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-CISO',
+  name: 'Tom Reuter',
+  role: 'CISO',
+  entity: 'Office of the CISO (→ CTO)',
+  email: 'tom.reuter@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpcq:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPCQ',
+  name: 'Amara Diallo',
+  role: 'VP Compliance & Quality',
+  entity: 'Compliance & Quality',
+  email: 'amara.diallo@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvplo:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPLO',
+  name: 'Yuki Tanaka',
+  role: 'VP Launch Operations',
+  entity: 'Launch Operations',
+  email: 'yuki.tanaka@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpeng:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPENG',
+  name: 'Priya Nair',
+  role: 'VP Engineering',
+  entity: 'Engineering',
+  email: 'priya.nair@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpmsc:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPMSC',
+  name: 'Carlos Mendes',
+  role: 'VP Manufacturing & Supply Chain',
+  entity: 'Manufacturing & Supply Chain',
+  email: 'carlos.mendes@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpgo:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPGO',
+  name: 'Sofia Adler',
+  role: 'VP Ground & Operations',
+  entity: 'Ground & Operations',
+  email: 'sofia.adler@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownapd:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-APD',
+  name: 'Henrik Sorensen',
+  role: 'VP Program Management (AURORA-GEO)',
+  entity: 'Program Management',
+  email: 'henrik.sorensen@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpsales:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPSALES',
+  name: 'VP Sales',
+  role: 'VP Sales',
+  entity: 'Commercial / Sales',
+  email: 'vp.sales@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownlsa:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-LSA',
+  name: 'Lead Software Architect',
+  role: 'Lead Software Architect',
+  entity: 'Engineering — Payload Software',
+  email: 'payload.swlead@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (owntsl:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-TSL',
+  name: 'Thermal Subsystem Lead',
+  role: 'Thermal Subsystem Lead',
+  entity: 'Engineering — Thermal',
+  email: 'thermal.lead@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownace:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-ACE',
+  name: 'AURORA Chief Engineer',
+  role: 'AURORA Chief Engineer',
+  entity: 'Engineering — AURORA-GEO',
+  email: 'aurora.ce@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownqm:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-QM',
+  name: 'Quality Manager',
+  role: 'Quality Manager',
+  entity: 'Compliance & Quality',
+  email: 'quality.mgr@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownpd:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-PD',
+  name: 'Plant Director',
+  role: 'Plant Director',
+  entity: 'Manufacturing (AIT)',
+  email: 'plant.director@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownhrd:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-HRD',
+  name: 'HR Director',
+  role: 'HR Director',
+  entity: 'Human Resources',
+  email: 'hr.director@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownitd:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-ITD',
+  name: 'IT Director',
+  role: 'IT Director',
+  entity: 'Corporate IT',
+  email: 'it.director@orbitaldynamics.example',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -3364,6 +3549,186 @@ CREATE (a)-[:FULFILS {id: 'FUL-SM-AURORA-DERISK-MO-GA1-1', created_at: datetime(
 MATCH (a:ContextNode {id: 'SM-AURORA-VARIANCE'}), (b:ContextNode {id: 'MO-GA1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-AURORA-VARIANCE-MO-GA1-2', created_at: datetime(), contribution_weight: 75.0}]->(b);
 
+// =============================================================================
+// BEARS  (owner → risk; consequence-bearer, one per risk)
+// =============================================================================
+
+MATCH (o:ContextNode {id: 'OWN-CEO'}), (r:Risk {id: 'RC-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (r:Risk {id: 'RC-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CEO'}), (r:Risk {id: 'RC-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'RC-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CEO'}), (r:Risk {id: 'RC-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-05', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (r:Risk {id: 'RH-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPENG'}), (r:Risk {id: 'RH-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (r:Risk {id: 'RH-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CTO'}), (r:Risk {id: 'RH-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (r:Risk {id: 'RH-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-05', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPGO'}), (r:Risk {id: 'RH-06'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-06', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'RH-07'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-07', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-APD'}), (r:Risk {id: 'RA-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (r:Risk {id: 'RA-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CTO'}), (r:Risk {id: 'RA-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-APD'}), (r:Risk {id: 'RA-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'RA-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-05', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-LSA'}), (r:Risk {id: 'ROE-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROE-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-TSL'}), (r:Risk {id: 'ROE-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROE-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-ACE'}), (r:Risk {id: 'ROE-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROE-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (r:Risk {id: 'ROM-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROM-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (r:Risk {id: 'ROM-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROM-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-QM'}), (r:Risk {id: 'ROM-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROM-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-PD'}), (r:Risk {id: 'ROM-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROM-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (r:Risk {id: 'ROL-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROL-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (r:Risk {id: 'ROL-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROL-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (r:Risk {id: 'ROC-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROC-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (r:Risk {id: 'ROC-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROC-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (r:Risk {id: 'ROF-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROF-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (r:Risk {id: 'ROF-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROF-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-HRD'}), (r:Risk {id: 'ROH-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROH-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-HRD'}), (r:Risk {id: 'ROH-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROH-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'ROR-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROR-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-ITD'}), (r:Risk {id: 'ROI-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROI-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-05', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-06'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-06', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-07'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-07', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-08'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-08', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-09'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-09', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-10'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-10', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-11'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-11', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-12'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-12', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-13'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-13', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-14'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-14', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'RCY-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-RCY-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'RCY-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-RCY-02', created_at: datetime()}]->(r);
+
+// =============================================================================
+// STEWARDS  (owner → mitigation | spice_mitigation; never a risk)
+// =============================================================================
+
+// --- Core mitigations ---
+
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (m:Mitigation {id: 'MIT-01'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-01', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:Mitigation {id: 'MIT-02'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-02', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-HRD'}), (m:Mitigation {id: 'MIT-03'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-03', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-04'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-04', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-05'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-05', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (m:Mitigation {id: 'MIT-06'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-06', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (m:Mitigation {id: 'MIT-07'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-07', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-LSA'}), (m:Mitigation {id: 'MIT-08'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-08', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-ACE'}), (m:Mitigation {id: 'MIT-09'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-09', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-10'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-10', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPENG'}), (m:Mitigation {id: 'MIT-11'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-11', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-12'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-12', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-13'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-13', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:Mitigation {id: 'MIT-14'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-14', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-ITD'}), (m:Mitigation {id: 'MIT-15'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-15', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-16'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-16', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:Mitigation {id: 'MIT-17'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-17', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-18'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-18', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:Mitigation {id: 'MIT-19'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-19', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:Mitigation {id: 'MIT-20'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-20', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-21'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-21', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-CY1'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-CY1', created_at: datetime()}]->(m);
+// --- SPICE mitigations ---
+
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:ContextNode {id: 'SM-CYBER-INS'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-CYBER-INS', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:ContextNode {id: 'SM-CTRL-RECOVERY'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-CTRL-RECOVERY', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:ContextNode {id: 'SM-IDENTITY-SPLIT'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-IDENTITY-SPLIT', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:ContextNode {id: 'SM-CLEAN-BUILD'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-CLEAN-BUILD', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:ContextNode {id: 'SM-PLM-INTEGRITY'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-PLM-INTEGRITY', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:ContextNode {id: 'SM-ACCRED-ENCLAVE'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-ACCRED-ENCLAVE', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:ContextNode {id: 'SM-DUAL-SOURCE'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-DUAL-SOURCE', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:ContextNode {id: 'SM-BRIDGE-FACILITY'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-BRIDGE-FACILITY', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (m:ContextNode {id: 'SM-REVENUE-DIVERSIFY'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-REVENUE-DIVERSIFY', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-ACE'}), (m:ContextNode {id: 'SM-AURORA-DERISK'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-AURORA-DERISK', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:ContextNode {id: 'SM-AURORA-VARIANCE'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-AURORA-VARIANCE', created_at: datetime()}]->(m);
+
 
 // =============================================================================
 // VERIFICATION QUERIES
@@ -3468,3 +3833,31 @@ OPTIONAL MATCH path = (r)-[:INFLUENCES*0..4]->(:Risk)-[:IMPACTS_TCO]->(tco:Conte
 RETURN s.scenario_family_id AS Family, r.id AS IllustratedRisk,
        count(path) > 0 AS ReachesIPO
 ORDER BY Family;
+
+// --- Owner accountability layer (BEARS / STEWARDS) ---
+
+// Bearer cardinality: distribution of Bearers-per-risk. The model invariant is
+// AT MOST ONE Bearer per risk — any row with BearersPerRisk > 1 is a violation.
+MATCH (r:Risk)
+OPTIONAL MATCH (:ContextNode {node_type: 'owner'})-[b:BEARS]->(r)
+WITH r, count(b) AS bearers
+RETURN bearers AS BearersPerRisk, count(r) AS RiskCount
+ORDER BY BearersPerRisk;
+
+// Risks with no Bearer (should be empty — every risk's consequence is owned)
+MATCH (r:Risk)
+WHERE NOT ( (:ContextNode {node_type: 'owner'})-[:BEARS]->(r) )
+RETURN r.id AS RiskWithoutBearer, r.name AS Name
+ORDER BY r.id;
+
+// STEWARDS must NEVER target a Risk (forbidden by design) — must return 0
+MATCH (:ContextNode {node_type: 'owner'})-[:STEWARDS]->(x:Risk)
+RETURN count(*) AS IllegalStewardsOnRisk;
+
+// Owner workload: risks borne and mitigations stewarded per owner
+MATCH (o:ContextNode {node_type: 'owner'})
+OPTIONAL MATCH (o)-[:BEARS]->(r:Risk)
+OPTIONAL MATCH (o)-[:STEWARDS]->(m)
+RETURN o.id AS Owner, o.name AS Name,
+       count(DISTINCT r) AS Bears, count(DISTINCT m) AS Stewards
+ORDER BY Bears DESC, Stewards DESC;

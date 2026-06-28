@@ -37,7 +37,7 @@ aliases: ["Change Register", "Issue Register", "Demo Data CCB", "CCB Log"]
 | [#INC-03](#inc-03) | INC | SC1 reached apex only via objectives | Med | Applied | — (2026-06-26, INF-45 RH-02→RH-03) |
 | [#INC-04](#inc-04) | INC | CapEx $77M (commitment) vs $72M (FY28 cash) | Low | Open | Confirm intent / keep distinction |
 | [#DEC-01](#dec-01) | DEC | `cause_type` enum gaps | Low | Accepted | Keep `other` + family tag (Rule 2) |
-| [#DEC-02](#dec-02) | DEC | STEWARD/BEAR owner layer not seeded | Low | Deferred | Wait for platform; cast-sheet map = spec |
+| [#DEC-02](#dec-02) | DEC | STEWARD/BEAR owner layer not seeded | Low | Applied | — (2026-06-28; 18 owners, 50 BEARS, 33 STEWARDS) |
 | [#DEC-03](#dec-03) | DEC | Bestiary families beyond the five | Low | Open | Roadmap |
 | [#ENH-01](#enh-01) | ENH | `crisis_management_days` null everywhere | Low | Open | When canon defines |
 | [#ENH-02](#enh-02) | ENH | Single placeholder SPICE assessment date | Low | Open | SPICE exercise calendar |
@@ -104,11 +104,11 @@ Schema enum = `security | climate | hazard | geopolitical | other`; it has no `r
 **Accepted (2026-06-26):** owner decision — **keep the tag convention; do not extend the schema enum.** Rationale: `schema.yaml` is the RIM v3.0 platform contract ([[ODT Sourcebook Rules|Rule 2]] — schema-align, don't fork the enums); the markdown `family` taxonomy already carries the richer cause classification without diverging the demo from the real platform. Logged in [Accepted by design](#accepted-by-design).
 
 ### DEC-02
-**STEWARD / BEAR owner layer not seeded.** `Sev Low · Deferred (2026-06-26)`
-The mitigation-objective + SPICE layer is now seeded, but the owner accountability edges (`BEARS` owner→risk, `STEWARDS` owner→mitigation) defined in schema are still absent from the seed.
-**Deferred (2026-06-26):** owner decision — **wait for the platform** to own owner accountability rather than seed it ahead. The cast-sheet mapping stands as the **spec** for when it is built.
-**Input ready for that build:** the cast sheets ([[Cast Roster]]) define the intended owner→risk/mitigation mapping by role-title. Seeding will require (a) `owner` context nodes per named character, and (b) reconciling **one-bearer-per-risk** conflicts — e.g. RH-02 is owned by "VP Engineering" ([[Priya Nair (VP Engineering)|Priya]]) in the workbook, but [[Sofia Adler (VP Ground & Operations)|Sofia]]'s sheet also claims to bear it. **Resolution rule (set 2026-06-26):** cause-owner `BEARS` the risk, consequence-owner `STEWARDS` the mitigation.
-**Trigger:** platform supports owner accountability, or a demo surface needs owners lit up in the graph.
+**STEWARD / BEAR owner layer not seeded.** `Sev Low · Applied (2026-06-28)`
+The mitigation-objective + SPICE layer was seeded, but the owner accountability edges (`BEARS` owner→risk, `STEWARDS` owner→mitigation) defined in schema were absent from the seed.
+**Applied (2026-06-28):** owner decision — **seed it now** (un-deferred; Wave 3 / W2 of the [[ROADMAP]]). Added an `owners:` section to the workbook: **18 `owner` nodes** keyed by the existing owner-string on each risk/mitigation — 10 mapped to [[Cast Roster]] characters (Elena/Diane/Raj/Tom/Amara/Yuki/Priya/Carlos/Sofia/Henrik), 8 as functional-role owners (VP Sales, Lead Software Architect, Thermal Subsystem Lead, AURORA Chief Engineer, Quality Manager, Plant Director, HR Director, IT Director). Generator emits **50 `BEARS`** (one per risk, from each risk's single `owner` field → the one-bearer invariant holds by construction) and **33 `STEWARDS`** (22 core mitigations + 11 spice_mitigations, each given an `owner`). Regenerated `demo_seed.cypher` (**3863 lines**). VERIFY block now asserts both model invariants (≤1 bearer/risk; STEWARDS never targets a Risk) and prints a per-owner workload table.
+**The one-bearer conflict, resolved cleanly:** the workbook's single `owner` field is the **Bearer** source — so RH-02 → "VP Engineering" → [[Priya Nair (VP Engineering)|Priya]] bears it (one bearer, no contest); [[Sofia Adler (VP Ground & Operations)|Sofia]] participates by **stewarding** the relevant mitigations, not by bearing the risk. This is exactly the resolution rule (cause-owner BEARS / consequence-owner STEWARDS), enforced structurally rather than by hand.
+**Polymorphic by design:** a BusinessRisk Bearer absorbs the EBIT/FCF consequence; an OperationalRisk Bearer absorbs the technical/operational consequence. The same owner may both BEAR and STEWARD. See [[Data Dictionary#owner-accountability-layer-bears-stewards]].
 
 ### DEC-03
 **Bestiary families beyond the five.** `Sev Low · Open`
@@ -159,6 +159,7 @@ Building [[THE NUMBER - Season 2 (mitigation)]] (a *return-on-spend* season) sur
 ---
 
 ## Changelog
+- 2026-06-28: **DEC-02 Applied — owner accountability layer seeded** (Wave 3 / W2). Un-deferred per owner decision. Added `owners:` to the workbook (18 owner nodes, 10 named cast + 8 functional roles, keyed by the existing owner-strings); gave each spice_mitigation an `owner`; extended `generate_seed.py` to emit `BEARS` (50, one per risk) and `STEWARDS` (33 = 22 core + 11 SPICE) plus VERIFY invariants. Regenerated `demo_seed.cypher` (3863 lines). One-bearer-per-risk holds by construction; STEWARDS never targets a Risk. [[Data Dictionary]] + Cast Roster updated. Not yet committed.
 - 2026-06-26: **Owner-decision triage pass — CAN-01, CAN-03, INC-02, DEC-01, DEC-02 closed.** **CAN-01 EBIT half Applied** (capitalise AURORA dev-spend → BP-LEO `ebit_baseline` 45→13, GEO stays 0; consolidated EBIT +13 ✔; canon-first → workbook → regenerated seed 3470 lines). **CAN-03 Applied** (EBIT + FCF both reconcile as sum of perimeters; revenue 100% LEO by design; standing per-perimeter trigger kept). **INC-02 Applied** (GP1 `illustrates` += RA-02, cross-perimeter reach; new edge `ILL-BST-GP1-RA-02`, 73 spice edges). **DEC-01 Accepted** (keep `other` + family tag, don't fork RIM v3.0 enum; added to Accepted-by-design). **DEC-02 Deferred** (wait for platform; cast-sheet map = spec; resolution rule set: cause-owner BEARS / consequence-owner STEWARDS). Open tickets remaining: INC-04, DEC-03, ENH-01/02/03/04.
 - 2026-06-26: **ENH-06 Applied** — owner priced the two S1 controls (SM-IDENTITY-SPLIT ~$4M, SM-CTRL-RECOVERY ~$1.5M, `cost_capex`, USD_M). Canon-first → workbook → regenerated seed (3468 lines). S2 return-on-spend now quantitative (~$5.5M vs −$69M/−$118M tail).
 - 2026-06-26: **+ENH-06** — S1 control mitigations (SM-IDENTITY-SPLIT / SM-CTRL-RECOVERY) carry no cost; raised while building [[THE NUMBER - Season 2 (mitigation)]] so the return-on-spend ratio can be made quantitative once the owner prices them.

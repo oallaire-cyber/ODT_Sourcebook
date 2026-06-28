@@ -9,6 +9,10 @@ aliases: ["Map of Content", "Vault Index"]
 
 The map of the whole set. Each line below is a "product type"; click into its index/MOC.
 
+## Planning (where we are going)
+- [[ROADMAP]] — the forward plan: North Star, the Depth Dial (L0–L3), 8 workstreams, the 3-wave sequence
+- `SESSION-STATE.md` — where we are right now + the active wave backlog
+
 ## Canon (the spine everything cites)
 - [[Canon & Figures Register]] — the single authoritative table of every figure (anti-drift control)
 - [[Naming & Conventions]] — ID schemes, tags, versioning, vault conventions

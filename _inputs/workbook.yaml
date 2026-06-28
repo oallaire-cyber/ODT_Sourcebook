@@ -1181,6 +1181,47 @@ mitigations:
 
 
 # =============================================================================
+# OWNERS  (accountability layer — schema `owner` context node)
+# =============================================================================
+# One owner node per distinct owner-string used on risks / mitigations.
+#   `key`   = the exact owner-string matched on risks (BEARS) and
+#             mitigations / spice_mitigations (STEWARDS).
+#   Named owners map the role to a Cast Roster character; the 8 functional
+#   roles with no named character are owners-as-role (schema permits a
+#   person, team, OR org unit).
+# Model (schema-enforced):
+#   BEARS    owner -> Risk        : consequence-bearer, AT MOST ONE per risk
+#            (driven by each risk's single `owner` field).
+#   STEWARDS owner -> Mitigation | SpiceMitigation : execution accountability;
+#            NEVER targets a Risk. Many stewards per risk *via* its mitigations.
+# =============================================================================
+
+owners:
+
+  # ─── Named owners (Cast Roster characters) ─────────────────────────────────
+  - {id: OWN-CEO,    key: "CEO",                            name: Elena Vasquez,   role: "CEO / co-founder",                 entity: Executive,                      email: elena.vasquez@orbitaldynamics.example}
+  - {id: OWN-CFO,    key: "CFO",                            name: Diane Marchetti, role: "CFO",                              entity: Finance,                        email: diane.marchetti@orbitaldynamics.example}
+  - {id: OWN-CTO,    key: "CTO",                            name: Raj Patel,       role: "CTO / co-founder",                 entity: "Engineering & Technology",     email: raj.patel@orbitaldynamics.example}
+  - {id: OWN-CISO,   key: "CISO",                           name: Tom Reuter,      role: "CISO",                             entity: "Office of the CISO (→ CTO)",   email: tom.reuter@orbitaldynamics.example}
+  - {id: OWN-VPCQ,   key: "VP Compliance & Quality",        name: Amara Diallo,    role: "VP Compliance & Quality",          entity: "Compliance & Quality",         email: amara.diallo@orbitaldynamics.example}
+  - {id: OWN-VPLO,   key: "VP Launch Operations",           name: Yuki Tanaka,     role: "VP Launch Operations",             entity: "Launch Operations",            email: yuki.tanaka@orbitaldynamics.example}
+  - {id: OWN-VPENG,  key: "VP Engineering",                 name: Priya Nair,      role: "VP Engineering",                   entity: Engineering,                    email: priya.nair@orbitaldynamics.example}
+  - {id: OWN-VPMSC,  key: "VP Manufacturing & Supply Chain", name: Carlos Mendes,  role: "VP Manufacturing & Supply Chain",  entity: "Manufacturing & Supply Chain", email: carlos.mendes@orbitaldynamics.example}
+  - {id: OWN-VPGO,   key: "VP Ground & Ops",                name: Sofia Adler,     role: "VP Ground & Operations",           entity: "Ground & Operations",          email: sofia.adler@orbitaldynamics.example}
+  - {id: OWN-APD,    key: "AURORA Program Director",        name: Henrik Sorensen, role: "VP Program Management (AURORA-GEO)", entity: "Program Management",         email: henrik.sorensen@orbitaldynamics.example}
+
+  # ─── Functional-role owners (no named character yet) ───────────────────────
+  - {id: OWN-VPSALES, key: "VP Sales",               name: "VP Sales",               role: "VP Sales",               entity: "Commercial / Sales",         email: vp.sales@orbitaldynamics.example}
+  - {id: OWN-LSA,     key: "Lead Software Architect", name: "Lead Software Architect", role: "Lead Software Architect", entity: "Engineering — Payload Software", email: payload.swlead@orbitaldynamics.example}
+  - {id: OWN-TSL,     key: "Thermal Subsystem Lead",  name: "Thermal Subsystem Lead",  role: "Thermal Subsystem Lead",  entity: "Engineering — Thermal",      email: thermal.lead@orbitaldynamics.example}
+  - {id: OWN-ACE,     key: "AURORA Chief Engineer",   name: "AURORA Chief Engineer",   role: "AURORA Chief Engineer",   entity: "Engineering — AURORA-GEO",   email: aurora.ce@orbitaldynamics.example}
+  - {id: OWN-QM,      key: "Quality Manager",         name: "Quality Manager",         role: "Quality Manager",         entity: "Compliance & Quality",       email: quality.mgr@orbitaldynamics.example}
+  - {id: OWN-PD,      key: "Plant Director",          name: "Plant Director",          role: "Plant Director",          entity: "Manufacturing (AIT)",        email: plant.director@orbitaldynamics.example}
+  - {id: OWN-HRD,     key: "HR Director",             name: "HR Director",             role: "HR Director",             entity: "Human Resources",            email: hr.director@orbitaldynamics.example}
+  - {id: OWN-ITD,     key: "IT Director",             name: "IT Director",             role: "IT Director",             entity: "Corporate IT",               email: it.director@orbitaldynamics.example}
+
+
+# =============================================================================
 # CONTEXT NODES
 # =============================================================================
 
@@ -1649,6 +1690,7 @@ spice:
       name: Cyber insurance tower
       type: impact_reducing
       status: ongoing
+      owner: CFO
       coverage_amount: 50.0        # Canon: $50M limit
       description: >-
         $50M limit, $5M deductible, BI cover after 72h, war/state-actor exclusion
@@ -1659,6 +1701,7 @@ spice:
       name: Clean control-plane recovery capability
       type: recovery_accelerating
       status: planned
+      owner: CISO
       cost_capex: 1.5            # Canon: ~$1.5M one-time (S1 control pricing, ENH-06)
       description: Offline golden images + rebuild runbook to restore legitimate control fast.
       fulfils:
@@ -1667,6 +1710,7 @@ spice:
       name: Denver/Dublin identity & PAM plane separation
       type: impact_reducing
       status: planned
+      owner: CISO
       cost_capex: 4.0            # Canon: ~$4M one-time (S1 control pricing, ENH-06)
       description: Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.
       fulfils:
@@ -1676,6 +1720,7 @@ spice:
       name: Clean-build & unit re-verification line
       type: recovery_accelerating
       status: recommended
+      owner: VP Manufacturing & Supply Chain
       description: Re-qualify suspect Phase-4 units to certified-clean state.
       fulfils:
         - {objective: MO-SC1-1, contribution_weight: 90.0}
@@ -1683,6 +1728,7 @@ spice:
       name: PLM integrity monitoring & supplier access governance
       type: impact_reducing
       status: ongoing
+      owner: CISO
       description: Tamper-evidence on build/test/config records + supplier least-privilege.
       fulfils:
         - {objective: MO-SC1-2, contribution_weight: 80.0}
@@ -1691,6 +1737,7 @@ spice:
       name: Audited accreditation enclave + remediation playbook
       type: impact_reducing
       status: ongoing
+      owner: VP Compliance & Quality
       description: Isolated, continuously-audited accredited environment with a pre-cleared remediation plan.
       fulfils:
         - {objective: MO-RG1-1, contribution_weight: 70.0}
@@ -1699,6 +1746,7 @@ spice:
       name: RF dual-source + multi-launcher framework
       type: impact_reducing
       status: ongoing
+      owner: VP Manufacturing & Supply Chain
       description: >-
         Pre-negotiated second-source RF framework and multi-launcher slots
         (financial-layer counterpart of MIT-01 / MIT-02) plus buffer stock.
@@ -1709,6 +1757,7 @@ spice:
       name: Committed bridge financing facility
       type: impact_reducing
       status: ongoing
+      owner: CFO
       coverage_amount: 60.0        # Canon: $60M facility alongside $85M cash (State B)
       description: Drawable facility to hold FCF above the -$100M trigger ahead of the IPO.
       fulfils:
@@ -1718,6 +1767,7 @@ spice:
       name: Commercial / government revenue diversification program
       type: impact_reducing
       status: planned
+      owner: VP Sales
       description: Reduce 30% gov-segment concentration; broaden commercial backlog.
       fulfils:
         - {objective: MO-RG1-3, contribution_weight: 60.0}
@@ -1726,6 +1776,7 @@ spice:
       name: AURORA optical-link risk-reduction campaign
       type: impact_reducing
       status: ongoing
+      owner: AURORA Chief Engineer
       description: >-
         Pre-PDR breadboard + thermal-vacuum testing of the optical pointing
         mechanism to retire ISL maturation risk early (financial-layer
@@ -1736,6 +1787,7 @@ spice:
       name: AURORA stage-gate funding & budget variance control
       type: impact_reducing
       status: ongoing
+      owner: CFO
       description: >-
         Release AURORA funds against PDR/sub-system stage-gates with monthly
         variance analysis, catching an overrun before it breaches the company

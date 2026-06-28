@@ -224,6 +224,20 @@ def spice_mitigation_node(m: dict) -> str:
     return f"CREATE ({_var(m['id'])}:ContextNode {{\n" + ",\n".join(lines) + "\n});"
 
 
+def owner_node(o: dict) -> str:
+    """Accountability-layer owner (schema `owner` context node)."""
+    lines = [
+        f"  node_type: 'owner'",
+        f"  id: {cypher_val(o['id'])}",
+        f"  name: {cypher_val(o['name'])}",
+    ]
+    for fld in ("role", "entity", "email"):
+        if o.get(fld):
+            lines.append(f"  {fld}: {cypher_val(o[fld])}")
+    lines += ["  created_at: datetime()", "  updated_at: datetime()"]
+    return f"CREATE ({_var(o['id'])}:ContextNode {{\n" + ",\n".join(lines) + "\n});"
+
+
 # ─── Relationship generators ──────────────────────────────────────────────────
 
 def contributes_to(r: dict) -> str:
@@ -310,6 +324,24 @@ def context_edge(r: dict) -> str:
         f"MATCH (a:{src_label} {{id: '{src_id}'}}), "
         f"(b:{tgt_label} {{id: '{tgt_id}'}})\n"
         f"CREATE (a)-[:{rel} {{{base_props}{extra}}}]->(b);"
+    )
+
+
+def bears(owner_id: str, risk_id: str, edge_id: str) -> str:
+    """BEARS  owner -> Risk  (consequence-bearer; at most one per risk)."""
+    return (
+        f"MATCH (o:ContextNode {{id: '{esc(owner_id)}'}}), "
+        f"(r:Risk {{id: '{esc(risk_id)}'}})\n"
+        f"CREATE (o)-[:BEARS {{id: '{esc(edge_id)}', created_at: datetime()}}]->(r);"
+    )
+
+
+def stewards(owner_id: str, tgt_id: str, tgt_label: str, edge_id: str) -> str:
+    """STEWARDS  owner -> Mitigation | SpiceMitigation  (execution; never a Risk)."""
+    return (
+        f"MATCH (o:ContextNode {{id: '{esc(owner_id)}'}}), "
+        f"(m:{tgt_label} {{id: '{esc(tgt_id)}'}})\n"
+        f"CREATE (o)-[:STEWARDS {{id: '{esc(edge_id)}', created_at: datetime()}}]->(m);"
     )
 
 
@@ -430,6 +462,34 @@ OPTIONAL MATCH path = (r)-[:INFLUENCES*0..4]->(:Risk)-[:IMPACTS_TCO]->(tco:Conte
 RETURN s.scenario_family_id AS Family, r.id AS IllustratedRisk,
        count(path) > 0 AS ReachesIPO
 ORDER BY Family;
+
+// --- Owner accountability layer (BEARS / STEWARDS) ---
+
+// Bearer cardinality: distribution of Bearers-per-risk. The model invariant is
+// AT MOST ONE Bearer per risk — any row with BearersPerRisk > 1 is a violation.
+MATCH (r:Risk)
+OPTIONAL MATCH (:ContextNode {node_type: 'owner'})-[b:BEARS]->(r)
+WITH r, count(b) AS bearers
+RETURN bearers AS BearersPerRisk, count(r) AS RiskCount
+ORDER BY BearersPerRisk;
+
+// Risks with no Bearer (should be empty — every risk's consequence is owned)
+MATCH (r:Risk)
+WHERE NOT ( (:ContextNode {node_type: 'owner'})-[:BEARS]->(r) )
+RETURN r.id AS RiskWithoutBearer, r.name AS Name
+ORDER BY r.id;
+
+// STEWARDS must NEVER target a Risk (forbidden by design) — must return 0
+MATCH (:ContextNode {node_type: 'owner'})-[:STEWARDS]->(x:Risk)
+RETURN count(*) AS IllegalStewardsOnRisk;
+
+// Owner workload: risks borne and mitigations stewarded per owner
+MATCH (o:ContextNode {node_type: 'owner'})
+OPTIONAL MATCH (o)-[:BEARS]->(r:Risk)
+OPTIONAL MATCH (o)-[:STEWARDS]->(m)
+RETURN o.id AS Owner, o.name AS Name,
+       count(DISTINCT r) AS Bears, count(DISTINCT m) AS Stewards
+ORDER BY Bears DESC, Stewards DESC;
 """
 
 
@@ -556,6 +616,24 @@ MATCH (n) DETACH DELETE n;
                 for n in nodes:
                     out.append(context_node_stmt(n, node_type))
                 out.append("")
+
+    # ── OWNERS (accountability layer) ──────────────────────────────────────────
+    owners: list[dict] = wb.get("owners", [])
+    owner_by_key: dict[str, str] = {}
+    for o in owners:
+        key = o.get("key")
+        if not key:
+            sys.exit(f"ERROR: owner {o.get('id')} has no `key` (owner-string to match).")
+        if key in owner_by_key:
+            sys.exit(f"ERROR: duplicate owner key '{key}' "
+                     f"({owner_by_key[key]} and {o['id']}).")
+        owner_by_key[key] = o["id"]
+
+    if owners:
+        out.append(banner("OWNERS  (accountability layer — BEARS / STEWARDS)"))
+        for o in owners:
+            out.append(owner_node(o))
+        out.append("")
 
     # ── RELATIONSHIPS ──────────────────────────────────────────────────────────
     rels = wb.get("relationships", {})
@@ -684,6 +762,51 @@ MATCH (n) DETACH DELETE n;
                 n_spice_edges += 1
         out.append("")
 
+    # ── OWNER ACCOUNTABILITY EDGES (BEARS / STEWARDS) ──────────────────────────
+    # Emitted after every Risk / Mitigation / SpiceScenario-layer node exists.
+    # BEARS    = each risk's single `owner` string  → one bearer per risk.
+    # STEWARDS = each (spice_)mitigation's `owner`   → never targets a Risk.
+    n_bears = n_stewards = 0
+    missing_keys: list[str] = []
+
+    def resolve(key: str, ctx: str) -> str | None:
+        oid = owner_by_key.get(key)
+        if oid is None:
+            missing_keys.append(f"{ctx}: owner-string '{key}' has no owner node")
+        return oid
+
+    if owners:
+        out.append(banner("BEARS  (owner → risk; consequence-bearer, one per risk)"))
+        for r in risks:
+            key = r.get("owner")
+            if not key:
+                missing_keys.append(f"risk {r['id']}: no owner field (cannot assign a Bearer)")
+                continue
+            oid = resolve(key, f"risk {r['id']}")
+            if oid:
+                out.append(bears(oid, r["id"], f"BEARS-{r['id']}"))
+                n_bears += 1
+        out.append("")
+
+        out.append(banner("STEWARDS  (owner → mitigation | spice_mitigation; never a risk)"))
+        out.append(sub_banner("Core mitigations"))
+        for m in mits:
+            oid = resolve(m.get("owner", ""), f"mitigation {m['id']}")
+            if oid:
+                out.append(stewards(oid, m["id"], "Mitigation", f"STW-{m['id']}"))
+                n_stewards += 1
+        out.append(sub_banner("SPICE mitigations"))
+        for m in smits:
+            oid = resolve(m.get("owner", ""), f"spice_mitigation {m['id']}")
+            if oid:
+                out.append(stewards(oid, m["id"], "ContextNode", f"STW-{m['id']}"))
+                n_stewards += 1
+        out.append("")
+
+    if missing_keys:
+        sys.exit("ERROR: owner layer could not be resolved:\n  - "
+                 + "\n  - ".join(missing_keys))
+
     out.append(VERIFY)
 
     text = "\n".join(out)
@@ -699,6 +822,7 @@ MATCH (n) DETACH DELETE n;
     print(f"   {n_lines} lines  |  {n_risks} risks  |  {n_mits} mitigations  |  {n_rels} relationships")
     print(f"   SPICE: {n_spice_scen} scenario cases  |  {len(mobjs)} mitigation objectives  |  "
           f"{len(smits)} spice mitigations  |  {n_spice_edges} spice edges")
+    print(f"   OWNERS: {len(owners)} owner nodes  |  {n_bears} BEARS  |  {n_stewards} STEWARDS")
 
 
 if __name__ == "__main__":
