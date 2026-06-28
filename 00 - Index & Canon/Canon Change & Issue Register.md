@@ -36,6 +36,7 @@ aliases: ["Change Register", "Issue Register", "Demo Data CCB", "CCB Log"]
 | [#INC-02](#inc-02) | INC | GP1 `illustrates`: index vs entry | Low | Applied | — (2026-06-26; RA-02 added) |
 | [#INC-03](#inc-03) | INC | SC1 reached apex only via objectives | Med | Applied | — (2026-06-26, INF-45 RH-02→RH-03) |
 | [#INC-04](#inc-04) | INC | CapEx $77M (commitment) vs $72M (FY28 cash) | Low | Open | Confirm intent / keep distinction |
+| [#INC-05](#inc-05) | INC | Contingent activation dates (2026) predate State B (2028) | Low | Open | Reconcile date axis / SPICE calendar |
 | [#DEC-01](#dec-01) | DEC | `cause_type` enum gaps | Low | Accepted | Keep `other` + family tag (Rule 2) |
 | [#DEC-02](#dec-02) | DEC | STEWARD/BEAR owner layer not seeded | Low | Applied | — (2026-06-28; 18 owners, 50 BEARS, 33 STEWARDS) |
 | [#DEC-03](#dec-03) | DEC | Bestiary families beyond the five | Low | Open | Roadmap |
@@ -93,6 +94,11 @@ Canon's State B P&L ($270M revenue, +$13M EBIT, −$40M FCF, etc.) is the consol
 ### INC-04
 **CapEx $77M vs $72M.** `Sev Low · Open`
 Context v2.2 states Phase-4 CapEx as **$77.0M** in the FY2028 P&L (§4.2) but **$72.0M** in the cash-flow statement (§4.6). Reconciliation: $77M = total Phase-4 *commitment* (programme budget Phase-4 line = $76.9M ≈ 77); $72M = the portion hitting *FY2028 cash*. Both carried in [[Canon & Figures Register]] with the distinction noted. Confirm this is the intended reading (commitment vs cash timing) and not a drafting slip.
+
+### INC-05
+**Contingent-risk activation dates predate the canonical reporting position.** `Sev Low · Open`
+Raised 2026-06-28 while writing the [[ODT Risk Status & Executive Decision Brief - 2026-06-28|risk-manager brief]]. The two Contingent risks carry `activation_decision_date` values in **2026** — RH-06 (ground-segment capacity) **2026-06-30**, RA-04 (AURORA partner withdrawal) **2026-12-31** — but the canonical demo "present" is **State B = Jun 2028** (Operator phase). A reader at State B would see both decision dates already in the past. Related to the single placeholder SPICE `assessment_date 2028-02-15` ([[#ENH-02]]).
+**Options:** (a) shift the activation dates into the State-B timeline (e.g. H2 2028 / 2029); (b) define an explicit demo "as-of" date axis so 2025/2026/2028 artefacts coexist coherently; (c) accept as a known abstraction. Decide alongside the SPICE-exercise calendar (ENH-02) when the time axis is next worked.
 
 ---
 
@@ -159,6 +165,7 @@ Building [[THE NUMBER - Season 2 (mitigation)]] (a *return-on-spend* season) sur
 ---
 
 ## Changelog
+- 2026-06-28: **+INC-05** — contingent activation dates (2026) predate the State B (2028) reporting position; raised while writing the risk-manager brief. Parked with ENH-02 for the next time-axis pass.
 - 2026-06-28: **DEC-02 Applied — owner accountability layer seeded** (Wave 3 / W2). Un-deferred per owner decision. Added `owners:` to the workbook (18 owner nodes, 10 named cast + 8 functional roles, keyed by the existing owner-strings); gave each spice_mitigation an `owner`; extended `generate_seed.py` to emit `BEARS` (50, one per risk) and `STEWARDS` (33 = 22 core + 11 SPICE) plus VERIFY invariants. Regenerated `demo_seed.cypher` (3863 lines). One-bearer-per-risk holds by construction; STEWARDS never targets a Risk. [[Data Dictionary]] + Cast Roster updated. Not yet committed.
 - 2026-06-26: **Owner-decision triage pass — CAN-01, CAN-03, INC-02, DEC-01, DEC-02 closed.** **CAN-01 EBIT half Applied** (capitalise AURORA dev-spend → BP-LEO `ebit_baseline` 45→13, GEO stays 0; consolidated EBIT +13 ✔; canon-first → workbook → regenerated seed 3470 lines). **CAN-03 Applied** (EBIT + FCF both reconcile as sum of perimeters; revenue 100% LEO by design; standing per-perimeter trigger kept). **INC-02 Applied** (GP1 `illustrates` += RA-02, cross-perimeter reach; new edge `ILL-BST-GP1-RA-02`, 73 spice edges). **DEC-01 Accepted** (keep `other` + family tag, don't fork RIM v3.0 enum; added to Accepted-by-design). **DEC-02 Deferred** (wait for platform; cast-sheet map = spec; resolution rule set: cause-owner BEARS / consequence-owner STEWARDS). Open tickets remaining: INC-04, DEC-03, ENH-01/02/03/04.
 - 2026-06-26: **ENH-06 Applied** — owner priced the two S1 controls (SM-IDENTITY-SPLIT ~$4M, SM-CTRL-RECOVERY ~$1.5M, `cost_capex`, USD_M). Canon-first → workbook → regenerated seed (3468 lines). S2 return-on-spend now quantitative (~$5.5M vs −$69M/−$118M tail).

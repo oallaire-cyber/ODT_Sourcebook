@@ -116,6 +116,21 @@ With the deeper company in place, deepen the kit that *uses* it: a runnable **cr
 **Schema anchors:** consumes everything above; no new schema.
 **Deliverables:** one full crisis-exercise module (likely S1 cyber); lift the weakest scaffold lines to L2; training path wired end-to-end.
 
+### Inputs from the 2026-06-28 risk brief
+Writing ODT's first risk-manager artefact (`_inputs/ODT Risk Status & Executive Decision Brief - 2026-06-28.md`) surfaced 7 data gaps — *real* missing context an executive decision wanted but the dataset doesn't yet hold. Folded into the workstreams here so they are not lost:
+
+| # | Gap surfaced | Feeds |
+|---|---|---|
+| 1 | No quantified likelihood/frequency (`annual_probability` λ) or magnitude estimates → no aggregate **loss-exceedance curve** for the board | **W6** |
+| 2 | No **incident history** to calibrate likelihoods or show "this has happened before" | **W5** |
+| 3 | No company **risk-appetite / tolerance statement** beyond the −$100M trigger — so "is this exposure acceptable?" is unanswerable from data | **W1 / W7** |
+| 4 | **Insurance / financing options not modelled** (cost of state-actor cover; bridge-facility covenants) — D2 of the brief | **W3 / W2** |
+| 5 | Contingent-risk **activation dates (2026) predate the State B (2028)** reporting position | register ticket (raised 2026-06-28; cf. ENH-02) |
+| 6 | **8 owners are roles, not people** (VP Sales et al.) — bear/steward material items with no named individual to interview/escalate | **W1 / W2** (name the stubs) |
+| 7 | `crisis_management_days` **null** across scenarios — "how long in the war room?" unanswered (ENH-01) | **W8 / canon** |
+
+The brief itself is the natural **seed for W7's first worked decision** (D1: fund the ~$5.5M cyber control tower vs accept the tail).
+
 ---
 
 ## 5. Wave plan (sequencing)
