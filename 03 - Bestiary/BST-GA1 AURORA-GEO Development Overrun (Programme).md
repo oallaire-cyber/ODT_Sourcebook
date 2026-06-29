@@ -46,7 +46,7 @@ PDR/sub-system **stage-gate variance** and monthly programme cost reporting — 
 - **MO-GA1-2** — Hold AURORA spend within the company FCF envelope *(fulfilled by SM-AURORA-VARIANCE, 75%)*
 - **MO-GA1-3** — Secure ESA/NASA co-funding continuity & partner commitment *(**no `FULFILS`** — a governance/relationship objective with no purchasable control; deliberate coverage gap, like [[BST-FN1 IPO Window Collapse (Financial)|MO-FN1-3]])*
 
-Also `MITIGATED_BY_SPICE` the company **bridge facility** (SM-BRIDGE-FACILITY) — the shared liquidity backstop that absorbs a GEO overrun's cash impact, demonstrating a **cross-perimeter mitigation**.
+Also `MITIGATED_BY` the company **bridge facility** (SM-BRIDGE-FACILITY) — the shared liquidity backstop that absorbs a GEO overrun's cash impact, demonstrating a **cross-perimeter mitigation**.
 
 ## 🔗 Interconnection (why it lives in a graph)
 > [!important] The cross-perimeter convergence
@@ -60,5 +60,5 @@ Also `MITIGATED_BY_SPICE` the company **bridge facility** (SM-BRIDGE-FACILITY) �
 - *(candidate: [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] — a launch/export shock could also hit AURORA — pending [[Canon Change & Issue Register|INC-02]])*
 
 ## Graph anchoring
-`CAUSED_BY` → ROE-03 · `ILLUSTRATES` → RA-02, RA-04 · `ASSESSED_AGAINST` → BP-GEO · `ADDRESSES` → MO-GA1-1/2/3 · `MITIGATED_BY_SPICE` → SM-AURORA-DERISK, SM-AURORA-VARIANCE, SM-BRIDGE-FACILITY. See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
+`CAUSED_BY` → ROE-03 · `ILLUSTRATES` → RA-02, RA-04 · `ASSESSED_AGAINST` → BP-GEO · `ADDRESSES` → MO-GA1-1/2/3 · `MITIGATED_BY` → SM-AURORA-DERISK, SM-AURORA-VARIANCE, SM-BRIDGE-FACILITY *(now core `Mitigation` nodes, CR-01)*. See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
 > [!note] Graph encoding: like FN1, GA1's damage is **FCF**, not operating EBIT, so the three SpiceScenario cases store `ebit_impact = 0` and carry the loss in `fcf_impact_y1` (−6 / −12 / −24); the `hypothesis` field records why. `operational_recovery_days` encodes the **PDR schedule slip** (90 / 180 / 365 d), AURORA's schedule-not-EBIT recovery metric. This is the first scenario `ASSESSED_AGAINST` **BP-GEO**, making the second perimeter SPICE-covered.

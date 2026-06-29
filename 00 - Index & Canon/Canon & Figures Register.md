@@ -81,13 +81,23 @@ SLA credit ladder (corporate/telco, on monthly fee): **<99.5% → −5%**, **<98
 ## Insurance
 Cyber limit **$50M**, deductible **$5M**, BI after **72h**, **war/state-actor exclusion** (attribution dispute → don't bank it).
 
-## Mitigation costs — S1 cyber controls *(order-of-magnitude, one-time capex)*
-The two real S1 controls priced so the SPICE *return-on-spend* is quantitative (closes [[Canon Change & Issue Register|ENH-06]]). Costs are order-of-magnitude by design (Rule 6); both are capital projects (`cost_capex`), USD_M.
-| Control | `cost_capex` | Note |
+## Mitigation costs — S1 cyber controls *(order-of-magnitude, one-time)*
+The two real S1 controls priced so the SPICE *return-on-spend* is quantitative (closes [[Canon Change & Issue Register|ENH-06]]). Costs are order-of-magnitude by design (Rule 6), USD_M. Per [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]] both are `planned` controls (decided in principle, **un-capitalised**), so the figure is carried as **`committed_budget`** (→ becomes `capex` on funding); it is the ROCE denominator for the projected mitigated version.
+| Control | `committed_budget` | Note |
 |---|---|---|
 | **SM-IDENTITY-SPLIT** (Denver/Dublin identity & PAM plane separation) | **~$4M** | structural re-architecture of the shared privileged-access plane across both ground sites — the heavier control |
 | **SM-CTRL-RECOVERY** (clean control-plane recovery — golden images + rebuild runbook) | **~$1.5M** | recovery-accelerating; buys crisis days back |
-| **Portfolio** | **~$5.5M** | vs the S1 tail it removes: −$69M realistic / **−$118M FCF** pessimistic (which breaches the −$100M trigger → FN1). ≈ **12×** the realistic feared loss avoided. |
+| **Portfolio** | **~$5.5M** | vs the S1 tail it removes: −$69M realistic / **−$118M FCF** pessimistic (which breaches the −$100M trigger → FN1). ≈ **12×** the realistic feared loss avoided (exposure-vs-spend framing). |
+
+## S1 — projected *mitigated* re-assessment *(CR-01 §C4 / DM-01 "after"; owner-confirmed 2026-06-29)*
+The analyst-authored mitigated version of the S1 family (`scenario_family_id …01`, `version_number 2`), citing the two `planned` cyber controls above. Because the controls are un-capitalised, this version is a **projection** (`status_in_family: draft`) — "benefit if funded"; the base (v1) stays `current`. On funding/deployment the analyst flips base→`superseded`, this→`current`. **Benefit = base − mitigated** (computed by RIM, [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]] §C5).
+| Case | EBIT total (base → mitigated) | FCF (base → mitigated) | FCF benefit |
+|---|---|---|---|
+| best | −40 → **−23** | −60 → **−38** | +22 |
+| realistic | −69 → **−40** | −79 → **−54** | +25 |
+| pessimistic | −110 → **−64** | **−118 → −82** (held above −100) | **+36** |
+
+Pessimistic FCF is pulled from −118 (a −$100M-trigger breach) to **−82**, **severing the S1 → FN1 path**. SM-CYBER-INS is cited (`MITIGATED_BY`) but contributes ~0 to the projection — the $50M tower's war/state-actor exclusion vs S1's state-aligned actor (so the controls, not insurance, are the primary protection).
 
 ## Programme (HORIZON-LEO)
 80 LEO sats, 8 polar planes, 550 km · ~$3.4M/sat incl. launch · programme budget **$273.5M** · NOC **Denver** (primary) + **Dublin** (backup, shared identity plane) · gateways **Fairbanks, Tromsø, Singapore, Perth**.

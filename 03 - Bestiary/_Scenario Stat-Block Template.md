@@ -32,5 +32,5 @@ tags: [bestiary, bestiary/<family>, status/new]
 | Case | EBIT y1 | y2 | y3 | EBIT total | FCF y1 | Crisis days | Op recovery | Fin recovery yrs |
 |---|---|---|---|---|---|---|---|---|
 
-**Mitigation objectives** (`ADDRESSES`) and **SPICE mitigations** (`MITIGATED_BY_SPICE` / `FULFILS`).
+**Mitigation objectives** (`ADDRESSES`) and **mitigations** (`MITIGATED_BY` / `FULFILS` — consolidated core `Mitigation` registry, CR-01).
 **Interconnection** — what it influences and is influenced by (the reason it's in a graph).

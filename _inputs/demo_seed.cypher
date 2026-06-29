@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-28 16:44
+//    Built   : 2026-06-29 10:08
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -1214,7 +1214,7 @@ CREATE (mit01:Mitigation {
   id: 'MIT-01',
   name: 'Multi-launcher diversification strategy',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Contracted launch slots with SpaceX, Rocket Lab, and Arianespace providing 3 independent launch paths for Phase 3',
   owner: 'VP Launch Operations',
   source_entity: '',
@@ -1226,7 +1226,7 @@ CREATE (mit02:Mitigation {
   id: 'MIT-02',
   name: 'RF component dual-sourcing qualification',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Qualification of Airbus DS as second source for Ku/Ka transponder modules with framework contract negotiation',
   owner: 'VP Manufacturing & Supply Chain',
   source_entity: '',
@@ -1238,7 +1238,7 @@ CREATE (mit03:Mitigation {
   id: 'MIT-03',
   name: 'Satellite engineering talent retention program',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Equity incentive program, technical career ladder, and competitive retention packages for top 50 critical engineers',
   owner: 'HR Director',
   source_entity: '',
@@ -1250,7 +1250,7 @@ CREATE (mit04:Mitigation {
   id: 'MIT-04',
   name: 'Ground segment Zero Trust architecture',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Redesign of ground segment network following Zero Trust principles with micro-segmentation between IT and OT domains',
   owner: 'CISO',
   source_entity: '',
@@ -1262,7 +1262,7 @@ CREATE (mit05:Mitigation {
   id: 'MIT-05',
   name: 'Satellite command authentication hardening',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Implementation of post-quantum cryptographic command authentication with hardware security module key management',
   owner: 'CISO',
   source_entity: '',
@@ -1274,7 +1274,7 @@ CREATE (mit06:Mitigation {
   id: 'MIT-06',
   name: 'Enterprise customer success program',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Dedicated customer success managers for top-20 enterprise accounts with quarterly business reviews and SLA monitoring',
   owner: 'VP Sales',
   source_entity: '',
@@ -1286,7 +1286,7 @@ CREATE (mit07:Mitigation {
   id: 'MIT-07',
   name: 'Autonomous collision avoidance system',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'AI-driven autonomous collision avoidance using 18th Space Defense Squadron conjunction data with sub-1km threshold manoeuvres',
   owner: 'VP Launch Operations',
   source_entity: '',
@@ -1298,7 +1298,7 @@ CREATE (mit08:Mitigation {
   id: 'MIT-08',
   name: 'Payload software independent V&V program',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Independent verification and validation of payload reconfiguration software by third-party per ECSS-E-ST-40C',
   owner: 'Lead Software Architect',
   source_entity: '',
@@ -1310,7 +1310,7 @@ CREATE (mit09:Mitigation {
   id: 'MIT-09',
   name: 'AURORA optical link risk reduction campaign',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Pre-PDR breadboard testing and thermal vacuum simulation of optical terminal pointing mechanism',
   owner: 'AURORA Chief Engineer',
   source_entity: '',
@@ -1322,7 +1322,7 @@ CREATE (mit10:Mitigation {
   id: 'MIT-10',
   name: 'Supply chain hardware integrity verification',
   type: 'Dedicated',
-  status: 'Proposed',
+  status: 'recommended',
   description: 'X-ray inspection and firmware hash verification protocol for all mission-critical components received from tier-1 suppliers',
   owner: 'CISO',
   source_entity: '',
@@ -1334,7 +1334,7 @@ CREATE (mit11:Mitigation {
   id: 'MIT-11',
   name: 'Anti-jamming adaptive beam-forming',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Software-defined anti-jamming capability using adaptive null-steering on phased array to mitigate targeted RF interference',
   owner: 'VP Engineering',
   source_entity: '',
@@ -1346,7 +1346,7 @@ CREATE (mit12:Mitigation {
   id: 'MIT-12',
   name: 'Ransomware-specific incident response plan',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Dedicated ransomware playbook with offline backups, network isolation procedures, and pre-negotiated incident response retainer',
   owner: 'CISO',
   source_entity: '',
@@ -1358,9 +1358,115 @@ CREATE (mitcy1:Mitigation {
   id: 'MIT-CY1',
   name: 'Zero-trust VPN + MFA hardening',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Enforce MFA and device posture on the engineering VPN to reduce initial compromise',
   owner: 'CISO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smctrlrecovery:Mitigation {
+  id: 'SM-CTRL-RECOVERY',
+  name: 'Clean control-plane recovery capability',
+  type: 'Dedicated',
+  status: 'planned',
+  financial_effect: 'recovery_accelerating',
+  committed_budget: 1.5,
+  description: 'Offline golden images + rebuild runbook to restore legitimate control fast.',
+  owner: 'CISO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smidentitysplit:Mitigation {
+  id: 'SM-IDENTITY-SPLIT',
+  name: 'Denver/Dublin identity & PAM plane separation',
+  type: 'Dedicated',
+  status: 'planned',
+  financial_effect: 'impact_reducing',
+  committed_budget: 4.0,
+  description: 'Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.',
+  owner: 'CISO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smcleanbuild:Mitigation {
+  id: 'SM-CLEAN-BUILD',
+  name: 'Clean-build & unit re-verification line',
+  type: 'Dedicated',
+  status: 'recommended',
+  financial_effect: 'recovery_accelerating',
+  description: 'Re-qualify suspect Phase-4 units to certified-clean state.',
+  owner: 'VP Manufacturing & Supply Chain',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smplmintegrity:Mitigation {
+  id: 'SM-PLM-INTEGRITY',
+  name: 'PLM integrity monitoring & supplier access governance',
+  type: 'Dedicated',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Tamper-evidence on build/test/config records + supplier least-privilege.',
+  owner: 'CISO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smaccredenclave:Mitigation {
+  id: 'SM-ACCRED-ENCLAVE',
+  name: 'Audited accreditation enclave + remediation playbook',
+  type: 'Dedicated',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Isolated, continuously-audited accredited environment with a pre-cleared remediation plan.',
+  owner: 'VP Compliance & Quality',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smdualsource:Mitigation {
+  id: 'SM-DUAL-SOURCE',
+  name: 'RF dual-source + multi-launcher framework',
+  type: 'Dedicated',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Pre-negotiated second-source RF framework and multi-launcher slots (financial-layer counterpart of MIT-01 / MIT-02) plus buffer stock.',
+  owner: 'VP Manufacturing & Supply Chain',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smrevenuediversify:Mitigation {
+  id: 'SM-REVENUE-DIVERSIFY',
+  name: 'Commercial / government revenue diversification program',
+  type: 'Dedicated',
+  status: 'planned',
+  financial_effect: 'impact_reducing',
+  description: 'Reduce 30% gov-segment concentration; broaden commercial backlog.',
+  owner: 'VP Sales',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smauroraderisk:Mitigation {
+  id: 'SM-AURORA-DERISK',
+  name: 'AURORA optical-link risk-reduction campaign',
+  type: 'Dedicated',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Pre-PDR breadboard + thermal-vacuum testing of the optical pointing mechanism to retire ISL maturation risk early (financial-layer counterpart of MIT-09).',
+  owner: 'AURORA Chief Engineer',
   source_entity: '',
   created_at: datetime(),
   updated_at: datetime()
@@ -1372,7 +1478,7 @@ CREATE (mit13:Mitigation {
   id: 'MIT-13',
   name: 'Corporate SOC 24/7 monitoring',
   type: 'Inherited',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Shared Security Operations Center providing 24/7 threat detection, SIEM correlation, and incident response with SLA <15min',
   owner: 'CISO',
   source_entity: 'Corporate IT Security Division',
@@ -1384,7 +1490,7 @@ CREATE (mit14:Mitigation {
   id: 'MIT-14',
   name: 'Corporate financial planning and analysis process',
   type: 'Inherited',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Monthly rolling forecast, variance analysis, and cash flow monitoring with board-level escalation on >5% deviation',
   owner: 'CFO',
   source_entity: 'Corporate Finance',
@@ -1396,7 +1502,7 @@ CREATE (mit15:Mitigation {
   id: 'MIT-15',
   name: 'Corporate IT disaster recovery',
   type: 'Inherited',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Multi-region disaster recovery infrastructure with RTO 4h / RPO 1h for critical business systems',
   owner: 'IT Director',
   source_entity: 'Corporate IT Division',
@@ -1408,10 +1514,51 @@ CREATE (mit16:Mitigation {
   id: 'MIT-16',
   name: 'Corporate security awareness training',
   type: 'Inherited',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Mandatory quarterly security awareness training and monthly phishing simulation campaigns for all employees',
   owner: 'CISO',
   source_entity: 'Corporate HR & Security',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smcyberins:Mitigation {
+  id: 'SM-CYBER-INS',
+  name: 'Cyber insurance tower',
+  type: 'Inherited',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  coverage_amount: 50.0,
+  description: '$50M limit, $5M deductible, BI cover after 72h, war/state-actor exclusion (Canon: Insurance). Pays down financial impact but not attribution-disputed loss.',
+  owner: 'CFO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smbridgefacility:Mitigation {
+  id: 'SM-BRIDGE-FACILITY',
+  name: 'Committed bridge financing facility',
+  type: 'Inherited',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  coverage_amount: 60.0,
+  description: 'Drawable facility to hold FCF above the -$100M trigger ahead of the IPO.',
+  owner: 'CFO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smauroravariance:Mitigation {
+  id: 'SM-AURORA-VARIANCE',
+  name: 'AURORA stage-gate funding & budget variance control',
+  type: 'Inherited',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Release AURORA funds against PDR/sub-system stage-gates with monthly variance analysis, catching an overrun before it breaches the company FCF envelope (financial-layer counterpart of MIT-14).',
+  owner: 'CFO',
+  source_entity: '',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -1422,7 +1569,7 @@ CREATE (mit17:Mitigation {
   id: 'MIT-17',
   name: 'ECSS Space Product Assurance framework',
   type: 'Baseline',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Compliance with ECSS-Q-ST-20C (quality assurance) and ECSS-Q-ST-80C (software product assurance) for all flight hardware and software',
   owner: 'VP Compliance & Quality',
   source_entity: 'ECSS Standards',
@@ -1434,7 +1581,7 @@ CREATE (mit18:Mitigation {
   id: 'MIT-18',
   name: 'NIST Cybersecurity Framework implementation',
   type: 'Baseline',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Full implementation of NIST CSF 2.0 across all IT and OT systems with annual maturity assessment',
   owner: 'CISO',
   source_entity: 'NIST CSF 2.0',
@@ -1446,7 +1593,7 @@ CREATE (mit19:Mitigation {
   id: 'MIT-19',
   name: 'FCC regulatory compliance program',
   type: 'Baseline',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Systematic compliance tracking for all FCC license conditions with automated reporting and exception management',
   owner: 'VP Compliance & Quality',
   source_entity: 'FCC 47 CFR Parts 25 & 97',
@@ -1458,7 +1605,7 @@ CREATE (mit20:Mitigation {
   id: 'MIT-20',
   name: 'ITAR compliance management system',
   type: 'Baseline',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Comprehensive ITAR compliance program including technology control plans, deemed export procedures, and annual audit',
   owner: 'VP Compliance & Quality',
   source_entity: 'ITAR 22 CFR Parts 120-130',
@@ -1470,7 +1617,7 @@ CREATE (mit21:Mitigation {
   id: 'MIT-21',
   name: 'ISO 27001 ISMS certification',
   type: 'Baseline',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Certified Information Security Management System covering all ODT operations with annual surveillance audits',
   owner: 'CISO',
   source_entity: 'ISO/IEC 27001:2022',
@@ -2897,125 +3044,6 @@ CREATE (moga13:ContextNode {
 });
 
 // =============================================================================
-// SPICE — FINANCIAL / OPERATIONAL MITIGATIONS
-// =============================================================================
-
-CREATE (smcyberins:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-CYBER-INS',
-  name: 'Cyber insurance tower',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  coverage_amount: 50.0,
-  description: '$50M limit, $5M deductible, BI cover after 72h, war/state-actor exclusion (Canon: Insurance). Pays down financial impact but not attribution-disputed loss.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smctrlrecovery:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-CTRL-RECOVERY',
-  name: 'Clean control-plane recovery capability',
-  type: 'recovery_accelerating',
-  status: 'planned',
-  cost_capex: 1.5,
-  description: 'Offline golden images + rebuild runbook to restore legitimate control fast.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smidentitysplit:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-IDENTITY-SPLIT',
-  name: 'Denver/Dublin identity & PAM plane separation',
-  type: 'impact_reducing',
-  status: 'planned',
-  cost_capex: 4.0,
-  description: 'Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smcleanbuild:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-CLEAN-BUILD',
-  name: 'Clean-build & unit re-verification line',
-  type: 'recovery_accelerating',
-  status: 'recommended',
-  description: 'Re-qualify suspect Phase-4 units to certified-clean state.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smplmintegrity:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-PLM-INTEGRITY',
-  name: 'PLM integrity monitoring & supplier access governance',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  description: 'Tamper-evidence on build/test/config records + supplier least-privilege.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smaccredenclave:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-ACCRED-ENCLAVE',
-  name: 'Audited accreditation enclave + remediation playbook',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  description: 'Isolated, continuously-audited accredited environment with a pre-cleared remediation plan.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smdualsource:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-DUAL-SOURCE',
-  name: 'RF dual-source + multi-launcher framework',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  description: 'Pre-negotiated second-source RF framework and multi-launcher slots (financial-layer counterpart of MIT-01 / MIT-02) plus buffer stock.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smbridgefacility:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-BRIDGE-FACILITY',
-  name: 'Committed bridge financing facility',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  coverage_amount: 60.0,
-  description: 'Drawable facility to hold FCF above the -$100M trigger ahead of the IPO.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smrevenuediversify:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-REVENUE-DIVERSIFY',
-  name: 'Commercial / government revenue diversification program',
-  type: 'impact_reducing',
-  status: 'planned',
-  description: 'Reduce 30% gov-segment concentration; broaden commercial backlog.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smauroraderisk:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-AURORA-DERISK',
-  name: 'AURORA optical-link risk-reduction campaign',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  description: 'Pre-PDR breadboard + thermal-vacuum testing of the optical pointing mechanism to retire ISL maturation risk early (financial-layer counterpart of MIT-09).',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smauroravariance:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-AURORA-VARIANCE',
-  name: 'AURORA stage-gate funding & budget variance control',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  description: 'Release AURORA funds against PDR/sub-system stage-gates with monthly variance analysis, catching an overrun before it breaches the company FCF envelope (financial-layer counterpart of MIT-14).',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-
-// =============================================================================
 // SPICE — SCENARIOS  (bestiary families × best/realistic/pessimistic)
 // =============================================================================
 
@@ -3084,6 +3112,70 @@ CREATE (bsts1pessimistic:SpiceScenario {
   fcf_impact_total: -118.0,
   operational_recovery_days: 42,
   financial_recovery_years: 3,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bsts1bestmitigated:SpiceScenario {
+  id: 'BST-S1-best-mitigated',
+  name: 'NOC / Ground-Segment Compromise (best, mitigated)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000001',
+  version_number: 2,
+  case_type: 'best',
+  status_in_family: 'draft',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'Projected S1 with the two planned cyber controls funded (identity/PAM plane separation + clean control-plane recovery). Pessimistic FCF held above the -$100M liquidity trigger (-82 vs -118 base); the S1 → FN1 path is severed. Benefit vs base: FCF +22/+25/+36 (best/realistic/pessimistic).',
+  cause_type: 'security',
+  ebit_impact_y1: -20.0,
+  ebit_impact_y2: -3.0,
+  ebit_impact_total: -23.0,
+  fcf_impact_y1: -38.0,
+  fcf_impact_total: -38.0,
+  operational_recovery_days: 6,
+  financial_recovery_years: 1,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bsts1realisticmitigated:SpiceScenario {
+  id: 'BST-S1-realistic-mitigated',
+  name: 'NOC / Ground-Segment Compromise (realistic, mitigated)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000001',
+  version_number: 2,
+  case_type: 'realistic',
+  status_in_family: 'draft',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'Projected S1 with the two planned cyber controls funded (identity/PAM plane separation + clean control-plane recovery). Pessimistic FCF held above the -$100M liquidity trigger (-82 vs -118 base); the S1 → FN1 path is severed. Benefit vs base: FCF +22/+25/+36 (best/realistic/pessimistic).',
+  cause_type: 'security',
+  ebit_impact_y1: -32.0,
+  ebit_impact_y2: -8.0,
+  ebit_impact_total: -40.0,
+  fcf_impact_y1: -54.0,
+  fcf_impact_total: -54.0,
+  operational_recovery_days: 9,
+  financial_recovery_years: 2,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bsts1pessimisticmitigated:SpiceScenario {
+  id: 'BST-S1-pessimistic-mitigated',
+  name: 'NOC / Ground-Segment Compromise (pessimistic, mitigated)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000001',
+  version_number: 2,
+  case_type: 'pessimistic',
+  status_in_family: 'draft',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'Projected S1 with the two planned cyber controls funded (identity/PAM plane separation + clean control-plane recovery). Pessimistic FCF held above the -$100M liquidity trigger (-82 vs -118 base); the S1 → FN1 path is severed. Benefit vs base: FCF +22/+25/+36 (best/realistic/pessimistic).',
+  cause_type: 'security',
+  ebit_impact_y1: -46.0,
+  ebit_impact_y2: -14.0,
+  ebit_impact_y3: -4.0,
+  ebit_impact_total: -64.0,
+  fcf_impact_y1: -82.0,
+  fcf_impact_total: -82.0,
+  operational_recovery_days: 16,
+  financial_recovery_years: 2,
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -3464,7 +3556,7 @@ MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'BP-GEO'}
 CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-GA1', created_at: datetime()}]->(b);
 
 // =============================================================================
-// SPICE EDGES  (ADDRESSES / MITIGATED_BY_SPICE — realistic case)
+// SPICE EDGES  (ADDRESSES / MITIGATED_BY — realistic case)
 // =============================================================================
 
 MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'MO-S1-1'})
@@ -3473,100 +3565,100 @@ MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'MO-S1-2'}
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-S1-MO-S1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'MO-S1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-S1-MO-S1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'SM-CYBER-INS'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-S1-SM-CYBER-INS', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'SM-CTRL-RECOVERY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-S1-SM-CTRL-RECOVERY', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'SM-IDENTITY-SPLIT'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-S1-SM-IDENTITY-SPLIT', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Mitigation {id: 'SM-CYBER-INS'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-S1-SM-CYBER-INS', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Mitigation {id: 'SM-CTRL-RECOVERY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-S1-SM-CTRL-RECOVERY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Mitigation {id: 'SM-IDENTITY-SPLIT'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-S1-SM-IDENTITY-SPLIT', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'MO-SC1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-SC1-MO-SC1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'MO-SC1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-SC1-MO-SC1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'MO-SC1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-SC1-MO-SC1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'SM-CLEAN-BUILD'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-SC1-SM-CLEAN-BUILD', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'SM-PLM-INTEGRITY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-SC1-SM-PLM-INTEGRITY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:Mitigation {id: 'SM-CLEAN-BUILD'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-SC1-SM-CLEAN-BUILD', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:Mitigation {id: 'SM-PLM-INTEGRITY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-SC1-SM-PLM-INTEGRITY', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'MO-RG1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-RG1-MO-RG1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'MO-RG1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-RG1-MO-RG1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'MO-RG1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-RG1-MO-RG1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'SM-ACCRED-ENCLAVE'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-RG1-SM-ACCRED-ENCLAVE', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'SM-REVENUE-DIVERSIFY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-RG1-SM-REVENUE-DIVERSIFY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:Mitigation {id: 'SM-ACCRED-ENCLAVE'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-RG1-SM-ACCRED-ENCLAVE', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:Mitigation {id: 'SM-REVENUE-DIVERSIFY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-RG1-SM-REVENUE-DIVERSIFY', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:ContextNode {id: 'MO-GP1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GP1-MO-GP1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:ContextNode {id: 'MO-GP1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GP1-MO-GP1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:ContextNode {id: 'MO-GP1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GP1-MO-GP1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:ContextNode {id: 'SM-DUAL-SOURCE'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-GP1-SM-DUAL-SOURCE', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Mitigation {id: 'SM-DUAL-SOURCE'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-GP1-SM-DUAL-SOURCE', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'MO-FN1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-FN1-MO-FN1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'MO-FN1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-FN1-MO-FN1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'MO-FN1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-FN1-MO-FN1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'SM-BRIDGE-FACILITY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-FN1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'SM-CYBER-INS'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-FN1-SM-CYBER-INS', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:Mitigation {id: 'SM-BRIDGE-FACILITY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-FN1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:Mitigation {id: 'SM-CYBER-INS'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-FN1-SM-CYBER-INS', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'SM-AURORA-DERISK'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-GA1-SM-AURORA-DERISK', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'SM-AURORA-VARIANCE'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-GA1-SM-AURORA-VARIANCE', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'SM-BRIDGE-FACILITY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-GA1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Mitigation {id: 'SM-AURORA-DERISK'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-GA1-SM-AURORA-DERISK', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Mitigation {id: 'SM-AURORA-VARIANCE'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-GA1-SM-AURORA-VARIANCE', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Mitigation {id: 'SM-BRIDGE-FACILITY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-GA1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
 
 // =============================================================================
-// SPICE EDGES  (FULFILS — spice mitigation → objective)
+// SPICE EDGES  (FULFILS — mitigation → objective; re-homed CR-01)
 // =============================================================================
 
-MATCH (a:ContextNode {id: 'SM-CYBER-INS'}), (b:ContextNode {id: 'MO-FN1-2'})
+MATCH (a:Mitigation {id: 'SM-CYBER-INS'}), (b:ContextNode {id: 'MO-FN1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-CYBER-INS-MO-FN1-2', created_at: datetime(), contribution_weight: 80.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-CTRL-RECOVERY'}), (b:ContextNode {id: 'MO-S1-3'})
+MATCH (a:Mitigation {id: 'SM-CTRL-RECOVERY'}), (b:ContextNode {id: 'MO-S1-3'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-CTRL-RECOVERY-MO-S1-3', created_at: datetime(), contribution_weight: 90.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-IDENTITY-SPLIT'}), (b:ContextNode {id: 'MO-S1-1'})
+MATCH (a:Mitigation {id: 'SM-IDENTITY-SPLIT'}), (b:ContextNode {id: 'MO-S1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-IDENTITY-SPLIT-MO-S1-1', created_at: datetime(), contribution_weight: 100.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-IDENTITY-SPLIT'}), (b:ContextNode {id: 'MO-S1-2'})
+MATCH (a:Mitigation {id: 'SM-IDENTITY-SPLIT'}), (b:ContextNode {id: 'MO-S1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-IDENTITY-SPLIT-MO-S1-2', created_at: datetime(), contribution_weight: 40.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-CLEAN-BUILD'}), (b:ContextNode {id: 'MO-SC1-1'})
+MATCH (a:Mitigation {id: 'SM-CLEAN-BUILD'}), (b:ContextNode {id: 'MO-SC1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-CLEAN-BUILD-MO-SC1-1', created_at: datetime(), contribution_weight: 90.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-PLM-INTEGRITY'}), (b:ContextNode {id: 'MO-SC1-2'})
+MATCH (a:Mitigation {id: 'SM-PLM-INTEGRITY'}), (b:ContextNode {id: 'MO-SC1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-PLM-INTEGRITY-MO-SC1-2', created_at: datetime(), contribution_weight: 80.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-PLM-INTEGRITY'}), (b:ContextNode {id: 'MO-SC1-3'})
+MATCH (a:Mitigation {id: 'SM-PLM-INTEGRITY'}), (b:ContextNode {id: 'MO-SC1-3'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-PLM-INTEGRITY-MO-SC1-3', created_at: datetime(), contribution_weight: 50.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-ACCRED-ENCLAVE'}), (b:ContextNode {id: 'MO-RG1-1'})
+MATCH (a:Mitigation {id: 'SM-ACCRED-ENCLAVE'}), (b:ContextNode {id: 'MO-RG1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-ACCRED-ENCLAVE-MO-RG1-1', created_at: datetime(), contribution_weight: 70.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-ACCRED-ENCLAVE'}), (b:ContextNode {id: 'MO-RG1-2'})
+MATCH (a:Mitigation {id: 'SM-ACCRED-ENCLAVE'}), (b:ContextNode {id: 'MO-RG1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-ACCRED-ENCLAVE-MO-RG1-2', created_at: datetime(), contribution_weight: 60.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-DUAL-SOURCE'}), (b:ContextNode {id: 'MO-GP1-1'})
+MATCH (a:Mitigation {id: 'SM-DUAL-SOURCE'}), (b:ContextNode {id: 'MO-GP1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-DUAL-SOURCE-MO-GP1-1', created_at: datetime(), contribution_weight: 80.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-DUAL-SOURCE'}), (b:ContextNode {id: 'MO-GP1-3'})
+MATCH (a:Mitigation {id: 'SM-DUAL-SOURCE'}), (b:ContextNode {id: 'MO-GP1-3'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-DUAL-SOURCE-MO-GP1-3', created_at: datetime(), contribution_weight: 50.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-BRIDGE-FACILITY'}), (b:ContextNode {id: 'MO-FN1-1'})
+MATCH (a:Mitigation {id: 'SM-BRIDGE-FACILITY'}), (b:ContextNode {id: 'MO-FN1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-BRIDGE-FACILITY-MO-FN1-1', created_at: datetime(), contribution_weight: 70.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-BRIDGE-FACILITY'}), (b:ContextNode {id: 'MO-FN1-2'})
+MATCH (a:Mitigation {id: 'SM-BRIDGE-FACILITY'}), (b:ContextNode {id: 'MO-FN1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-BRIDGE-FACILITY-MO-FN1-2', created_at: datetime(), contribution_weight: 40.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-RG1-3'})
+MATCH (a:Mitigation {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-RG1-3'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-REVENUE-DIVERSIFY-MO-RG1-3', created_at: datetime(), contribution_weight: 60.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-FN1-1'})
+MATCH (a:Mitigation {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-FN1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-REVENUE-DIVERSIFY-MO-FN1-1', created_at: datetime(), contribution_weight: 20.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-AURORA-DERISK'}), (b:ContextNode {id: 'MO-GA1-1'})
+MATCH (a:Mitigation {id: 'SM-AURORA-DERISK'}), (b:ContextNode {id: 'MO-GA1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-AURORA-DERISK-MO-GA1-1', created_at: datetime(), contribution_weight: 80.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-AURORA-VARIANCE'}), (b:ContextNode {id: 'MO-GA1-2'})
+MATCH (a:Mitigation {id: 'SM-AURORA-VARIANCE'}), (b:ContextNode {id: 'MO-GA1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-AURORA-VARIANCE-MO-GA1-2', created_at: datetime(), contribution_weight: 75.0}]->(b);
 
 // =============================================================================
@@ -3675,10 +3767,8 @@ MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'RCY-02'})
 CREATE (o)-[:BEARS {id: 'BEARS-RCY-02', created_at: datetime()}]->(r);
 
 // =============================================================================
-// STEWARDS  (owner → mitigation | spice_mitigation; never a risk)
+// STEWARDS  (owner → mitigation; never a risk)
 // =============================================================================
-
-// --- Core mitigations ---
 
 MATCH (o:ContextNode {id: 'OWN-VPLO'}), (m:Mitigation {id: 'MIT-01'})
 CREATE (o)-[:STEWARDS {id: 'STW-MIT-01', created_at: datetime()}]->(m);
@@ -3724,29 +3814,27 @@ MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-21'})
 CREATE (o)-[:STEWARDS {id: 'STW-MIT-21', created_at: datetime()}]->(m);
 MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-CY1'})
 CREATE (o)-[:STEWARDS {id: 'STW-MIT-CY1', created_at: datetime()}]->(m);
-// --- SPICE mitigations ---
-
-MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:ContextNode {id: 'SM-CYBER-INS'})
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:Mitigation {id: 'SM-CYBER-INS'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-CYBER-INS', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:ContextNode {id: 'SM-CTRL-RECOVERY'})
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'SM-CTRL-RECOVERY'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-CTRL-RECOVERY', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:ContextNode {id: 'SM-IDENTITY-SPLIT'})
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'SM-IDENTITY-SPLIT'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-IDENTITY-SPLIT', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:ContextNode {id: 'SM-CLEAN-BUILD'})
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:Mitigation {id: 'SM-CLEAN-BUILD'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-CLEAN-BUILD', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:ContextNode {id: 'SM-PLM-INTEGRITY'})
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'SM-PLM-INTEGRITY'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-PLM-INTEGRITY', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:ContextNode {id: 'SM-ACCRED-ENCLAVE'})
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:Mitigation {id: 'SM-ACCRED-ENCLAVE'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-ACCRED-ENCLAVE', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:ContextNode {id: 'SM-DUAL-SOURCE'})
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:Mitigation {id: 'SM-DUAL-SOURCE'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-DUAL-SOURCE', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:ContextNode {id: 'SM-BRIDGE-FACILITY'})
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:Mitigation {id: 'SM-BRIDGE-FACILITY'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-BRIDGE-FACILITY', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (m:ContextNode {id: 'SM-REVENUE-DIVERSIFY'})
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (m:Mitigation {id: 'SM-REVENUE-DIVERSIFY'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-REVENUE-DIVERSIFY', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-ACE'}), (m:ContextNode {id: 'SM-AURORA-DERISK'})
+MATCH (o:ContextNode {id: 'OWN-ACE'}), (m:Mitigation {id: 'SM-AURORA-DERISK'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-AURORA-DERISK', created_at: datetime()}]->(m);
-MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:ContextNode {id: 'SM-AURORA-VARIANCE'})
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:Mitigation {id: 'SM-AURORA-VARIANCE'})
 CREATE (o)-[:STEWARDS {id: 'STW-SM-AURORA-VARIANCE', created_at: datetime()}]->(m);
 
 
@@ -3839,11 +3927,27 @@ RETURN s.id AS Scenario, r.id AS BusinessRisk, bp.id AS Perimeter
 ORDER BY Scenario;
 
 // Mitigation-objective fulfilment: total declared contribution per objective
-// (MAY exceed 100% — surfaced as over-coverage, not an error)
-MATCH (sm:ContextNode {node_type: 'spice_mitigation'})-[f:FULFILS]->(o:ContextNode {node_type: 'mitigation_objective'})
+// (MAY exceed 100% — surfaced as over-coverage, not an error). CR-01: FULFILS now
+// originates from the consolidated core Mitigation registry.
+MATCH (m:Mitigation)-[f:FULFILS]->(o:ContextNode {node_type: 'mitigation_objective'})
 RETURN o.id AS Objective, o.name AS Name,
-       collect(sm.id) AS Mitigations, sum(f.contribution_weight) AS TotalWeightPct
+       collect(m.id) AS Mitigations, sum(f.contribution_weight) AS TotalWeightPct
 ORDER BY Objective;
+
+// CR-01 consolidation check: financial-layer controls (carry FULFILS and/or a
+// MITIGATED_BY citation) are now core Mitigation nodes. List them with their
+// financial_effect, lifecycle status, and committed/coverage figures.
+MATCH (m:Mitigation)
+WHERE m.financial_effect IS NOT NULL
+RETURN m.id AS Mitigation, m.type AS Type, m.status AS Status,
+       m.financial_effect AS FinancialEffect,
+       m.committed_budget AS CommittedBudget, m.coverage_amount AS Coverage
+ORDER BY m.id;
+
+// Scenario mitigated-re-assessment citations (MITIGATED_BY → Mitigation)
+MATCH (s:SpiceScenario)-[:MITIGATED_BY]->(m:Mitigation)
+RETURN s.id AS Scenario, collect(m.id) AS CitedMitigations
+ORDER BY Scenario;
 
 // Convergence proof: every scenario family ultimately illustrates a risk that
 // influences the IPO objective (TCO-04) — the bestiary thesis. TCO-04 is the

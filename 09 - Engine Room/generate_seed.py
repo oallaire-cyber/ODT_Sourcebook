@@ -119,6 +119,19 @@ def mitigation_node(m: dict) -> str:
         f"  name: {cypher_val(m['name'])}",
         f"  type: {cypher_val(m['type'])}",
         f"  status: {cypher_val(m['status'])}",
+    ]
+    # CR-01 consolidated financial-layer attribute (nullable; null = operational-only)
+    if m.get("financial_effect") is not None:
+        lines.append(f"  financial_effect: {cypher_val(m['financial_effect'])}")
+    # ROCE / budget inputs — emitted only where a figure is known
+    for fld in ("capex", "opex", "committed_budget", "coverage_amount"):
+        if m.get(fld) is not None:
+            lines.append(f"  {fld}: {cypher_val(float(m[fld]))}")
+    if m.get("target_date") is not None:
+        lines.append(f"  target_date: date({cypher_val(m['target_date'])})")
+    if m.get("roadmap_ref") is not None:
+        lines.append(f"  roadmap_ref: {cypher_val(m['roadmap_ref'])}")
+    lines += [
         f"  description: {cypher_val(m.get('description', ''))}",
         f"  owner: {cypher_val(m.get('owner', ''))}",
         f"  source_entity: {cypher_val(m.get('source_entity', ''))}",
@@ -161,7 +174,7 @@ def spice_scenario_node(s: dict) -> str:
         f"  id: {cypher_val(s['id'])}",
         f"  name: {cypher_val(s['name'])}",
         f"  scenario_family_id: {cypher_val(s['family_id'])}",
-        f"  version_number: 1",
+        f"  version_number: {int(s.get('version_number', 1))}",
         f"  case_type: {cypher_val(s['case_type'])}",
         f"  status_in_family: {cypher_val(s['status_in_family'])}",
         f"  assessment_date: date({cypher_val(s['assessment_date'])})",
@@ -205,23 +218,6 @@ def mitigation_objective_node(o: dict) -> str:
         lines.append(f"  effectiveness_rank: {int(o['effectiveness_rank'])}")
     lines += ["  created_at: datetime()", "  updated_at: datetime()"]
     return f"CREATE ({_var(o['id'])}:ContextNode {{\n" + ",\n".join(lines) + "\n});"
-
-
-def spice_mitigation_node(m: dict) -> str:
-    lines = [
-        f"  node_type: 'spice_mitigation'",
-        f"  id: {cypher_val(m['id'])}",
-        f"  name: {cypher_val(m['name'])}",
-        f"  type: {cypher_val(m.get('type', 'impact_reducing'))}",
-        f"  status: {cypher_val(m.get('status', 'ongoing'))}",
-    ]
-    for fld in ("cost_opex", "cost_capex", "effectiveness_pct", "coverage_amount"):
-        if m.get(fld) is not None:
-            lines.append(f"  {fld}: {cypher_val(float(m[fld]))}")
-    if m.get("description"):
-        lines.append(f"  description: {cypher_val(m['description'])}")
-    lines += ["  created_at: datetime()", "  updated_at: datetime()"]
-    return f"CREATE ({_var(m['id'])}:ContextNode {{\n" + ",\n".join(lines) + "\n});"
 
 
 def owner_node(o: dict) -> str:
@@ -337,7 +333,7 @@ def bears(owner_id: str, risk_id: str, edge_id: str) -> str:
 
 
 def stewards(owner_id: str, tgt_id: str, tgt_label: str, edge_id: str) -> str:
-    """STEWARDS  owner -> Mitigation | SpiceMitigation  (execution; never a Risk)."""
+    """STEWARDS  owner -> Mitigation  (execution accountability; never a Risk)."""
     return (
         f"MATCH (o:ContextNode {{id: '{esc(owner_id)}'}}), "
         f"(m:{tgt_label} {{id: '{esc(tgt_id)}'}})\n"
@@ -348,7 +344,7 @@ def stewards(owner_id: str, tgt_id: str, tgt_label: str, edge_id: str) -> str:
 def spice_edge(rel: str, src_id: str, src_label: str, tgt_id: str,
                tgt_label: str, edge_id: str, extra: str = "") -> str:
     """Generic SPICE-layer edge (ILLUSTRATES / CAUSED_BY / ASSESSED_AGAINST /
-    OCCURS_AT / ADDRESSES / MITIGATED_BY_SPICE / FULFILS)."""
+    OCCURS_AT / ADDRESSES / MITIGATED_BY / FULFILS)."""
     return (
         f"MATCH (a:{src_label} {{id: '{esc(src_id)}'}}), "
         f"(b:{tgt_label} {{id: '{esc(tgt_id)}'}})\n"
@@ -448,11 +444,27 @@ RETURN s.id AS Scenario, r.id AS BusinessRisk, bp.id AS Perimeter
 ORDER BY Scenario;
 
 // Mitigation-objective fulfilment: total declared contribution per objective
-// (MAY exceed 100% — surfaced as over-coverage, not an error)
-MATCH (sm:ContextNode {node_type: 'spice_mitigation'})-[f:FULFILS]->(o:ContextNode {node_type: 'mitigation_objective'})
+// (MAY exceed 100% — surfaced as over-coverage, not an error). CR-01: FULFILS now
+// originates from the consolidated core Mitigation registry.
+MATCH (m:Mitigation)-[f:FULFILS]->(o:ContextNode {node_type: 'mitigation_objective'})
 RETURN o.id AS Objective, o.name AS Name,
-       collect(sm.id) AS Mitigations, sum(f.contribution_weight) AS TotalWeightPct
+       collect(m.id) AS Mitigations, sum(f.contribution_weight) AS TotalWeightPct
 ORDER BY Objective;
+
+// CR-01 consolidation check: financial-layer controls (carry FULFILS and/or a
+// MITIGATED_BY citation) are now core Mitigation nodes. List them with their
+// financial_effect, lifecycle status, and committed/coverage figures.
+MATCH (m:Mitigation)
+WHERE m.financial_effect IS NOT NULL
+RETURN m.id AS Mitigation, m.type AS Type, m.status AS Status,
+       m.financial_effect AS FinancialEffect,
+       m.committed_budget AS CommittedBudget, m.coverage_amount AS Coverage
+ORDER BY m.id;
+
+// Scenario mitigated-re-assessment citations (MITIGATED_BY → Mitigation)
+MATCH (s:SpiceScenario)-[:MITIGATED_BY]->(m:Mitigation)
+RETURN s.id AS Scenario, collect(m.id) AS CitedMitigations
+ORDER BY Scenario;
 
 // Convergence proof: every scenario family ultimately illustrates a risk that
 // influences the IPO objective (TCO-04) — the bestiary thesis. TCO-04 is the
@@ -676,27 +688,28 @@ MATCH (n) DETACH DELETE n;
     spice = wb.get("spice", {})
     families = spice.get("families", [])
     mobjs = spice.get("mitigation_objectives", [])
-    smits = spice.get("spice_mitigations", [])
     default_assess = spice.get("assessment_date", "2028-02-15")
+
+    # CR-01: the financial/operational controls (ex-SpiceMitigation) now live in the
+    # single core `mitigations:` register. The ones carrying FULFILS / scenario
+    # citations are exactly those with a `fulfils` block (financial-layer effect).
+    fulfilling_mits = [m for m in mits if m.get("fulfils")]
 
     n_spice_scen = 0
     n_spice_edges = 0
 
-    if families or mobjs or smits:
+    if families or mobjs:
         out.append(banner("SPICE — MITIGATION OBJECTIVES (ADDRESSES targets)"))
         for o in mobjs:
             out.append(mitigation_objective_node(o))
-        out.append("")
-
-        out.append(banner("SPICE — FINANCIAL / OPERATIONAL MITIGATIONS"))
-        for m in smits:
-            out.append(spice_mitigation_node(m))
         out.append("")
 
         out.append(banner("SPICE — SCENARIOS  (bestiary families × best/realistic/pessimistic)"))
         realistic_id: dict[str, str] = {}
         for fam in families:
             out.append(sub_banner(f"{fam['scenario_id']} — {fam['name']}"))
+            # Base (assessed) version — version_number 1.
+            base_status = fam.get("base_status_in_family", "current")
             for case_type in ("best", "realistic", "pessimistic"):
                 c = fam["cases"][case_type]
                 node_id = f"{fam['scenario_id']}-{case_type}"
@@ -706,8 +719,9 @@ MATCH (n) DETACH DELETE n;
                     "id": node_id,
                     "name": f"{fam['name']} ({case_type})",
                     "family_id": fam["family_id"],
+                    "version_number": 1,
                     "case_type": case_type,
-                    "status_in_family": "current",
+                    "status_in_family": base_status,
                     "assessment_date": fam.get("assessment_date", default_assess),
                     "validated": fam.get("validated", "business"),
                     "cause_description": fam.get("cause_description"),
@@ -721,6 +735,38 @@ MATCH (n) DETACH DELETE n;
                 }
                 out.append(spice_scenario_node(s))
                 n_spice_scen += 1
+
+            # CR-01 §C4 — analyst-authored mitigated re-assessment as a new VERSION,
+            # per case. Same scenario_family_id; benefit = base − mitigated is computed
+            # by RIM across versions. Realised-vs-projected (which version is `current`)
+            # is encoded by the workbook: planned/recommended controls → base stays
+            # `current` and the mitigated version is a `draft` projection.
+            mit = fam.get("mitigated")
+            if mit:
+                mit_status = mit.get("status_in_family", "draft")
+                mit_ver = int(mit.get("version_number", 2))
+                for case_type in ("best", "realistic", "pessimistic"):
+                    mc = mit["cases"][case_type]
+                    s = {
+                        "id": f"{fam['scenario_id']}-{case_type}-mitigated",
+                        "name": f"{fam['name']} ({case_type}, mitigated)",
+                        "family_id": fam["family_id"],
+                        "version_number": mit_ver,
+                        "case_type": case_type,
+                        "status_in_family": mit_status,
+                        "assessment_date": fam.get("assessment_date", default_assess),
+                        "validated": fam.get("validated", "business"),
+                        "cause_description": mit.get("note") or fam.get("cause_description"),
+                        "cause_type": fam.get("cause_type"),
+                        "hypothesis": fam.get("hypothesis"),
+                        "ebit": mc["ebit"],
+                        "fcf": mc["fcf"],
+                        "crisis_days": mc.get("crisis_days"),
+                        "op_recovery_days": mc.get("op_recovery_days"),
+                        "fin_recovery_years": mc["fin_recovery_years"],
+                    }
+                    out.append(spice_scenario_node(s))
+                    n_spice_scen += 1
             out.append("")
 
         out.append(banner("SPICE EDGES  (ILLUSTRATES / CAUSED_BY / ASSESSED_AGAINST / OCCURS_AT)"))
@@ -742,30 +788,35 @@ MATCH (n) DETACH DELETE n;
                 n_spice_edges += 1
         out.append("")
 
-        out.append(banner("SPICE EDGES  (ADDRESSES / MITIGATED_BY_SPICE — realistic case)"))
+        out.append(banner("SPICE EDGES  (ADDRESSES / MITIGATED_BY — realistic case)"))
+        # MITIGATED_BY (CR-01, renamed from MITIGATED_BY_SPICE): SpiceScenario → Mitigation,
+        # the direct "cited in this scenario's mitigated re-assessment" link. The target is
+        # the consolidated core Mitigation node (same SM-* id, now in `mitigations:`).
         for fam in families:
             rid, sid = realistic_id[fam["scenario_id"]], fam["scenario_id"]
             for mo in fam.get("addresses", []):
                 out.append(spice_edge("ADDRESSES", rid, "SpiceScenario", mo, "ContextNode", f"ADR-{sid}-{mo}"))
                 n_spice_edges += 1
             for sm in fam.get("mitigated_by", []):
-                out.append(spice_edge("MITIGATED_BY_SPICE", rid, "SpiceScenario", sm, "ContextNode", f"MBS-{sid}-{sm}"))
+                out.append(spice_edge("MITIGATED_BY", rid, "SpiceScenario", sm, "Mitigation", f"MBY-{sid}-{sm}"))
                 n_spice_edges += 1
         out.append("")
 
-        out.append(banner("SPICE EDGES  (FULFILS — spice mitigation → objective)"))
-        for m in smits:
+        out.append(banner("SPICE EDGES  (FULFILS — mitigation → objective; re-homed CR-01)"))
+        # FULFILS now runs from the core Mitigation registry (CR-01 §C3): from_node Mitigation.
+        for m in fulfilling_mits:
             for fl in m.get("fulfils", []):
                 w = fl.get("contribution_weight")
                 extra = f", contribution_weight: {cypher_val(float(w))}" if w is not None else ""
-                out.append(spice_edge("FULFILS", m["id"], "ContextNode", fl["objective"], "ContextNode", f"FUL-{m['id']}-{fl['objective']}", extra))
+                out.append(spice_edge("FULFILS", m["id"], "Mitigation", fl["objective"], "ContextNode", f"FUL-{m['id']}-{fl['objective']}", extra))
                 n_spice_edges += 1
         out.append("")
 
     # ── OWNER ACCOUNTABILITY EDGES (BEARS / STEWARDS) ──────────────────────────
     # Emitted after every Risk / Mitigation / SpiceScenario-layer node exists.
     # BEARS    = each risk's single `owner` string  → one bearer per risk.
-    # STEWARDS = each (spice_)mitigation's `owner`   → never targets a Risk.
+    # STEWARDS = each mitigation's `owner`          → never targets a Risk
+    #            (CR-01: single consolidated Mitigation registry — one loop).
     n_bears = n_stewards = 0
     missing_keys: list[str] = []
 
@@ -788,18 +839,11 @@ MATCH (n) DETACH DELETE n;
                 n_bears += 1
         out.append("")
 
-        out.append(banner("STEWARDS  (owner → mitigation | spice_mitigation; never a risk)"))
-        out.append(sub_banner("Core mitigations"))
+        out.append(banner("STEWARDS  (owner → mitigation; never a risk)"))
         for m in mits:
             oid = resolve(m.get("owner", ""), f"mitigation {m['id']}")
             if oid:
                 out.append(stewards(oid, m["id"], "Mitigation", f"STW-{m['id']}"))
-                n_stewards += 1
-        out.append(sub_banner("SPICE mitigations"))
-        for m in smits:
-            oid = resolve(m.get("owner", ""), f"spice_mitigation {m['id']}")
-            if oid:
-                out.append(stewards(oid, m["id"], "ContextNode", f"STW-{m['id']}"))
                 n_stewards += 1
         out.append("")
 
@@ -818,10 +862,12 @@ MATCH (n) DETACH DELETE n;
     n_rels = sum(len(rels.get(k, [])) for k in
                  ("contributes_to", "impacts_tco", "influences",
                   "impacts_tpo", "mitigates", "context_edges"))
+    n_fin_mits = len(fulfilling_mits)
     print(f"OK Generated {OUTPUT.name}")
-    print(f"   {n_lines} lines  |  {n_risks} risks  |  {n_mits} mitigations  |  {n_rels} relationships")
+    print(f"   {n_lines} lines  |  {n_risks} risks  |  {n_mits} mitigations "
+          f"({n_fin_mits} financial-layer, ex-SpiceMitigation)  |  {n_rels} relationships")
     print(f"   SPICE: {n_spice_scen} scenario cases  |  {len(mobjs)} mitigation objectives  |  "
-          f"{len(smits)} spice mitigations  |  {n_spice_edges} spice edges")
+          f"{n_spice_edges} spice edges")
     print(f"   OWNERS: {len(owners)} owner nodes  |  {n_bears} BEARS  |  {n_stewards} STEWARDS")
 
 

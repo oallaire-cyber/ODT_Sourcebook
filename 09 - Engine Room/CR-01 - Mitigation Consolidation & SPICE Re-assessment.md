@@ -1,12 +1,15 @@
 ---
 type: change-request
 sourcebook-line: "09 - Engine Room"
-status: new
-tags: [engine-room, change-request, schema, mitigation, spice, status/new]
+status: applied
+tags: [engine-room, change-request, schema, mitigation, spice, status/applied]
 aliases: ["CR-01", "Mitigation Consolidation CR"]
 ---
 # 📑 CR-01 — Mitigation Consolidation & SPICE Re-assessment Model
-> **From:** ODT Sourcebook (data/narrative) · **To:** RIM platform (schema owner) · **Raised:** 2026-06-28 · **Status:** `Submitted — awaiting schema alignment` · **Drives:** Wave 3 / **W2** (controls portfolio + decision support)
+> **From:** ODT Sourcebook (data/narrative) · **To:** RIM platform (schema owner) · **Raised:** 2026-06-28 · **Status:** ✅ `Applied (2026-06-29)` — RIM aligned the schema + confirmed all 3 §5 items; ODT ran the §7 regeneration · **Drives:** Wave 3 / **W2** (controls portfolio + decision support)
+
+> [!success] Applied 2026-06-29 — §7 regeneration complete
+> RIM aligned `schema.yaml` and confirmed §5: **(1)** `MITIGATED_BY` rename accepted (drop `_SPICE`, `SpiceScenario → Mitigation`); **(2)** `effectiveness_pct` retired; **(3)** `deferred` folded into `recommended`. ODT then executed §7: schema synced · 11 `SM-*` merged into the single `mitigations:` register (status **existing 13 / on-going 15 / planned 3 / recommended 2**, `financial_effect` on the 11, `committed_budget` 4.0/1.5 on the planned S1 controls) · `FULFILS` re-homed to `Mitigation` (17 edges) · `MITIGATED_BY` renamed (13 edges) · `STEWARDS` collapsed to one loop (33) · `SpiceMitigation` emission dropped · **S1 mitigated version (v2, `draft`)** authored (pess FCF −118 → −82, S1→FN1 severed; owner-confirmed Moderate-strong). Seed regenerated → 3987 lines. See the [[Data Dictionary]] + [[Canon & Figures Register]].
 >
 > *Cross-project process per `CLAUDE.md` → "Working with the RIM project": CRs may originate from either side; **RIM is the leading project and the authoritative tracker** of this exchange. This ODT-side copy is the draft spec; the agreed position lives in RIM's exchange log.*
 
@@ -127,5 +130,6 @@ Once RIM aligns the schema, the ODT side will:
 6. This is the **W2 controls portfolio** deliverable; it then feeds **W7** (the first worked decision = D1).
 
 ## Changelog
+- 2026-06-29: **APPLIED — §7 regeneration complete.** RIM confirmed the schema alignment (the staged `_inputs/schema.yaml` matches the agreed contract) and all three §5 items (`MITIGATED_BY` rename ✓ · `effectiveness_pct` retire ✓ · `deferred`→`recommended` ✓). ODT executed §7: **(2)** merged the 11 `spice_mitigations:` into `mitigations:` per the §4 map (status existing 13 / on-going 15 / planned 3 / recommended 2; `financial_effect` on the 11; the two planned S1 controls carry `committed_budget` 4.0/1.5 not `capex`, per §C2); **(3)** `generate_seed.py` — `mitigation_node` emits the new fields, `FULFILS` re-homed to `Mitigation` (17 edges), `MITIGATED_BY_SPICE`→`MITIGATED_BY`→`Mitigation` (13 edges), `STEWARDS` single loop (33), `SpiceMitigation` emission + node fn removed, VERIFY queries updated; **(4)** authored the **S1 three-case mitigated version** (v2, `draft` projection — controls are `planned`; pess FCF −118→−82 holds above −100, S1→FN1 severed; owner chose *Moderate-strong*, 2026-06-29); **(5)** regenerated `demo_seed.cypher` (3987 lines, 21 SPICE cases), updated [[Data Dictionary]] + [[Canon & Figures Register]] (S1 control costs reframed `cost_capex`→`committed_budget`; new S1 mitigated re-assessment table). **W2 controls portfolio DONE.** Modelling decisions recorded: ex-SPICE control `type` = Inherited for corporate financial instruments (insurance tower, bridge facility, AURORA variance control), Dedicated for the rest; `MITIGATED_BY` kept on the realistic base case (one citation per family); SM-CYBER-INS cited but ~0 projected contribution (state-actor exclusion).
 - 2026-06-28: **Reflected dual-acting controls** (owner note). A single `Mitigation` may carry **both** `MITIGATES` (exposure: severity/likelihood) **and** the financial citation (consequence duration → FCF) — e.g. a BCP or a buffer-stock increase. RIM already supports this; reframed C1 into three patterns (operational-only / financial-only / dual-acting), decoupled `financial_effect` from `MITIGATES`, and noted dual-acting controls are authored in the W2 population pass (not at migration).
 - 2026-06-28: **CR-01 drafted** from the RIM project's answers to the four design questions (Q1 full consolidation · Q2 versioned mitigated scenario per case · Q3 additive scenario↔mitigation edge · Q4 status enum {existing/on-going/planned/recommended} + distinct budget fields). Current-state inventory + exact legacy→new migration map captured from `_inputs/workbook.yaml`. Status `Submitted` — awaiting RIM schema alignment, then the W2 regeneration pass (§7).

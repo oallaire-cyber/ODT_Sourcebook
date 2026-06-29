@@ -48,18 +48,18 @@ The two controls are **`status: planned`** — decided in principle, **un-capita
 > Benefit = base − mitigated scenario impact (per case); ROCE = benefit ÷ Σ capex of the cited controls. The analyst authors only the **mitigated version** (§6) and the **capex** per control; the RIM derives the ratio. Until the controls are funded, that benefit is a **projection** (CR-01's realised-vs-projected rule).
 
 ## 6. Before / after on the graph
-The mechanism CR-01 §C4 formalises: a **fund** decision authors a **mitigated version** of the S1 family (per case); the base stays visible as `superseded`.
+The mechanism CR-01 §C4 formalises: the analyst authors a **mitigated version** of the S1 family (per case). While the controls are `planned` it is a **projection** (`status_in_family: draft`) and the **base stays `current`**; a **fund** decision (this one) is what flips the mitigated version to `current` and the base to `superseded`, keeping the before/after visible.
 
-| | **Before** (`current` base version) | **After** (projected mitigated version) |
+| | **Before** (`current` base version, v1) | **After** (projected mitigated version, v2 `draft`) |
 |---|---|---|
-| S1 realistic FCF | −$79M | improved (controls reduce duration/blast-radius) |
-| **S1 pessimistic FCF** | **−$118M → breaches −$100M** | **held above −$100M** |
+| S1 realistic FCF | −$79M | **−$54M** (controls reduce duration/blast-radius) |
+| **S1 pessimistic FCF** | **−$118M → breaches −$100M** | **−$82M (held above −$100M)** |
 | S1 → FN1 path | **live** (cyber reaches the IPO sink) | **severed** |
-| SM-IDENTITY-SPLIT / SM-CTRL-RECOVERY | `planned`, un-capitalised | `funded → on-going → existing` |
+| SM-IDENTITY-SPLIT / SM-CTRL-RECOVERY | `planned`, un-capitalised (`committed_budget`) | `funded → on-going → existing` (→ `capex`) |
 | Which version is `current` | the **base** (controls not yet realised) | becomes `current` **once funded & deployed** |
 
-> [!important] Projection until funded
-> Because the controls are *planned*, the mitigated version is the **"benefit if funded"** projection that justifies the spend — exactly the thing the ROC is deciding. Approving DM-01 is what turns the projection into the realised, `current` state. *(Graph mutation lands in the seed once [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]] aligns the schema; the figures here are already canonical.)*
+> [!important] Projection until funded — now live on the graph
+> Because the controls are *planned*, the mitigated version is the **"benefit if funded"** projection that justifies the spend — exactly the thing the ROC is deciding. Approving DM-01 is what turns the projection into the realised, `current` state. *(**Now in the seed** — [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]] Applied 2026-06-29: the S1 family carries a `version_number 2`, `status_in_family: draft` mitigated re-assessment per case — pessimistic FCF −118 → **−82**, realistic −79 → −54, best −60 → −38. Base v1 stays `current` until the controls are funded.)*
 
 ## 7. Decision, owners & conditions
 - **Recommendation: APPROVE Option A now** — the highest-leverage decision in the portfolio.
@@ -71,7 +71,7 @@ The mechanism CR-01 §C4 formalises: a **fund** decision authors a **mitigated v
   4. Note the **CISO owner concentration** ([[Annex - Risk & Opportunity Committee|DM-06]]): the steward of these controls already bears 16/50 risks.
 
 ## 8. Follow-through
-Logged in the [[Annex - Risk & Opportunity Committee#6. The Decision Log|ROC Decision Log]] as **DM-01 (Worked)**. Feeds: the seed-level before/after (pending [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]]); the [[Sponsor One-Pager - Pricing the Cyber Tail|sponsor one-pager]] and [[Sponsor Live Demo Script - Animating the Risk Graph|live demo]] (same spine); [[THE NUMBER - Season 2 (mitigation)|THE NUMBER S2]] (the dramatised version of this exact decision).
+Logged in the [[Annex - Risk & Opportunity Committee#6. The Decision Log|ROC Decision Log]] as **DM-01 (Worked)**. Feeds: the seed-level before/after (**now live** — [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]] Applied 2026-06-29, S1 v2 mitigated version in `demo_seed.cypher`); the [[Sponsor One-Pager - Pricing the Cyber Tail|sponsor one-pager]] and [[Sponsor Live Demo Script - Animating the Risk Graph|live demo]] (same spine); [[THE NUMBER - Season 2 (mitigation)|THE NUMBER S2]] (the dramatised version of this exact decision).
 
 ## Changelog
 - 2026-06-28: **DM-01 created (W7).** First fully worked ROC management decision — fund the ~$5.5M S1 cyber control tower vs accept the tail — as a before/after on the graph (base vs projected mitigated version, per [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]] §C4). Options A/B/C, ~12× return, owners (CISO steward / CFO fund / CEO sponsor), conditions (pair with DM-02; milestone-gated release). Seeded from the [[ODT Risk Status & Executive Decision Brief - 2026-06-28|risk brief]] §7 D1. All figures canon-cited; no new canon. Graph mutation pending CR-01 schema alignment. Target tier **L2**.

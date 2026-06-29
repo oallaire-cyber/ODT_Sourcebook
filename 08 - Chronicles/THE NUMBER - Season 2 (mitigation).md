@@ -15,7 +15,7 @@ tags: [chronicle, season-2, mitigation, status/new]
 > [!important] The pivot from S1
 > S1 was **quantification** — turning "we're afraid of a cyber attack" into a priced distribution. S2 is **decision-support** — turning that distribution into a *defensible spend*. The hero of S2 is not the threat; it is **the residual loss after mitigation**, and the proof that money moved the curve.
 
-Pinned to S1's mitigation objectives — **MO-S1-1 / MO-S1-2 / MO-S1-3** (the three controls the S1 stat-block names) plus the financial-layer **MO-FN1-1 / MO-FN1-2** — and dramatised through the three S1 `spice_mitigation`s: **SM-IDENTITY-SPLIT**, **SM-CTRL-RECOVERY**, **SM-CYBER-INS**.
+Pinned to S1's mitigation objectives — **MO-S1-1 / MO-S1-2 / MO-S1-3** (the three controls the S1 stat-block names) plus the financial-layer **MO-FN1-1 / MO-FN1-2** — and dramatised through the three S1 controls (core `Mitigation` registry, CR-01): **SM-IDENTITY-SPLIT**, **SM-CTRL-RECOVERY**, **SM-CYBER-INS**.
 
 ---
 
@@ -69,7 +69,7 @@ Same core as [[THE NUMBER - Season 1 (external)|Season 1]] — [[Maya Okonkwo (F
 S2 is the **mitigation mirror** of S1: same scenario family, now read through `ADDRESSES` (MO-S1-1/2/3) and `MITIGATED_BY_SPICE` (SM-IDENTITY-SPLIT / SM-CTRL-RECOVERY / SM-CYBER-INS). Its through-line is the S1→FN1 edge: by pulling the **pessimistic FCF case back above −$100M**, the season *severs* the path from cyber event to [[BST-FN1 IPO Window Collapse (Financial)|FN1]] — i.e. it dramatises a mitigation **breaking an influence edge**, the single most important thing RIM lets a board do. Tees up the beyond-cyber spin-offs in [[Chronicles Index]].
 
 ## Governance note
-Both sides of S2's return are now canonical: the **avoided loss** (S1 case deltas, the −$100M trigger, the $50M insurance limit) and the **control spend** — SM-IDENTITY-SPLIT **~$4M** + SM-CTRL-RECOVERY **~$1.5M** one-time `cost_capex` (USD_M), set canon-first and carried in `demo_seed.cypher`. So the return ratio is quantitative (~12× on the realistic tail). Tracked as **ENH-06** (Applied) in [[Canon Change & Issue Register]]. *(Figures are order-of-magnitude by design, Rule 6.)*
+Both sides of S2's return are now canonical: the **avoided loss** (S1 case deltas, the −$100M trigger, the $50M insurance limit) and the **control spend** — SM-IDENTITY-SPLIT **~$4M** + SM-CTRL-RECOVERY **~$1.5M** one-time (USD_M), carried as **`committed_budget`** while the controls are `planned` (→ `capex` on funding; CR-01), set canon-first in `demo_seed.cypher`. So the return ratio is quantitative (~12× on the realistic tail). The S2 payoff is now also a literal graph object: the **S1 mitigated version** (v2, projection) holds pessimistic FCF at **−82** (above −100), severing S1→FN1. Tracked as **ENH-06** (Applied) in [[Canon Change & Issue Register]]; the consolidation/version mechanism is **CR-01** (Applied). *(Figures are order-of-magnitude by design, Rule 6.)*
 
 ---
 *Changelog*
