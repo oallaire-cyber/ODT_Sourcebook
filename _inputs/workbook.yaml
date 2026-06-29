@@ -89,6 +89,9 @@ risks:
     severity: 8.0
     exposure: 32.0
     review_days: 90
+    regulatory_body: "FCC / ITU / ESA / national authorities"   # W3
+    applicable_standard: "Multiple (cross-jurisdiction)"
+    licence_stage: "Various — concurrent obligations"
 
   - id: RC-05
     name: Reputational damage from on-orbit incident
@@ -124,6 +127,9 @@ risks:
     severity: 8.0
     exposure: 56.0
     review_days: 30
+    magnitude_point_estimate: 22.0   # W6 Tier-2 fallback (sev 8; no SPICE coverage), USD_M
+    magnitude_low: 11.0
+    magnitude_high: 45.0
 
   - id: RH-02
     name: On-orbit satellite performance degradation
@@ -156,6 +162,9 @@ risks:
     severity: 7.0
     exposure: 42.0
     review_days: 30
+    magnitude_point_estimate: 14.0   # W6 Tier-2 fallback (sev 7; no SPICE coverage), USD_M
+    magnitude_low: 7.0
+    magnitude_high: 28.0
 
   - id: RH-04
     name: Loss of competitive positioning vs mega-constellations
@@ -188,6 +197,9 @@ risks:
     severity: 8.0
     exposure: 40.0
     review_days: 60
+    regulatory_body: "DoD / US government accreditation authority"   # W3 (gates 30% Gov & Defense revenue)
+    applicable_standard: "Security accreditation (task-order gate)"
+    licence_stage: "Accreditation maintenance — suspension freezes new task orders"
 
   - id: RH-06
     name: Ground segment capacity bottleneck
@@ -204,6 +216,9 @@ risks:
     severity: 6.0
     exposure: 30.0
     review_days: 90
+    magnitude_point_estimate: 8.0    # W6 Tier-2 fallback (sev 6; no SPICE coverage), USD_M
+    magnitude_low: 4.0
+    magnitude_high: 16.0
     activation_condition: >-
       If Phase 3 satellites exceed 40 active beams per satellite in high-demand zones
     activation_decision_date: "2026-06-30"
@@ -223,6 +238,12 @@ risks:
     severity: 8.0
     exposure: 32.0
     review_days: 90
+    magnitude_point_estimate: 22.0   # W6 Tier-2 fallback (sev 8; no SPICE coverage), USD_M
+    magnitude_low: 11.0
+    magnitude_high: 45.0
+    regulatory_body: "ITU"   # W3
+    applicable_standard: "ITU Radio Regulations (frequency coordination)"
+    licence_stage: "Priority filing / coordination with incumbent operators"
 
   # ─── AURORA-GEO Programme Business Risks ───────────────────────────────────
 
@@ -241,6 +262,9 @@ risks:
     severity: 7.0
     exposure: 42.0
     review_days: 60
+    magnitude_point_estimate: 14.0   # W6 Tier-2 fallback (sev 7; no SPICE coverage), USD_M
+    magnitude_low: 7.0
+    magnitude_high: 28.0
 
   - id: RA-02
     name: Development budget overrun
@@ -273,6 +297,9 @@ risks:
     severity: 9.0
     exposure: 45.0
     review_days: 60
+    magnitude_point_estimate: 35.0   # W6 Tier-2 fallback (sev 9; no SPICE coverage), USD_M
+    magnitude_low: 18.0
+    magnitude_high: 70.0
 
   - id: RA-04
     name: Strategic partner withdrawal
@@ -308,6 +335,12 @@ risks:
     severity: 7.0
     exposure: 35.0
     review_days: 90
+    magnitude_point_estimate: 14.0   # W6 Tier-2 fallback (sev 7; no SPICE coverage), USD_M
+    magnitude_low: 7.0
+    magnitude_high: 28.0
+    regulatory_body: "US DDTC (State Dept)"   # W3
+    applicable_standard: "ITAR 22 CFR 120–130"
+    licence_stage: "Technology-transfer authorisation (non-US AURORA partners)"
 
   # ─── Operational — Engineering ──────────────────────────────────────────────
 
@@ -376,6 +409,9 @@ risks:
     severity: 9.0
     exposure: 36.0
     review_days: 60
+    supplier_tier: Tier 1            # Teledyne — Ku/Ka transponder modules (W4)
+    criticality_class: Critical
+    single_source: true             # sole source; Airbus DS dual-source in qualification (MIT-02)
 
   - id: ROM-02
     name: Battery supplier critical delivery delay
@@ -392,6 +428,9 @@ risks:
     severity: 7.0
     exposure: 35.0
     review_days: 60
+    supplier_tier: Tier 1            # Saft — space-grade Li-ion cells, 9–12mo lead (W4)
+    criticality_class: Critical
+    single_source: true             # exclusive partner; no qualified alternate
 
   - id: ROM-03
     name: Composite structure quality deviation
@@ -408,6 +447,9 @@ risks:
     severity: 7.0
     exposure: 28.0
     review_days: 90
+    supplier_tier: Tier 1            # composite bus structures — Northrop Grumman / Spirit Aero (W4)
+    criticality_class: Important
+    single_source: false            # dual-sourced tier-1 subcontractors
 
   - id: ROM-04
     name: Clean room contamination event
@@ -424,6 +466,9 @@ risks:
     severity: 7.0
     exposure: 21.0
     review_days: 90
+    supplier_tier: Internal          # ODT's own AIT clean-room line (W4)
+    criticality_class: Critical      # single integration line on the Phase-4 critical path
+    single_source: false
 
   # ─── Operational — Launch Operations ───────────────────────────────────────
 
@@ -442,6 +487,9 @@ risks:
     severity: 8.0
     exposure: 48.0
     review_days: 30
+    supplier_tier: Tier 1            # launch — SpaceX Falcon 9 / Rocket Lab Electron (+ Axiom future) (W4)
+    criticality_class: Important
+    single_source: false            # multi-sourced manifest; congestion is the exposure
 
   - id: ROL-02
     name: Orbital debris collision during deployment
@@ -560,6 +608,9 @@ risks:
     severity: 6.0
     exposure: 36.0
     review_days: 60
+    regulatory_body: "US DDTC (State Dept)"   # W3
+    applicable_standard: "ITAR 22 CFR 120–130 (deemed-export rules)"
+    licence_stage: "Personnel clearance — limits the ITAR-cleared workforce"
 
   # ─── Operational — Regulatory ───────────────────────────────────────────────
 
@@ -578,6 +629,9 @@ risks:
     severity: 9.0
     exposure: 27.0
     review_days: 90
+    regulatory_body: "FCC"   # W3
+    applicable_standard: "47 CFR Part 25"
+    licence_stage: "Granted Q3 2026 — ongoing deployment-milestone conditions (the breach risk)"
 
   # ─── Operational — IT ───────────────────────────────────────────────────────
 
@@ -630,6 +684,9 @@ risks:
     severity: 10.0
     exposure: 30.0
     review_days: 60
+    supplier_tier: Tier 1            # firmware/hardware tampering at a tier-1 component supplier (W4)
+    criticality_class: Critical
+    single_source: false            # integrity risk across the supplier base, not a sourcing gap
 
   - id: SEC-03
     name: Insider threat - privileged TT&C access abuse
@@ -856,6 +913,122 @@ risks:
     exposure: 45.0
     review_days: 60
 
+  # ─── Historical incidents & closed risks (W5) ───────────────────────────────
+  # ODT's first canonical past — "operational texture" (owner-confirmed 2026-06-29):
+  # minor, real-company events consistent with on-schedule Phase 1–3 delivery and
+  # NO major breach. Each exercises a RIM lifecycle state (is_active=false, so they
+  # are excluded from active exposure but retained for audit / history).
+  # HX-02 is a BLOCKED attempt, not a breach — it does NOT retcon THE NUMBER S1,
+  # which remains the forward-looking cyber quantification.
+
+  - id: HX-01
+    name: "[2026] Teledyne RF transponder lot quality escape"
+    description: >-
+      A Ku/Ka-band transponder lot from Teledyne showed an out-of-spec solder
+      process drift; caught at incoming inspection, quarantined and re-screened.
+      Minor schedule margin consumed; no flight impact. Closed.
+    level: Operational
+    scope: HORIZON-LEO
+    status: Closed
+    origin: Legacy
+    categories: [Supply Chain, Industrial]
+    owner: Quality Manager
+    probability: 4.0
+    severity: 4.0
+    exposure: 16.0
+    review_days: 365
+    archive_date: "2026-08-31"
+    supplier_tier: Tier 1            # Teledyne — same sole-source dependency ROM-01 tracks (CR-02 hook)
+    criticality_class: Critical
+    single_source: true
+
+  - id: HX-02
+    name: "[2027] Contained credential-phishing attempt on the engineering VPN"
+    description: >-
+      A targeted phishing campaign harvested an engineer's password; the attempted
+      VPN login was blocked by MFA + device-posture checks and flagged by the SOC.
+      No access gained, no data touched — validated MIT-CY1 / MIT-13. Not a breach,
+      and not the trigger for the cyber-quantification programme (that remains a
+      forward-looking SPICE exercise).
+    level: Operational
+    scope: Security Operations
+    status: Closed
+    origin: New
+    categories: [Security]
+    owner: CISO
+    probability: 6.0
+    severity: 3.0
+    exposure: 18.0
+    review_days: 365
+    archive_date: "2027-05-31"
+
+  - id: HX-03
+    name: "[legacy] Single-NOC design — no geographic control backup"
+    description: >-
+      Before the Dublin backup NOC came online, constellation control ran from a
+      single Denver site with no geographic redundancy. Superseded when Dublin was
+      established; archived. (The residual shared-identity-plane weakness is carried
+      forward in the S1 kill-chain via TP-IDP, not here.)
+    level: Operational
+    scope: Security Operations
+    status: Archived
+    origin: Legacy
+    categories: [Programme, Product]
+    owner: VP Ground & Ops
+    probability: 3.0
+    severity: 8.0
+    exposure: 24.0
+    review_days: 365
+    archive_date: "2026-11-30"
+
+  - id: HX-04
+    name: "Orbital-debris conjunction residual (accepted, watching)"
+    description: >-
+      The residual collision exposure during deployment cannot be eliminated; the
+      ROC formally accepted it and monitors conjunction screening. Watched for a
+      close-approach trigger that re-activates the ROL-02 collision-avoidance
+      response — the showcase of the accepted → watching → re-activate lifecycle.
+    level: Operational
+    scope: HORIZON-LEO
+    status: Watching
+    origin: Legacy
+    categories: [Product]
+    owner: VP Launch Operations
+    probability: 2.0
+    severity: 10.0
+    exposure: 20.0
+    review_days: 90
+    acceptance_date: "2027-03-31"
+    acceptance_owner: "Yuki Tanaka (VP Launch Operations)"
+    trigger_condition: >-
+      Predicted conjunction probability above the manoeuvre threshold (sub-1km
+      close approach on 18th SDS conjunction data) → re-activate ROL-02.
+
+  - id: HX-05
+    name: "FCC Part 25 operational-approval risk (suppressed)"
+    description: >-
+      The risk of not securing FCC Part 25 operational approval — a Phase-1 launch
+      gate. Approval was granted (Q3 2026), so the exposure dropped below the
+      acceptance threshold; suppressed and retained for audit. Ongoing licence
+      conditions remain a live risk (ROR-01).
+    level: Business
+    scope: HORIZON-LEO
+    status: Suppressed
+    origin: Legacy
+    categories: [Regulatory]
+    owner: VP Compliance & Quality
+    probability: 2.0
+    severity: 7.0
+    exposure: 14.0
+    review_days: 180
+    archive_date: "2026-09-30"
+    regulatory_body: "FCC"            # regulator-linked history (CR-02 hook)
+    applicable_standard: "47 CFR Part 25"
+    licence_stage: "Granted Q3 2026 — approval risk retired (conditions tracked by ROR-01)"
+    trigger_condition: >-
+      Material new Part 25 condition or a filing lapse → re-activate as an
+      approval-status risk.
+
 
 # =============================================================================
 # OBJECTIVES
@@ -931,6 +1104,17 @@ objectives:
       owner: Chief Commercial Officer
       time_horizon: 2027-2029
 
+    - id: TCO-04
+      name: Achieve a successful IPO / liquidity event by H1 2029
+      description: >-
+        Company-wide capstone objective: complete the planned IPO (~$250M, Nasdaq,
+        H1 2029). The convergence apex — the company financial-risk cluster
+        (RC-01/RC-02/RC-03) impacts it directly, and the revenue ramp (TPO-01)
+        contributes to it. TCO-01 (positive EBITDA) is the headline enabler.
+        BST-FN1 is the scenario of failing this objective.
+      owner: CEO
+      time_horizon: "H1 2029"
+
 
 # =============================================================================
 # MITIGATIONS
@@ -945,7 +1129,7 @@ mitigations:
   - id: MIT-01
     name: Multi-launcher diversification strategy
     type: Dedicated
-    status: Implemented
+    status: existing
     description: >-
       Contracted launch slots with SpaceX, Rocket Lab, and Arianespace providing
       3 independent launch paths for Phase 3
@@ -955,7 +1139,7 @@ mitigations:
   - id: MIT-02
     name: RF component dual-sourcing qualification
     type: Dedicated
-    status: In Progress
+    status: on-going
     description: >-
       Qualification of Airbus DS as second source for Ku/Ka transponder modules
       with framework contract negotiation
@@ -965,7 +1149,7 @@ mitigations:
   - id: MIT-03
     name: Satellite engineering talent retention program
     type: Dedicated
-    status: Implemented
+    status: existing
     description: >-
       Equity incentive program, technical career ladder, and competitive retention
       packages for top 50 critical engineers
@@ -975,7 +1159,7 @@ mitigations:
   - id: MIT-04
     name: Ground segment Zero Trust architecture
     type: Dedicated
-    status: In Progress
+    status: on-going
     description: >-
       Redesign of ground segment network following Zero Trust principles with
       micro-segmentation between IT and OT domains
@@ -985,7 +1169,7 @@ mitigations:
   - id: MIT-05
     name: Satellite command authentication hardening
     type: Dedicated
-    status: In Progress
+    status: on-going
     description: >-
       Implementation of post-quantum cryptographic command authentication with
       hardware security module key management
@@ -995,7 +1179,7 @@ mitigations:
   - id: MIT-06
     name: Enterprise customer success program
     type: Dedicated
-    status: Implemented
+    status: existing
     description: >-
       Dedicated customer success managers for top-20 enterprise accounts with
       quarterly business reviews and SLA monitoring
@@ -1005,7 +1189,7 @@ mitigations:
   - id: MIT-07
     name: Autonomous collision avoidance system
     type: Dedicated
-    status: Implemented
+    status: existing
     description: >-
       AI-driven autonomous collision avoidance using 18th Space Defense Squadron
       conjunction data with sub-1km threshold manoeuvres
@@ -1015,7 +1199,7 @@ mitigations:
   - id: MIT-08
     name: Payload software independent V&V program
     type: Dedicated
-    status: In Progress
+    status: on-going
     description: >-
       Independent verification and validation of payload reconfiguration software
       by third-party per ECSS-E-ST-40C
@@ -1025,7 +1209,7 @@ mitigations:
   - id: MIT-09
     name: AURORA optical link risk reduction campaign
     type: Dedicated
-    status: In Progress
+    status: on-going
     description: >-
       Pre-PDR breadboard testing and thermal vacuum simulation of optical terminal
       pointing mechanism
@@ -1035,7 +1219,7 @@ mitigations:
   - id: MIT-10
     name: Supply chain hardware integrity verification
     type: Dedicated
-    status: Proposed
+    status: recommended
     description: >-
       X-ray inspection and firmware hash verification protocol for all
       mission-critical components received from tier-1 suppliers
@@ -1045,7 +1229,7 @@ mitigations:
   - id: MIT-11
     name: Anti-jamming adaptive beam-forming
     type: Dedicated
-    status: In Progress
+    status: on-going
     description: >-
       Software-defined anti-jamming capability using adaptive null-steering on
       phased array to mitigate targeted RF interference
@@ -1055,7 +1239,7 @@ mitigations:
   - id: MIT-12
     name: Ransomware-specific incident response plan
     type: Dedicated
-    status: Implemented
+    status: existing
     description: >-
       Dedicated ransomware playbook with offline backups, network isolation
       procedures, and pre-negotiated incident response retainer
@@ -1067,7 +1251,7 @@ mitigations:
   - id: MIT-13
     name: Corporate SOC 24/7 monitoring
     type: Inherited
-    status: Implemented
+    status: existing
     description: >-
       Shared Security Operations Center providing 24/7 threat detection, SIEM
       correlation, and incident response with SLA <15min
@@ -1077,7 +1261,7 @@ mitigations:
   - id: MIT-14
     name: Corporate financial planning and analysis process
     type: Inherited
-    status: Implemented
+    status: existing
     description: >-
       Monthly rolling forecast, variance analysis, and cash flow monitoring with
       board-level escalation on >5% deviation
@@ -1087,7 +1271,7 @@ mitigations:
   - id: MIT-15
     name: Corporate IT disaster recovery
     type: Inherited
-    status: Implemented
+    status: existing
     description: >-
       Multi-region disaster recovery infrastructure with RTO 4h / RPO 1h for
       critical business systems
@@ -1097,7 +1281,7 @@ mitigations:
   - id: MIT-16
     name: Corporate security awareness training
     type: Inherited
-    status: Implemented
+    status: existing
     description: >-
       Mandatory quarterly security awareness training and monthly phishing
       simulation campaigns for all employees
@@ -1109,7 +1293,7 @@ mitigations:
   - id: MIT-17
     name: ECSS Space Product Assurance framework
     type: Baseline
-    status: In Progress
+    status: on-going
     description: >-
       Compliance with ECSS-Q-ST-20C (quality assurance) and ECSS-Q-ST-80C
       (software product assurance) for all flight hardware and software
@@ -1119,7 +1303,7 @@ mitigations:
   - id: MIT-18
     name: NIST Cybersecurity Framework implementation
     type: Baseline
-    status: Implemented
+    status: existing
     description: >-
       Full implementation of NIST CSF 2.0 across all IT and OT systems with
       annual maturity assessment
@@ -1129,7 +1313,7 @@ mitigations:
   - id: MIT-19
     name: FCC regulatory compliance program
     type: Baseline
-    status: In Progress
+    status: on-going
     description: >-
       Systematic compliance tracking for all FCC license conditions with automated
       reporting and exception management
@@ -1139,7 +1323,7 @@ mitigations:
   - id: MIT-20
     name: ITAR compliance management system
     type: Baseline
-    status: Implemented
+    status: existing
     description: >-
       Comprehensive ITAR compliance program including technology control plans,
       deemed export procedures, and annual audit
@@ -1149,7 +1333,7 @@ mitigations:
   - id: MIT-21
     name: ISO 27001 ISMS certification
     type: Baseline
-    status: Implemented
+    status: existing
     description: >-
       Certified Information Security Management System covering all ODT operations
       with annual surveillance audits
@@ -1161,12 +1345,196 @@ mitigations:
   - id: MIT-CY1
     name: Zero-trust VPN + MFA hardening
     type: Dedicated
-    status: Implemented
+    status: existing
     description: >-
       Enforce MFA and device posture on the engineering VPN to reduce initial
       compromise
     owner: CISO
     source_entity: ""
+
+  # ─── Consolidated financial / operational controls (ex-SpiceMitigation; CR-01) ─
+  # Merged from the retired `spice_mitigations:` block per CR-01 §C1 / §4 migration map.
+  #   status:           ongoing→on-going · planned→planned · recommended→recommended
+  #   financial_effect: promoted from the old `type` {impact_reducing | recovery_accelerating}
+  #   committed_budget: priced-but-uncapitalised spend for a `planned` control (§C2) —
+  #                     becomes capex on funding; keeps the projected ROCE computable.
+  #   coverage_amount:  insurance limit / contractual cap (kept).
+  #   type:             corporate financial instruments = Inherited; the rest Dedicated.
+  #   fulfils:          FULFILS now runs Mitigation → mitigation_objective (re-homed, §C3).
+  # These carry NO `MITIGATES` edge (financial-layer only); the scenario citation is the
+  # family `mitigated_by:` list, emitted as MITIGATED_BY (renamed from MITIGATED_BY_SPICE).
+
+  - id: SM-CYBER-INS
+    name: Cyber insurance tower
+    type: Inherited
+    status: on-going
+    financial_effect: impact_reducing
+    owner: CFO
+    coverage_amount: 50.0        # Canon: $50M limit
+    description: >-
+      $50M limit, $5M deductible, BI cover after 72h, war/state-actor exclusion
+      (Canon: Insurance). Pays down financial impact but not attribution-disputed loss.
+    fulfils:
+      - {objective: MO-FN1-2, contribution_weight: 80.0}
+
+  - id: SM-CTRL-RECOVERY
+    name: Clean control-plane recovery capability
+    type: Dedicated
+    status: planned
+    financial_effect: recovery_accelerating
+    owner: CISO
+    committed_budget: 1.5        # Canon: ~$1.5M one-time (S1 control pricing, ENH-06); un-capitalised while planned
+    description: Offline golden images + rebuild runbook to restore legitimate control fast.
+    fulfils:
+      - {objective: MO-S1-3, contribution_weight: 90.0}
+
+  - id: SM-IDENTITY-SPLIT
+    name: Denver/Dublin identity & PAM plane separation
+    type: Dedicated
+    status: planned
+    financial_effect: impact_reducing
+    owner: CISO
+    committed_budget: 4.0        # Canon: ~$4M one-time (S1 control pricing, ENH-06); un-capitalised while planned
+    description: Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.
+    fulfils:
+      - {objective: MO-S1-1, contribution_weight: 100.0}
+      - {objective: MO-S1-2, contribution_weight: 40.0}
+
+  - id: SM-CLEAN-BUILD
+    name: Clean-build & unit re-verification line
+    type: Dedicated
+    status: recommended
+    financial_effect: recovery_accelerating
+    owner: VP Manufacturing & Supply Chain
+    description: Re-qualify suspect Phase-4 units to certified-clean state.
+    fulfils:
+      - {objective: MO-SC1-1, contribution_weight: 90.0}
+
+  - id: SM-PLM-INTEGRITY
+    name: PLM integrity monitoring & supplier access governance
+    type: Dedicated
+    status: on-going
+    financial_effect: impact_reducing
+    owner: CISO
+    description: Tamper-evidence on build/test/config records + supplier least-privilege.
+    fulfils:
+      - {objective: MO-SC1-2, contribution_weight: 80.0}
+      - {objective: MO-SC1-3, contribution_weight: 50.0}
+
+  - id: SM-ACCRED-ENCLAVE
+    name: Audited accreditation enclave + remediation playbook
+    type: Dedicated
+    status: on-going
+    financial_effect: impact_reducing
+    owner: VP Compliance & Quality
+    description: Isolated, continuously-audited accredited environment with a pre-cleared remediation plan.
+    fulfils:
+      - {objective: MO-RG1-1, contribution_weight: 70.0}
+      - {objective: MO-RG1-2, contribution_weight: 60.0}
+
+  - id: SM-DUAL-SOURCE
+    name: RF dual-source + multi-launcher framework
+    type: Dedicated
+    status: on-going
+    financial_effect: impact_reducing
+    owner: VP Manufacturing & Supply Chain
+    description: >-
+      Pre-negotiated second-source RF framework and multi-launcher slots
+      (financial-layer counterpart of MIT-01 / MIT-02) plus buffer stock.
+    fulfils:
+      - {objective: MO-GP1-1, contribution_weight: 80.0}
+      - {objective: MO-GP1-3, contribution_weight: 50.0}
+
+  - id: SM-BRIDGE-FACILITY
+    name: Committed bridge financing facility
+    type: Inherited
+    status: on-going
+    financial_effect: impact_reducing
+    owner: CFO
+    coverage_amount: 60.0        # Canon: $60M facility alongside $85M cash (State B)
+    description: Drawable facility to hold FCF above the -$100M trigger ahead of the IPO.
+    fulfils:
+      - {objective: MO-FN1-1, contribution_weight: 70.0}
+      - {objective: MO-FN1-2, contribution_weight: 40.0}
+
+  - id: SM-REVENUE-DIVERSIFY
+    name: Commercial / government revenue diversification program
+    type: Dedicated
+    status: planned
+    financial_effect: impact_reducing
+    owner: VP Sales
+    description: Reduce 30% gov-segment concentration; broaden commercial backlog.
+    fulfils:
+      - {objective: MO-RG1-3, contribution_weight: 60.0}
+      - {objective: MO-FN1-1, contribution_weight: 20.0}
+
+  - id: SM-AURORA-DERISK
+    name: AURORA optical-link risk-reduction campaign
+    type: Dedicated
+    status: on-going
+    financial_effect: impact_reducing
+    owner: AURORA Chief Engineer
+    description: >-
+      Pre-PDR breadboard + thermal-vacuum testing of the optical pointing
+      mechanism to retire ISL maturation risk early (financial-layer
+      counterpart of MIT-09).
+    fulfils:
+      - {objective: MO-GA1-1, contribution_weight: 80.0}
+
+  - id: SM-AURORA-VARIANCE
+    name: AURORA stage-gate funding & budget variance control
+    type: Inherited
+    status: on-going
+    financial_effect: impact_reducing
+    owner: CFO
+    description: >-
+      Release AURORA funds against PDR/sub-system stage-gates with monthly
+      variance analysis, catching an overrun before it breaches the company
+      FCF envelope (financial-layer counterpart of MIT-14).
+    fulfils:
+      - {objective: MO-GA1-2, contribution_weight: 75.0}
+
+
+# =============================================================================
+# OWNERS  (accountability layer — schema `owner` context node)
+# =============================================================================
+# One owner node per distinct owner-string used on risks / mitigations.
+#   `key`   = the exact owner-string matched on risks (BEARS) and
+#             mitigations (STEWARDS).
+#   Named owners map the role to a Cast Roster character; the 8 functional
+#   roles with no named character are owners-as-role (schema permits a
+#   person, team, OR org unit).
+# Model (schema-enforced):
+#   BEARS    owner -> Risk        : consequence-bearer, AT MOST ONE per risk
+#            (driven by each risk's single `owner` field).
+#   STEWARDS owner -> Mitigation  : execution accountability (CR-01 — single
+#            consolidated Mitigation registry); NEVER targets a Risk. Many
+#            stewards per risk *via* its mitigations.
+# =============================================================================
+
+owners:
+
+  # ─── Named owners (Cast Roster characters) ─────────────────────────────────
+  - {id: OWN-CEO,    key: "CEO",                            name: Elena Vasquez,   role: "CEO / co-founder",                 entity: Executive,                      email: elena.vasquez@orbitaldynamics.example}
+  - {id: OWN-CFO,    key: "CFO",                            name: Diane Marchetti, role: "CFO",                              entity: Finance,                        email: diane.marchetti@orbitaldynamics.example}
+  - {id: OWN-CTO,    key: "CTO",                            name: Raj Patel,       role: "CTO / co-founder",                 entity: "Engineering & Technology",     email: raj.patel@orbitaldynamics.example}
+  - {id: OWN-CISO,   key: "CISO",                           name: Tom Reuter,      role: "CISO",                             entity: "Office of the CISO (→ CTO)",   email: tom.reuter@orbitaldynamics.example}
+  - {id: OWN-VPCQ,   key: "VP Compliance & Quality",        name: Amara Diallo,    role: "VP Compliance & Quality",          entity: "Compliance & Quality",         email: amara.diallo@orbitaldynamics.example}
+  - {id: OWN-VPLO,   key: "VP Launch Operations",           name: Yuki Tanaka,     role: "VP Launch Operations",             entity: "Launch Operations",            email: yuki.tanaka@orbitaldynamics.example}
+  - {id: OWN-VPENG,  key: "VP Engineering",                 name: Priya Nair,      role: "VP Engineering",                   entity: Engineering,                    email: priya.nair@orbitaldynamics.example}
+  - {id: OWN-VPMSC,  key: "VP Manufacturing & Supply Chain", name: Carlos Mendes,  role: "VP Manufacturing & Supply Chain",  entity: "Manufacturing & Supply Chain", email: carlos.mendes@orbitaldynamics.example}
+  - {id: OWN-VPGO,   key: "VP Ground & Ops",                name: Sofia Adler,     role: "VP Ground & Operations",           entity: "Ground & Operations",          email: sofia.adler@orbitaldynamics.example}
+  - {id: OWN-APD,    key: "AURORA Program Director",        name: Henrik Sorensen, role: "VP Program Management (AURORA-GEO)", entity: "Program Management",         email: henrik.sorensen@orbitaldynamics.example}
+
+  # ─── Functional-role owners (no named character yet) ───────────────────────
+  - {id: OWN-VPSALES, key: "VP Sales",               name: "VP Sales",               role: "VP Sales",               entity: "Commercial / Sales",         email: vp.sales@orbitaldynamics.example}
+  - {id: OWN-LSA,     key: "Lead Software Architect", name: "Lead Software Architect", role: "Lead Software Architect", entity: "Engineering — Payload Software", email: payload.swlead@orbitaldynamics.example}
+  - {id: OWN-TSL,     key: "Thermal Subsystem Lead",  name: "Thermal Subsystem Lead",  role: "Thermal Subsystem Lead",  entity: "Engineering — Thermal",      email: thermal.lead@orbitaldynamics.example}
+  - {id: OWN-ACE,     key: "AURORA Chief Engineer",   name: "AURORA Chief Engineer",   role: "AURORA Chief Engineer",   entity: "Engineering — AURORA-GEO",   email: aurora.ce@orbitaldynamics.example}
+  - {id: OWN-QM,      key: "Quality Manager",         name: "Quality Manager",         role: "Quality Manager",         entity: "Compliance & Quality",       email: quality.mgr@orbitaldynamics.example}
+  - {id: OWN-PD,      key: "Plant Director",          name: "Plant Director",          role: "Plant Director",          entity: "Manufacturing (AIT)",        email: plant.director@orbitaldynamics.example}
+  - {id: OWN-HRD,     key: "HR Director",             name: "HR Director",             role: "HR Director",             entity: "Human Resources",            email: hr.director@orbitaldynamics.example}
+  - {id: OWN-ITD,     key: "IT Director",             name: "IT Director",             role: "IT Director",             entity: "Corporate IT",               email: it.director@orbitaldynamics.example}
 
 
 # =============================================================================
@@ -1179,12 +1547,31 @@ context_nodes:
     - id: BP-LEO
       name: HORIZON-LEO Programme
       pl_holder: HORIZON-LEO Business Unit
-      ebit_baseline: 45.0
+      ebit_baseline: 13.0
       fcf_baseline: -30.0
       currency: USD_M
       spice_assessed: false
       description: >-
-        P&L-bearing unit for the HORIZON-LEO constellation programme
+        P&L-bearing unit for the HORIZON-LEO constellation programme.
+        ebit_baseline 13.0 = the company's canon EBIT, borne entirely by LEO
+        (GEO is pre-revenue, ebit 0); fcf_baseline -30 is LEO's share of the
+        canon consolidated -40 FCF. (CAN-01/CAN-03 EBIT leg closed 2026-06-26:
+        AURORA dev-spend capitalised, so consolidated EBIT = LEO 13 + GEO 0.)
+
+    - id: BP-GEO
+      name: AURORA-GEO Programme
+      pl_holder: AURORA-GEO Programme
+      ebit_baseline: 0.0
+      fcf_baseline: -10.0
+      currency: USD_M
+      spice_assessed: false
+      description: >-
+        Pre-revenue development perimeter for the AURORA-GEO optical-relay
+        programme. ebit_baseline 0 (no service revenue yet); fcf_baseline -10
+        is ODT's FY2028 internal-share development burn (Phase-C ramp) of a
+        ~$50M Phase-A/B->PDR budget co-funded ~60% by ESA/NASA. Consolidates
+        with BP-LEO (-30) to the canon company FCF of -40. Risk metric is
+        schedule & co-funding (TPO-05 PDR gate), not EBIT.
 
   # DEPRECATED — retained for migration window (U17 migration not yet run)
   scenarios:
@@ -1204,6 +1591,13 @@ context_nodes:
       description: >-
         Remote-access VPN used by engineering and suppliers, with broad
         internal reach
+    - id: EP-02
+      name: MSSP privileged remote access
+      exploitability: High
+      description: >-
+        The managed-security provider's (SOC) privileged remote access into the
+        ground segment — the S1 entry vector. Broad reach into the shared identity
+        plane; abused via stolen/over-scoped MSSP credentials.
 
   attackers:
     - id: ATK-01
@@ -1211,6 +1605,13 @@ context_nodes:
       capability_level: 9
       description: >-
         Well-resourced state-sponsored actor targeting space IP and supply chains
+    - id: ATK-02
+      name: APT-Eclipse (state-aligned, service-denial)
+      capability_level: 8
+      description: >-
+        State-aligned, attribution-averse actor contesting ODT's government
+        customers — objective is to take the constellation offline (break SLAs,
+        shake government confidence), not to deploy ransomware. The S1 actor.
 
   technical_perimeters:
     - id: TP-PLM
@@ -1221,12 +1622,79 @@ context_nodes:
       external_id: PLM-PROD-01
       description: >-
         Product Lifecycle Management system holding satellite design master data
+    # ─── Production-chain assets (W4) ──────────────────────────────────────────
+    - id: TP-AIT
+      name: Satellite AIT clean-room facility
+      type: Manufacturing / AIT
+      criticality: 5
+      external_id: AIT-CR-01
+      description: >-
+        Assembly-Integration-Test clean room where tier-1 components are received,
+        integrated into the satellite bus and qualified to the Phase-4 certification
+        gate. Single integration line on the deployment critical path (ROM-04 owner:
+        Plant Director). Location not pinned in canon.
+    - id: TP-NOC
+      name: NOC / mission control & service operations
+      type: Ground segment / Mission control
+      location: Denver (primary) / Dublin (backup)
+      criticality: 5
+      external_id: NOC-01
+      description: >-
+        Network Operations Centre commanding the on-orbit constellation (TT&C) and
+        running the LEO broadband service (capacity allocation, provisioning). Denver
+        primary / Dublin backup share an identity/PAM plane (the S1 weakness).
+    # ─── Ground-segment kill-chain assets (W6 — ENH-04; 1:1 with Annex - Security Architecture §7) ─
+    - id: TP-IDP
+      name: Shared Denver/Dublin identity & PAM plane
+      type: Identity & access management
+      location: Denver / Dublin (single sign-on + common privileged-access tooling)
+      criticality: 5
+      external_id: IDP-01
+      description: >-
+        The single identity / privileged-access-management plane spanning both NOCs —
+        a deliberate, realistic weakness: one compromise cascades to both sites, so
+        the Dublin backup is NOT a backup against an identity-plane attack (the S1 flaw).
+    - id: TP-NMS
+      name: Network Management System (NMS)
+      type: OT / Service management
+      location: NOC (Denver primary / Dublin backup)
+      criticality: 5
+      external_id: NMS-01
+      description: >-
+        "The commercial brain" — payload reconfiguration, beam plans, capacity
+        allocation and routing. A corrupt beam/capacity config pushed here trips
+        fleet-wide safe-mode (S1).
+    - id: TP-GW
+      name: Ground gateways & secondary stations
+      type: Ground segment
+      location: Fairbanks, Tromsø, Singapore, Perth (+ 12 secondary)
+      criticality: 4
+      external_id: GW-01
+      description: >-
+        Gateway and secondary ground stations remotely administered from Denver
+        (Dublin backup). Ransomware / IT→OT lateral movement targets (SEC-04/14).
+    - id: TP-BILL
+      name: Billing & provisioning platform
+      type: Corporate IT / Cloud
+      location: Corporate IT / cloud
+      criticality: 3
+      external_id: BILL-01
+      description: >-
+        Activates / deactivates customer terminals. Mass deactivation can mimic an
+        outage at low technical cost — the S1 backup path; DDoS/API-abuse target (SEC-10).
 
   sponsors:
     - id: SPN-01
       name: Foreign Intelligence Agency
       description: >-
         State sponsor directing the intrusion to acquire satellite design IP
+    - id: SPN-02
+      name: State-aligned sponsor (government-contract contestation)
+      description: >-
+        State-aligned backer of the S1 disruption — motive is to deny ODT legitimate
+        fleet control long enough to break SLAs and shake government confidence,
+        damaging the IPO narrative. Attribution-averse (and conveniently inside the
+        cyber tower's war/state-actor exclusion).
 
   functional_targets:
     - id: FT-01
@@ -1234,6 +1702,39 @@ context_nodes:
       classification: Proprietary / ITAR-controlled
       description: >-
         Master design data the adversary seeks (the attack motive)
+    - id: FT-CTRL
+      name: Legitimate fleet command authority (TT&C)
+      classification: Mission-critical / OT
+      description: >-
+        Authoritative command & control of the constellation (signed TT&C). The S1
+        objective: seize or deny it so the fleet trips fleet-wide safe-mode — "loss
+        of legitimate control."
+    # ─── Production-chain outputs (W4) ─────────────────────────────────────────
+    - id: FT-COMP
+      name: Qualified flight components
+      classification: Flight hardware / ITAR-controlled
+      description: >-
+        Tier-1 supplier components qualified for flight — RF transponders (Teledyne),
+        space-grade batteries (Saft), composite bus structures (Northrop/Spirit),
+        attitude control (Moog/Orbital ATK). The supply-chain inputs to the build.
+    - id: FT-SAT
+      name: Integrated & tested satellite (flight unit)
+      classification: Flight hardware / ITAR-controlled
+      description: >-
+        A satellite assembled, integrated and tested through the AIT line and passed
+        through the Phase-4 certification gate — the ~$3.4M/sat unit (incl. launch).
+    - id: FT-CONST
+      name: Deployed on-orbit constellation capacity
+      classification: Operational asset
+      description: >-
+        The 80-satellite HORIZON-LEO constellation (8 polar planes, 550 km) once
+        launched and commissioned — the capacity that carries the service.
+    - id: FT-SVC
+      name: LEO broadband service
+      classification: Commercial service
+      description: >-
+        The connectivity service ODT sells (corporate / government / wholesale telco)
+        — the revenue-bearing output of the whole production chain.
 
   business_activities:
     - id: BA-01
@@ -1241,6 +1742,27 @@ context_nodes:
       description: >-
         Design engineering activity that produces and uses the satellite
         design data
+    # ─── Production-chain steps (W4) ───────────────────────────────────────────
+    - id: BA-PROC
+      name: Supplier procurement & component qualification
+      description: >-
+        Sourcing and qualifying tier-1 flight components; manages the Teledyne /
+        Saft single-source dependencies and the Airbus DS dual-source qualification.
+    - id: BA-MFG
+      name: Satellite manufacturing, assembly & test (AIT)
+      description: >-
+        Integration of qualified components into the satellite bus and test to the
+        Phase-4 certification gate — the AIT line (target ~1 satellite/month).
+    - id: BA-LAUNCH
+      name: Launch & early-orbit operations
+      description: >-
+        Manifesting flight units on SpaceX / Rocket Lab, launch, and commissioning
+        into the constellation — the launch-availability dependency (ROL-01).
+    - id: BA-SVC
+      name: Constellation operations & service delivery
+      description: >-
+        Operating the on-orbit fleet (TT&C) and delivering the LEO broadband service
+        — capacity allocation, provisioning, SLAs.
 
 
 # =============================================================================
@@ -1257,6 +1779,7 @@ relationships:
     - {id: CTR-04, from: TPO-06, to: TCO-02}
     - {id: CTR-05, from: TPO-04, to: TCO-03}
     - {id: CTR-06, from: TPO-05, to: TCO-03}
+    - {id: CTR-07, from: TPO-01, to: TCO-04}   # revenue/EBITDA ramp is the headline IPO proof point
 
   # ─── Risk → Company Objective ───────────────────────────────────────────────
   impacts_tco:
@@ -1280,6 +1803,22 @@ relationships:
       to: TCO-01
       impact_level: High
       description: Phase-3 slip erodes revenue ramp and the company EBITDA trajectory
+    # ─── TCO-04 (IPO) — the convergence apex: the financial-risk cluster lands here
+    - id: IMC-04
+      from: RC-01
+      to: TCO-04
+      impact_level: Critical
+      description: No first-profit (EBITDA) story means no credible IPO
+    - id: IMC-05
+      from: RC-02
+      to: TCO-04
+      impact_level: Critical
+      description: Cash-runway exhaustion forces a distressed, dilutive raise before the IPO window
+    - id: IMC-06
+      from: RC-03
+      to: TCO-04
+      impact_level: Critical
+      description: Loss of investor confidence collapses the valuation multiple or pulls the IPO (down-round)
 
   # ─── Influence edges (Op→Bus | Bus→Bus | Op→Op) ────────────────────────────
   influences:
@@ -1311,6 +1850,7 @@ relationships:
     - {id: INF-22, from: RH-03, to: RC-01, type: Level2_Bus_to_Bus, strength: Critical, confidence: 1.0,  description: Revenue miss directly impacts EBITDA achievement}
     - {id: INF-23, from: RH-03, to: RC-02, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.9,  description: Revenue shortfall accelerates cash burn rate}
     - {id: INF-24, from: RH-04, to: RH-03, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.85, description: Lost competitive positioning reduces customer win rates}
+    - {id: INF-45, from: RH-02, to: RH-03, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.8,  description: Suspect/degraded on-orbit capacity forces replacement units and erodes the corporate revenue target (makes SC1's narrative literal — INC-03)}
     - {id: INF-25, from: RC-02, to: RC-03, type: Level2_Bus_to_Bus, strength: Critical, confidence: 1.0,  description: Cash runway exhaustion directly triggers investor confidence loss}
     - {id: INF-26, from: RC-04, to: RH-07, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.8,  description: Multi-jurisdiction issues compound ITU coordination challenges}
     - {id: INF-27, from: RH-07, to: RH-04, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.85, description: Spectrum limitations reduce service capability vs competitors}
@@ -1319,6 +1859,9 @@ relationships:
     - {id: INF-30, from: RA-03, to: RA-01, type: Level2_Bus_to_Bus, strength: Critical, confidence: 0.95, description: Optical technology maturation failure blocks PDR readiness}
     - {id: INF-31, from: RA-05, to: RA-04, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.8,  description: ITAR restrictions may force partner to withdraw from program}
     - {id: INF-32, from: RH-05, to: RC-01, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.85, description: Government contract failure removes high-ARPU revenue stream from EBITDA path}
+    # ENH-07 (2026-06-28): thread the two orphaned business risks to an objective via the graph (W1 completeness)
+    - {id: INF-46, from: RH-06, to: RH-03, type: Level2_Bus_to_Bus, strength: Moderate, confidence: 0.75, description: "Ground throughput ceiling constrains corporate service quality and the revenue ramp (threads RH-06 → RH-03 → TPO-01)"}
+    - {id: INF-47, from: RA-04, to: RA-02, type: Level2_Bus_to_Bus, strength: Strong,   confidence: 0.8,  description: "Strategic-partner withdrawal forces ODT to absorb a larger AURORA budget share, driving the overrun (threads RA-04 → RA-02 → RC-02 → TCO-04)"}
 
     # Level 3 — Operational → Operational
     - {id: INF-33, from: SEC-09, to: SEC-04, type: Level3_Op_to_Op, strength: Strong,   confidence: 0.85, description: Social engineering provides initial access vector for ransomware deployment}
@@ -1418,6 +1961,47 @@ relationships:
     - {id: HST-01,  rel_type: HOSTED_ON,    from: FT-01,   to: TP-PLM}
     - {id: CON-01,  rel_type: CONCERNS,     from: RCY-01,  to: EP-01,  from_label: Risk}
     - {id: CON-02,  rel_type: CONCERNS,     from: RCY-02,  to: TP-PLM, from_label: Risk}
+    # ─── Supply-chain production graph (W4): BP-LEO USES → activity PRODUCES → target HOSTED_ON → asset ─
+    - {id: USE-02,  rel_type: USES,         from: BP-LEO,  to: BA-PROC}
+    - {id: USE-03,  rel_type: USES,         from: BP-LEO,  to: BA-MFG}
+    - {id: USE-04,  rel_type: USES,         from: BP-LEO,  to: BA-LAUNCH}
+    - {id: USE-05,  rel_type: USES,         from: BP-LEO,  to: BA-SVC}
+    - {id: PRD-02,  rel_type: PRODUCES,     from: BA-PROC,   to: FT-COMP}
+    - {id: PRD-03,  rel_type: PRODUCES,     from: BA-MFG,    to: FT-SAT}
+    - {id: PRD-04,  rel_type: PRODUCES,     from: BA-LAUNCH, to: FT-CONST}
+    - {id: PRD-05,  rel_type: PRODUCES,     from: BA-SVC,    to: FT-SVC}
+    - {id: HST-02,  rel_type: HOSTED_ON,    from: FT-COMP,   to: TP-AIT}
+    - {id: HST-03,  rel_type: HOSTED_ON,    from: FT-SAT,    to: TP-AIT}
+    - {id: HST-04,  rel_type: HOSTED_ON,    from: FT-CONST,  to: TP-NOC}
+    - {id: HST-05,  rel_type: HOSTED_ON,    from: FT-SVC,    to: TP-NOC}
+    # ─── Supply-chain risks CONCERNS their production asset (W4) ───────────────────────────────────────
+    - {id: CON-ROM01, rel_type: CONCERNS,   from: ROM-01,  to: TP-AIT, from_label: Risk}
+    - {id: CON-ROM02, rel_type: CONCERNS,   from: ROM-02,  to: TP-AIT, from_label: Risk}
+    - {id: CON-ROM03, rel_type: CONCERNS,   from: ROM-03,  to: TP-AIT, from_label: Risk}
+    - {id: CON-ROM04, rel_type: CONCERNS,   from: ROM-04,  to: TP-AIT, from_label: Risk}
+    - {id: CON-SEC02, rel_type: CONCERNS,   from: SEC-02,  to: TP-AIT, from_label: Risk}
+    - {id: CON-ROL01, rel_type: CONCERNS,   from: ROL-01,  to: TP-NOC, from_label: Risk}
+    # ─── S1 NOC / ground-segment kill-chain (W6): sponsor→attacker→entry→assets→fleet control ─────
+    - {id: MNG-02,  rel_type: MANAGES,      from: SPN-02,  to: ATK-02}
+    - {id: SEK-02,  rel_type: SEEKS,        from: SPN-02,  to: FT-CTRL}
+    - {id: EXP-02,  rel_type: EXPLOITS,     from: ATK-02,  to: EP-02,  success_probability: 0.5}
+    - {id: CMP-02,  rel_type: COMPROMISES,  from: EP-02,   to: TP-IDP, technique: "Privileged credential abuse via MSSP access"}
+    - {id: CMP-03,  rel_type: COMPROMISES,  from: EP-02,   to: TP-NMS, technique: "Shared identity-plane pivot Denver->Dublin; corrupt beam/capacity config"}
+    - {id: CMP-04,  rel_type: COMPROMISES,  from: EP-02,   to: TP-NOC, technique: "Operator credential revocation; fleet-wide safe-mode trip"}
+    - {id: TGT-02,  rel_type: TARGETS,      from: ATK-02,  to: TP-NOC}
+    - {id: TGT-03,  rel_type: TARGETS,      from: ATK-02,  to: TP-NMS}
+    - {id: HST-06,  rel_type: HOSTED_ON,    from: FT-CTRL, to: TP-NOC}
+    # ─── SEC risks CONCERNS their ground-segment asset (W6; 1:1 with Annex - Security Architecture §7) ─
+    - {id: CON-SEC01, rel_type: CONCERNS,   from: SEC-01,  to: TP-NOC,  from_label: Risk}
+    - {id: CON-SEC04, rel_type: CONCERNS,   from: SEC-04,  to: TP-GW,   from_label: Risk}
+    - {id: CON-SEC05, rel_type: CONCERNS,   from: SEC-05,  to: TP-NMS,  from_label: Risk}
+    - {id: CON-SEC08, rel_type: CONCERNS,   from: SEC-08,  to: TP-NOC,  from_label: Risk}
+    - {id: CON-SEC10, rel_type: CONCERNS,   from: SEC-10,  to: TP-BILL, from_label: Risk}
+    - {id: CON-SEC14, rel_type: CONCERNS,   from: SEC-14,  to: TP-NOC,  from_label: Risk}
+    # ─── Historical incidents touch their asset (W5) ──────────────────────────────────────────────
+    - {id: CON-HX01,  rel_type: CONCERNS,   from: HX-01,   to: TP-AIT,  from_label: Risk}
+    - {id: CON-HX02,  rel_type: CONCERNS,   from: HX-02,   to: EP-01,   from_label: Risk}
+    - {id: CON-HX03,  rel_type: CONCERNS,   from: HX-03,   to: TP-NOC,  from_label: Risk}
 
 
 # =============================================================================
@@ -1426,15 +2010,17 @@ relationships:
 # Each family expands to 3 SpiceScenario nodes (best / realistic / pessimistic)
 # sharing scenario_family_id. The realistic (P50, current) case is the family
 # representative and carries every bridge edge (ILLUSTRATES / CAUSED_BY /
-# ASSESSED_AGAINST / OCCURS_AT / ADDRESSES / MITIGATED_BY_SPICE); best and
+# ASSESSED_AGAINST / OCCURS_AT / ADDRESSES / MITIGATED_BY); best and
 # pessimistic are data-only sibling records read by the MagnitudeCalibrator.
+# A family may also declare a `mitigated:` block — the analyst-authored mitigated
+# re-assessment as a new version_number per case (CR-01 §C4); see BST-S1.
 #
 # EBIT/FCF figures come from the bestiary stat-block tables (canon-derived):
 #   03 - Bestiary/BST-*.md  →  EBIT y1..y3 and FCF y1 per case.
 # Recovery: op_recovery_days from the table ("3 wks" → 21); crisis_management_days
 #   left null (not in canon). fin_recovery_years from the table.
-# spice_mitigation cost/coverage populated ONLY where the Canon register states a
-#   figure (cyber insurance $50M limit; $60M bridge facility); others left null.
+# Control cost/coverage (now core `Mitigation` nodes, CR-01) populated ONLY where the
+#   Canon register states a figure (cyber insurance $50M limit; $60M bridge facility).
 # =============================================================================
 
 spice:
@@ -1455,12 +2041,35 @@ spice:
       illustrates: RH-04
       caused_by: [SEC-01, SEC-08]
       assessed_against: BP-LEO
+      occurs_at: TP-NOC               # W6: the triggering event occurs at the NOC / ground segment
       addresses: [MO-S1-1, MO-S1-2, MO-S1-3]
       mitigated_by: [SM-CYBER-INS, SM-CTRL-RECOVERY, SM-IDENTITY-SPLIT]
       cases:
         best:        {ebit: [-34, -5, -1],  fcf: [-60],  op_recovery_days: 14, fin_recovery_years: 2}
         realistic:   {ebit: [-54, -12, -3], fcf: [-79],  op_recovery_days: 21, fin_recovery_years: 3}
         pessimistic: {ebit: [-78, -24, -8], fcf: [-118], op_recovery_days: 42, fin_recovery_years: 3}
+      # ── CR-01 §C4 — projected mitigated re-assessment (realises DM-01's "after") ──
+      # The two S1 cyber controls are `planned` (un-capitalised), so this is a
+      # PROJECTION: base v1 stays `current`, this version is `draft` ("benefit if
+      # funded"). On funding/deployment the analyst flips base→superseded, this→current.
+      # Benefit = base − mitigated (computed by RIM per CR-01 §C5); ROCE denominator =
+      # Σ committed_budget of the cited controls = SM-IDENTITY-SPLIT 4.0 + SM-CTRL-RECOVERY 1.5 = 5.5.
+      # SM-CYBER-INS is in `mitigated_by` (citation) but contributes ~0 to the projection:
+      # the $50M tower carries a war/state-actor exclusion and S1's modelled actor is state-aligned.
+      # Owner-confirmed numbers (Moderate-strong), 2026-06-29.
+      mitigated:
+        version_number: 2
+        status_in_family: draft         # projection until the controls are funded
+        cites: [SM-IDENTITY-SPLIT, SM-CTRL-RECOVERY]
+        note: >-
+          Projected S1 with the two planned cyber controls funded (identity/PAM plane
+          separation + clean control-plane recovery). Pessimistic FCF held above the
+          -$100M liquidity trigger (-82 vs -118 base); the S1 → FN1 path is severed.
+          Benefit vs base: FCF +22/+25/+36 (best/realistic/pessimistic).
+        cases:
+          best:        {ebit: [-20, -3],      fcf: [-38], op_recovery_days: 6,  fin_recovery_years: 1}
+          realistic:   {ebit: [-32, -8],      fcf: [-54], op_recovery_days: 9,  fin_recovery_years: 2}
+          pessimistic: {ebit: [-46, -14, -4], fcf: [-82], op_recovery_days: 16, fin_recovery_years: 2}
 
     - scenario_id: BST-SC1
       family_id: "a1e6b2c0-1f47-4c8e-9b21-000000000002"
@@ -1509,7 +2118,7 @@ spice:
         Shift in the export-control / sanctions environment constrains RF supply
         and launch access — slows deployment and raises cost of capital, with no
         attacker.
-      illustrates: RH-04
+      illustrates: [RH-04, RA-02]   # RA-02 added 2026-06-26 (INC-02): GP1's launch/export-control slip pressures AURORA's budget (RA-02 -> RC-02 -> FN1), giving GP1 cross-perimeter reach and aligning entry+graph with the Bestiary Index.
       # NOTE: caused_by corrected from the scaffold value [ROE-01] (software defect,
       # semantically wrong for a geopolitical/supplier scenario) to the operational
       # risks GP1's own narrative names: RF sole-source supply + launch availability.
@@ -1544,6 +2153,35 @@ spice:
         realistic:   {ebit: [0], fcf: [-100], fin_recovery_years: 3}
         pessimistic: {ebit: [0], fcf: [-140], fin_recovery_years: 3}
 
+    - scenario_id: BST-GA1
+      family_id: "a1e6b2c0-1f47-4c8e-9b21-000000000006"
+      name: AURORA-GEO Development Overrun & Co-Funding Shock
+      family: programme
+      cause_type: other
+      cause_description: >-
+        The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase
+        A/B-to-C development overrun, compounded in the tail by an ESA/NASA
+        co-funding/partner shock — draining ODT's cash exactly while FCF
+        discipline gates the IPO. The second perimeter reaching the IPO story.
+      hypothesis: >-
+        AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental
+        cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is
+        set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the
+        capitalise treatment of AURORA dev-spend (CAN-01, decided 2026-06-26).
+        Cases consolidate with
+        the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic
+        -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption.
+        operational_recovery_days encodes the PDR-gate schedule slip.
+      illustrates: [RA-02, RA-04]
+      caused_by: [ROE-03]
+      assessed_against: BP-GEO
+      addresses: [MO-GA1-1, MO-GA1-2, MO-GA1-3]
+      mitigated_by: [SM-AURORA-DERISK, SM-AURORA-VARIANCE, SM-BRIDGE-FACILITY]
+      cases:
+        best:        {ebit: [0], fcf: [-6],  op_recovery_days: 90,  fin_recovery_years: 1}
+        realistic:   {ebit: [0], fcf: [-12], op_recovery_days: 180, fin_recovery_years: 2}
+        pessimistic: {ebit: [0], fcf: [-24], op_recovery_days: 365, fin_recovery_years: 3}
+
   # ─── Mitigation objectives (ADDRESSES targets) ─────────────────────────────
   mitigation_objectives:
     - {id: MO-S1-1,  name: "Separate Denver/Dublin identity & privileged-access planes", description: "Kill the single-plane weakness that lets one compromise trip the whole fleet."}
@@ -1561,82 +2199,6 @@ spice:
     - {id: MO-FN1-1, name: "Hold FY2028 FCF above the -$100M liquidity trigger", description: "Every upstream mitigation ultimately feeds this."}
     - {id: MO-FN1-2, name: "Pre-arranged bridge financing & insurance that actually pays", description: "Liquidity that survives a war/state-actor exclusion dispute."}
     - {id: MO-FN1-3, name: "Quantified, disclosed risk in the IPO file", description: "Diane's lever — disclosure rather than a purchasable control."}
-
-  # ─── SPICE financial / operational mitigations ─────────────────────────────
-  # cost/coverage populated only where Canon states a figure.
-  spice_mitigations:
-    - id: SM-CYBER-INS
-      name: Cyber insurance tower
-      type: impact_reducing
-      status: ongoing
-      coverage_amount: 50.0        # Canon: $50M limit
-      description: >-
-        $50M limit, $5M deductible, BI cover after 72h, war/state-actor exclusion
-        (Canon: Insurance). Pays down financial impact but not attribution-disputed loss.
-      fulfils:
-        - {objective: MO-FN1-2, contribution_weight: 80.0}
-    - id: SM-CTRL-RECOVERY
-      name: Clean control-plane recovery capability
-      type: recovery_accelerating
-      status: planned
-      description: Offline golden images + rebuild runbook to restore legitimate control fast.
-      fulfils:
-        - {objective: MO-S1-3, contribution_weight: 90.0}
-    - id: SM-IDENTITY-SPLIT
-      name: Denver/Dublin identity & PAM plane separation
-      type: impact_reducing
-      status: planned
-      description: Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.
-      fulfils:
-        - {objective: MO-S1-1, contribution_weight: 100.0}
-        - {objective: MO-S1-2, contribution_weight: 40.0}
-    - id: SM-CLEAN-BUILD
-      name: Clean-build & unit re-verification line
-      type: recovery_accelerating
-      status: recommended
-      description: Re-qualify suspect Phase-4 units to certified-clean state.
-      fulfils:
-        - {objective: MO-SC1-1, contribution_weight: 90.0}
-    - id: SM-PLM-INTEGRITY
-      name: PLM integrity monitoring & supplier access governance
-      type: impact_reducing
-      status: ongoing
-      description: Tamper-evidence on build/test/config records + supplier least-privilege.
-      fulfils:
-        - {objective: MO-SC1-2, contribution_weight: 80.0}
-        - {objective: MO-SC1-3, contribution_weight: 50.0}
-    - id: SM-ACCRED-ENCLAVE
-      name: Audited accreditation enclave + remediation playbook
-      type: impact_reducing
-      status: ongoing
-      description: Isolated, continuously-audited accredited environment with a pre-cleared remediation plan.
-      fulfils:
-        - {objective: MO-RG1-1, contribution_weight: 70.0}
-        - {objective: MO-RG1-2, contribution_weight: 60.0}
-    - id: SM-DUAL-SOURCE
-      name: RF dual-source + multi-launcher framework
-      type: impact_reducing
-      status: ongoing
-      description: >-
-        Pre-negotiated second-source RF framework and multi-launcher slots
-        (financial-layer counterpart of MIT-01 / MIT-02) plus buffer stock.
-      fulfils:
-        - {objective: MO-GP1-1, contribution_weight: 80.0}
-        - {objective: MO-GP1-3, contribution_weight: 50.0}
-    - id: SM-BRIDGE-FACILITY
-      name: Committed bridge financing facility
-      type: impact_reducing
-      status: ongoing
-      coverage_amount: 60.0        # Canon: $60M facility alongside $85M cash (State B)
-      description: Drawable facility to hold FCF above the -$100M trigger ahead of the IPO.
-      fulfils:
-        - {objective: MO-FN1-1, contribution_weight: 70.0}
-        - {objective: MO-FN1-2, contribution_weight: 40.0}
-    - id: SM-REVENUE-DIVERSIFY
-      name: Commercial / government revenue diversification program
-      type: impact_reducing
-      status: planned
-      description: Reduce 30% gov-segment concentration; broaden commercial backlog.
-      fulfils:
-        - {objective: MO-RG1-3, contribution_weight: 60.0}
-        - {objective: MO-FN1-1, contribution_weight: 20.0}
+    - {id: MO-GA1-1, name: "De-risk optical ISL to TRL 4+ ahead of the PDR gate", description: "Retire the technology-maturation cost/schedule driver (RA-03/ROE-03) before it forces an overrun."}
+    - {id: MO-GA1-2, name: "Hold AURORA spend within the company FCF envelope", description: "Stage-gate funding + variance control so a GEO overrun does not push consolidated FCF through the -$60M IPO-bridge assumption."}
+    - {id: MO-GA1-3, name: "Secure ESA/NASA co-funding continuity & partner commitment", description: "Governance/relationship objective against partner withdrawal (RA-04) — no purchasable control (deliberate coverage gap)."}

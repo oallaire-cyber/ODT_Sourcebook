@@ -27,11 +27,17 @@ graph LR
   RG1 -->|Strong| FN1
   S1  -->|Strong| FN1
   GP1 -->|Moderate| FN1
-  FN1 -->|IMPACTS_TCO| TCO1{{TCO-01 EBITDA}}
+  GA1[GA1 Programme · GEO] -->|Moderate| FN1
+  FN1 -->|IMPACTS_TCO| TCO4{{TCO-04 IPO · apex}}
+  TCO1{{TCO-01 EBITDA}} -.enables.-> TCO4
   RG1 -->|IMPACTS_TCO| TCO2{{TCO-02 licenses}}
   classDef sink fill:#a93226,color:#fff;
+  classDef apex fill:#1a5276,color:#fff;
+  classDef geo fill:#8e44ad,color:#fff;
   class FN1 sink;
+  class TCO4 apex;
+  class GA1 geo;
 ```
 
 ## Read it like this
-Four **different causes** (a hacker, a supplier, a regulator, a geopolitical shift) propagate through different families and **converge on FN1 / TCO-01**. The mitigations worth most are the ones on shared edges — the **commonality view**. Full entries in [[Bestiary Index]].
+Five **different causes** (a hacker, a supplier, a regulator, a geopolitical shift, and a GEO development overrun) propagate through different families — across **both P&L perimeters** (LEO and BP-GEO via GA1) — and **converge on FN1 / TCO-04 (the IPO)**. TCO-01 (EBITDA) is the IPO's headline *enabler*, not the apex. The mitigations worth most are the ones on shared edges — the **commonality view**. Full entries in [[Bestiary Index]].

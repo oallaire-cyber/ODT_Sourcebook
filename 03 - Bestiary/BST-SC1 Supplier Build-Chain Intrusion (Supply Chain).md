@@ -44,10 +44,10 @@ No outage at all, yet it costs tens of millions — **through schedule, integrit
 
 **Influences:**
 - [[BST-S1 NOC Ground Compromise (Cyber)|S1]] — Weak (widened attack surface)
-- [[BST-FN1 IPO Window Collapse (Financial)|FN1]] — Strong (Phase-4 slip → revenue miss → IPO)
+- [[BST-FN1 IPO Window Collapse (Financial)|FN1]] — Strong (Phase-4 slip → revenue miss → IPO) — **now graph-backed** via `INFLUENCES` RH-02 → RH-03 (INF-45)
 
 **Influenced by:**
 - [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] — Strong (geopolitics disrupts supplier access)
 
 ## Graph anchoring
-`CAUSED_BY` → SEC-02, ROE-01 · `ILLUSTRATES` → RH-02 · `ASSESSED_AGAINST` → BP-LEO. See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
+`CAUSED_BY` → SEC-02, ROE-01 · `ILLUSTRATES` → RH-02 · `ASSESSED_AGAINST` → BP-LEO. RH-02 now `INFLUENCES` **RH-03** (INF-45), so SC1 provably reaches the IPO apex: **RH-02 → RH-03 → RC-01 → `IMPACTS_TCO` [[Canon & Figures Register|TCO-04]]** (closes [[Canon Change & Issue Register|INC-03]]). See [[Annex - RIM Anchoring]] · [[Data Dictionary]].

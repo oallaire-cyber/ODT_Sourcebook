@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-18 15:42
+//    Built   : 2026-06-29 11:35
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -34,6 +34,7 @@ CREATE (rc01:Risk {
   severity: 10.0,
   exposure: 60.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -54,6 +55,7 @@ CREATE (rc02:Risk {
   severity: 10.0,
   exposure: 50.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -74,6 +76,7 @@ CREATE (rc03:Risk {
   severity: 9.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -94,6 +97,10 @@ CREATE (rc04:Risk {
   severity: 8.0,
   exposure: 32.0,
   current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'FCC / ITU / ESA / national authorities',
+  applicable_standard: 'Multiple (cross-jurisdiction)',
+  licence_stage: 'Various — concurrent obligations',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -114,50 +121,11 @@ CREATE (rc05:Risk {
   severity: 9.0,
   exposure: 27.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
   next_review_date: datetime() + duration({days: 90})
-});
-
-CREATE (rcy01:Risk {
-  id: 'RCY-01',
-  name: 'Initial compromise of engineering VPN entry point',
-  description: 'Adversary gains an initial foothold via the internet-facing engineering VPN',
-  level: 'Operational',
-  scope: 'Security Operations',
-  status: 'Active',
-  origin: 'New',
-  categories: ['Security', 'IT'],
-  owner: 'CISO',
-  probability: 6.0,
-  severity: 6.0,
-  exposure: 36.0,
-  current_score_type: 'Qualitative_4x4',
-  created_at: datetime(),
-  updated_at: datetime(),
-  last_review_date: datetime(),
-  next_review_date: datetime() + duration({days: 60})
-});
-
-CREATE (rcy02:Risk {
-  id: 'RCY-02',
-  name: 'PLM compromise - satellite design data integrity & exfiltration',
-  description: 'Adversary reaches the PLM via lateral movement, exfiltrating and corrupting design data',
-  level: 'Operational',
-  scope: 'Security Operations',
-  status: 'Active',
-  origin: 'New',
-  categories: ['Security', 'Product'],
-  owner: 'CISO',
-  probability: 5.0,
-  severity: 9.0,
-  exposure: 45.0,
-  current_score_type: 'Qualitative_4x4',
-  created_at: datetime(),
-  updated_at: datetime(),
-  last_review_date: datetime(),
-  next_review_date: datetime() + duration({days: 60})
 });
 
 // --- HORIZON-LEO Programme Business Risks ---
@@ -176,6 +144,10 @@ CREATE (rh01:Risk {
   severity: 8.0,
   exposure: 56.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 22.0,
+  magnitude_low: 11.0,
+  magnitude_high: 45.0,
+  annual_probability: 0.7,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -196,6 +168,7 @@ CREATE (rh02:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -216,6 +189,10 @@ CREATE (rh03:Risk {
   severity: 7.0,
   exposure: 42.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 14.0,
+  magnitude_low: 7.0,
+  magnitude_high: 28.0,
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -236,6 +213,7 @@ CREATE (rh04:Risk {
   severity: 8.0,
   exposure: 48.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -256,6 +234,10 @@ CREATE (rh05:Risk {
   severity: 8.0,
   exposure: 40.0,
   current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'DoD / US government accreditation authority',
+  applicable_standard: 'Security accreditation (task-order gate)',
+  licence_stage: 'Accreditation maintenance — suspension freezes new task orders',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -278,6 +260,10 @@ CREATE (rh06:Risk {
   current_score_type: 'Qualitative_4x4',
   activation_condition: 'If Phase 3 satellites exceed 40 active beams per satellite in high-demand zones',
   activation_decision_date: '2026-06-30',
+  magnitude_point_estimate: 8.0,
+  magnitude_low: 4.0,
+  magnitude_high: 16.0,
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -298,6 +284,13 @@ CREATE (rh07:Risk {
   severity: 8.0,
   exposure: 32.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 22.0,
+  magnitude_low: 11.0,
+  magnitude_high: 45.0,
+  regulatory_body: 'ITU',
+  applicable_standard: 'ITU Radio Regulations (frequency coordination)',
+  licence_stage: 'Priority filing / coordination with incumbent operators',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -320,6 +313,10 @@ CREATE (ra01:Risk {
   severity: 7.0,
   exposure: 42.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 14.0,
+  magnitude_low: 7.0,
+  magnitude_high: 28.0,
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -340,6 +337,7 @@ CREATE (ra02:Risk {
   severity: 6.0,
   exposure: 42.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.7,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -360,6 +358,10 @@ CREATE (ra03:Risk {
   severity: 9.0,
   exposure: 45.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 35.0,
+  magnitude_low: 18.0,
+  magnitude_high: 70.0,
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -382,6 +384,7 @@ CREATE (ra04:Risk {
   current_score_type: 'Qualitative_4x4',
   activation_condition: 'If partner M&A activity is confirmed or strategic review initiated',
   activation_decision_date: '2026-12-31',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -402,6 +405,13 @@ CREATE (ra05:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 14.0,
+  magnitude_low: 7.0,
+  magnitude_high: 28.0,
+  regulatory_body: 'US DDTC (State Dept)',
+  applicable_standard: 'ITAR 22 CFR 120–130',
+  licence_stage: 'Technology-transfer authorisation (non-US AURORA partners)',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -424,6 +434,7 @@ CREATE (roe01:Risk {
   severity: 9.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -444,6 +455,7 @@ CREATE (roe02:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -464,6 +476,7 @@ CREATE (roe03:Risk {
   severity: 8.0,
   exposure: 40.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -486,6 +499,10 @@ CREATE (rom01:Risk {
   severity: 9.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Critical',
+  single_source: true,
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -506,6 +523,10 @@ CREATE (rom02:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Critical',
+  single_source: true,
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -526,6 +547,10 @@ CREATE (rom03:Risk {
   severity: 7.0,
   exposure: 28.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Important',
+  single_source: false,
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -546,6 +571,10 @@ CREATE (rom04:Risk {
   severity: 7.0,
   exposure: 21.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Internal',
+  criticality_class: 'Critical',
+  single_source: false,
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -568,6 +597,10 @@ CREATE (rol01:Risk {
   severity: 8.0,
   exposure: 48.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Important',
+  single_source: false,
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -588,6 +621,7 @@ CREATE (rol02:Risk {
   severity: 10.0,
   exposure: 20.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.05,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -610,6 +644,7 @@ CREATE (roc01:Risk {
   severity: 6.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -630,6 +665,7 @@ CREATE (roc02:Risk {
   severity: 5.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -652,6 +688,7 @@ CREATE (rof01:Risk {
   severity: 5.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -672,6 +709,7 @@ CREATE (rof02:Risk {
   severity: 7.0,
   exposure: 28.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -692,6 +730,7 @@ CREATE (roh01:Risk {
   severity: 7.0,
   exposure: 49.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.7,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -712,6 +751,10 @@ CREATE (roh02:Risk {
   severity: 6.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'US DDTC (State Dept)',
+  applicable_standard: 'ITAR 22 CFR 120–130 (deemed-export rules)',
+  licence_stage: 'Personnel clearance — limits the ITAR-cleared workforce',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -732,6 +775,10 @@ CREATE (ror01:Risk {
   severity: 9.0,
   exposure: 27.0,
   current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'FCC',
+  applicable_standard: '47 CFR Part 25',
+  licence_stage: 'Granted Q3 2026 — ongoing deployment-milestone conditions (the breach risk)',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -752,6 +799,7 @@ CREATE (roi01:Risk {
   severity: 8.0,
   exposure: 24.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -774,6 +822,7 @@ CREATE (sec01:Risk {
   severity: 10.0,
   exposure: 40.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -794,6 +843,10 @@ CREATE (sec02:Risk {
   severity: 10.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Critical',
+  single_source: false,
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -814,6 +867,7 @@ CREATE (sec03:Risk {
   severity: 9.0,
   exposure: 27.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -834,6 +888,7 @@ CREATE (sec04:Risk {
   severity: 9.0,
   exposure: 45.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -854,6 +909,7 @@ CREATE (sec05:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -874,6 +930,7 @@ CREATE (sec06:Risk {
   severity: 9.0,
   exposure: 45.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -894,6 +951,7 @@ CREATE (sec07:Risk {
   severity: 8.0,
   exposure: 16.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.05,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -914,6 +972,7 @@ CREATE (sec08:Risk {
   severity: 7.0,
   exposure: 21.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -934,6 +993,7 @@ CREATE (sec09:Risk {
   severity: 6.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -954,6 +1014,7 @@ CREATE (sec10:Risk {
   severity: 5.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -974,6 +1035,7 @@ CREATE (sec11:Risk {
   severity: 6.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -994,6 +1056,7 @@ CREATE (sec12:Risk {
   severity: 10.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1014,6 +1077,7 @@ CREATE (sec13:Risk {
   severity: 10.0,
   exposure: 20.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.05,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1034,6 +1098,7 @@ CREATE (sec14:Risk {
   severity: 9.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1056,6 +1121,7 @@ CREATE (rcy01:Risk {
   severity: 6.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1076,10 +1142,132 @@ CREATE (rcy02:Risk {
   severity: 9.0,
   exposure: 45.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
   next_review_date: datetime() + duration({days: 60})
+});
+
+// --- Historical Incidents & Closed Risks ---
+
+CREATE (hx01:Risk {
+  id: 'HX-01',
+  name: '[2026] Teledyne RF transponder lot quality escape',
+  description: 'A Ku/Ka-band transponder lot from Teledyne showed an out-of-spec solder process drift; caught at incoming inspection, quarantined and re-screened. Minor schedule margin consumed; no flight impact. Closed.',
+  level: 'Operational',
+  scope: 'HORIZON-LEO',
+  status: 'Closed',
+  origin: 'Legacy',
+  categories: ['Supply Chain', 'Industrial'],
+  owner: 'Quality Manager',
+  probability: 4.0,
+  severity: 4.0,
+  exposure: 16.0,
+  current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Critical',
+  single_source: true,
+  archive_date: '2026-08-31',
+  annual_probability: 0.2,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 365})
+});
+
+CREATE (hx02:Risk {
+  id: 'HX-02',
+  name: '[2027] Contained credential-phishing attempt on the engineering VPN',
+  description: 'A targeted phishing campaign harvested an engineer\'s password; the attempted VPN login was blocked by MFA + device-posture checks and flagged by the SOC. No access gained, no data touched — validated MIT-CY1 / MIT-13. Not a breach, and not the trigger for the cyber-quantification programme (that remains a forward-looking SPICE exercise).',
+  level: 'Operational',
+  scope: 'Security Operations',
+  status: 'Closed',
+  origin: 'New',
+  categories: ['Security'],
+  owner: 'CISO',
+  probability: 6.0,
+  severity: 3.0,
+  exposure: 18.0,
+  current_score_type: 'Qualitative_4x4',
+  archive_date: '2027-05-31',
+  annual_probability: 0.5,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 365})
+});
+
+CREATE (hx03:Risk {
+  id: 'HX-03',
+  name: '[legacy] Single-NOC design — no geographic control backup',
+  description: 'Before the Dublin backup NOC came online, constellation control ran from a single Denver site with no geographic redundancy. Superseded when Dublin was established; archived. (The residual shared-identity-plane weakness is carried forward in the S1 kill-chain via TP-IDP, not here.)',
+  level: 'Operational',
+  scope: 'Security Operations',
+  status: 'Archived',
+  origin: 'Legacy',
+  categories: ['Programme', 'Product'],
+  owner: 'VP Ground & Ops',
+  probability: 3.0,
+  severity: 8.0,
+  exposure: 24.0,
+  current_score_type: 'Qualitative_4x4',
+  archive_date: '2026-11-30',
+  annual_probability: 0.1,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 365})
+});
+
+CREATE (hx04:Risk {
+  id: 'HX-04',
+  name: 'Orbital-debris conjunction residual (accepted, watching)',
+  description: 'The residual collision exposure during deployment cannot be eliminated; the ROC formally accepted it and monitors conjunction screening. Watched for a close-approach trigger that re-activates the ROL-02 collision-avoidance response — the showcase of the accepted → watching → re-activate lifecycle.',
+  level: 'Operational',
+  scope: 'HORIZON-LEO',
+  status: 'Watching',
+  origin: 'Legacy',
+  categories: ['Product'],
+  owner: 'VP Launch Operations',
+  probability: 2.0,
+  severity: 10.0,
+  exposure: 20.0,
+  current_score_type: 'Qualitative_4x4',
+  trigger_condition: 'Predicted conjunction probability above the manoeuvre threshold (sub-1km close approach on 18th SDS conjunction data) → re-activate ROL-02.',
+  acceptance_date: '2027-03-31',
+  acceptance_owner: 'Yuki Tanaka (VP Launch Operations)',
+  annual_probability: 0.05,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 90})
+});
+
+CREATE (hx05:Risk {
+  id: 'HX-05',
+  name: 'FCC Part 25 operational-approval risk (suppressed)',
+  description: 'The risk of not securing FCC Part 25 operational approval — a Phase-1 launch gate. Approval was granted (Q3 2026), so the exposure dropped below the acceptance threshold; suppressed and retained for audit. Ongoing licence conditions remain a live risk (ROR-01).',
+  level: 'Business',
+  scope: 'HORIZON-LEO',
+  status: 'Suppressed',
+  origin: 'Legacy',
+  categories: ['Regulatory'],
+  owner: 'VP Compliance & Quality',
+  probability: 2.0,
+  severity: 7.0,
+  exposure: 14.0,
+  current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'FCC',
+  applicable_standard: '47 CFR Part 25',
+  licence_stage: 'Granted Q3 2026 — approval risk retired (conditions tracked by ROR-01)',
+  trigger_condition: 'Material new Part 25 condition or a filing lapse → re-activate as an approval-status risk.',
+  archive_date: '2026-09-30',
+  annual_probability: 0.05,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 180})
 });
 
 // =============================================================================
@@ -1192,6 +1380,18 @@ CREATE (tco03:ContextNode {
   updated_at: datetime()
 });
 
+CREATE (tco04:ContextNode {
+  node_type: 'tco',
+  id: 'TCO-04',
+  reference: 'TCO-04',
+  name: 'Achieve a successful IPO / liquidity event by H1 2029',
+  description: 'Company-wide capstone objective: complete the planned IPO (~$250M, Nasdaq, H1 2029). The convergence apex — the company financial-risk cluster (RC-01/RC-02/RC-03) impacts it directly, and the revenue ramp (TPO-01) contributes to it. TCO-01 (positive EBITDA) is the headline enabler. BST-FN1 is the scenario of failing this objective.',
+  owner: 'CEO',
+  time_horizon: 'H1 2029',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
 // =============================================================================
 // MITIGATIONS
 // =============================================================================
@@ -1202,7 +1402,7 @@ CREATE (mit01:Mitigation {
   id: 'MIT-01',
   name: 'Multi-launcher diversification strategy',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Contracted launch slots with SpaceX, Rocket Lab, and Arianespace providing 3 independent launch paths for Phase 3',
   owner: 'VP Launch Operations',
   source_entity: '',
@@ -1214,7 +1414,7 @@ CREATE (mit02:Mitigation {
   id: 'MIT-02',
   name: 'RF component dual-sourcing qualification',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Qualification of Airbus DS as second source for Ku/Ka transponder modules with framework contract negotiation',
   owner: 'VP Manufacturing & Supply Chain',
   source_entity: '',
@@ -1226,7 +1426,7 @@ CREATE (mit03:Mitigation {
   id: 'MIT-03',
   name: 'Satellite engineering talent retention program',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Equity incentive program, technical career ladder, and competitive retention packages for top 50 critical engineers',
   owner: 'HR Director',
   source_entity: '',
@@ -1238,7 +1438,7 @@ CREATE (mit04:Mitigation {
   id: 'MIT-04',
   name: 'Ground segment Zero Trust architecture',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Redesign of ground segment network following Zero Trust principles with micro-segmentation between IT and OT domains',
   owner: 'CISO',
   source_entity: '',
@@ -1250,7 +1450,7 @@ CREATE (mit05:Mitigation {
   id: 'MIT-05',
   name: 'Satellite command authentication hardening',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Implementation of post-quantum cryptographic command authentication with hardware security module key management',
   owner: 'CISO',
   source_entity: '',
@@ -1262,7 +1462,7 @@ CREATE (mit06:Mitigation {
   id: 'MIT-06',
   name: 'Enterprise customer success program',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Dedicated customer success managers for top-20 enterprise accounts with quarterly business reviews and SLA monitoring',
   owner: 'VP Sales',
   source_entity: '',
@@ -1274,7 +1474,7 @@ CREATE (mit07:Mitigation {
   id: 'MIT-07',
   name: 'Autonomous collision avoidance system',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'AI-driven autonomous collision avoidance using 18th Space Defense Squadron conjunction data with sub-1km threshold manoeuvres',
   owner: 'VP Launch Operations',
   source_entity: '',
@@ -1286,7 +1486,7 @@ CREATE (mit08:Mitigation {
   id: 'MIT-08',
   name: 'Payload software independent V&V program',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Independent verification and validation of payload reconfiguration software by third-party per ECSS-E-ST-40C',
   owner: 'Lead Software Architect',
   source_entity: '',
@@ -1298,7 +1498,7 @@ CREATE (mit09:Mitigation {
   id: 'MIT-09',
   name: 'AURORA optical link risk reduction campaign',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Pre-PDR breadboard testing and thermal vacuum simulation of optical terminal pointing mechanism',
   owner: 'AURORA Chief Engineer',
   source_entity: '',
@@ -1310,7 +1510,7 @@ CREATE (mit10:Mitigation {
   id: 'MIT-10',
   name: 'Supply chain hardware integrity verification',
   type: 'Dedicated',
-  status: 'Proposed',
+  status: 'recommended',
   description: 'X-ray inspection and firmware hash verification protocol for all mission-critical components received from tier-1 suppliers',
   owner: 'CISO',
   source_entity: '',
@@ -1322,7 +1522,7 @@ CREATE (mit11:Mitigation {
   id: 'MIT-11',
   name: 'Anti-jamming adaptive beam-forming',
   type: 'Dedicated',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Software-defined anti-jamming capability using adaptive null-steering on phased array to mitigate targeted RF interference',
   owner: 'VP Engineering',
   source_entity: '',
@@ -1334,7 +1534,7 @@ CREATE (mit12:Mitigation {
   id: 'MIT-12',
   name: 'Ransomware-specific incident response plan',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Dedicated ransomware playbook with offline backups, network isolation procedures, and pre-negotiated incident response retainer',
   owner: 'CISO',
   source_entity: '',
@@ -1346,9 +1546,115 @@ CREATE (mitcy1:Mitigation {
   id: 'MIT-CY1',
   name: 'Zero-trust VPN + MFA hardening',
   type: 'Dedicated',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Enforce MFA and device posture on the engineering VPN to reduce initial compromise',
   owner: 'CISO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smctrlrecovery:Mitigation {
+  id: 'SM-CTRL-RECOVERY',
+  name: 'Clean control-plane recovery capability',
+  type: 'Dedicated',
+  status: 'planned',
+  financial_effect: 'recovery_accelerating',
+  committed_budget: 1.5,
+  description: 'Offline golden images + rebuild runbook to restore legitimate control fast.',
+  owner: 'CISO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smidentitysplit:Mitigation {
+  id: 'SM-IDENTITY-SPLIT',
+  name: 'Denver/Dublin identity & PAM plane separation',
+  type: 'Dedicated',
+  status: 'planned',
+  financial_effect: 'impact_reducing',
+  committed_budget: 4.0,
+  description: 'Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.',
+  owner: 'CISO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smcleanbuild:Mitigation {
+  id: 'SM-CLEAN-BUILD',
+  name: 'Clean-build & unit re-verification line',
+  type: 'Dedicated',
+  status: 'recommended',
+  financial_effect: 'recovery_accelerating',
+  description: 'Re-qualify suspect Phase-4 units to certified-clean state.',
+  owner: 'VP Manufacturing & Supply Chain',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smplmintegrity:Mitigation {
+  id: 'SM-PLM-INTEGRITY',
+  name: 'PLM integrity monitoring & supplier access governance',
+  type: 'Dedicated',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Tamper-evidence on build/test/config records + supplier least-privilege.',
+  owner: 'CISO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smaccredenclave:Mitigation {
+  id: 'SM-ACCRED-ENCLAVE',
+  name: 'Audited accreditation enclave + remediation playbook',
+  type: 'Dedicated',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Isolated, continuously-audited accredited environment with a pre-cleared remediation plan.',
+  owner: 'VP Compliance & Quality',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smdualsource:Mitigation {
+  id: 'SM-DUAL-SOURCE',
+  name: 'RF dual-source + multi-launcher framework',
+  type: 'Dedicated',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Pre-negotiated second-source RF framework and multi-launcher slots (financial-layer counterpart of MIT-01 / MIT-02) plus buffer stock.',
+  owner: 'VP Manufacturing & Supply Chain',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smrevenuediversify:Mitigation {
+  id: 'SM-REVENUE-DIVERSIFY',
+  name: 'Commercial / government revenue diversification program',
+  type: 'Dedicated',
+  status: 'planned',
+  financial_effect: 'impact_reducing',
+  description: 'Reduce 30% gov-segment concentration; broaden commercial backlog.',
+  owner: 'VP Sales',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smauroraderisk:Mitigation {
+  id: 'SM-AURORA-DERISK',
+  name: 'AURORA optical-link risk-reduction campaign',
+  type: 'Dedicated',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Pre-PDR breadboard + thermal-vacuum testing of the optical pointing mechanism to retire ISL maturation risk early (financial-layer counterpart of MIT-09).',
+  owner: 'AURORA Chief Engineer',
   source_entity: '',
   created_at: datetime(),
   updated_at: datetime()
@@ -1360,7 +1666,7 @@ CREATE (mit13:Mitigation {
   id: 'MIT-13',
   name: 'Corporate SOC 24/7 monitoring',
   type: 'Inherited',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Shared Security Operations Center providing 24/7 threat detection, SIEM correlation, and incident response with SLA <15min',
   owner: 'CISO',
   source_entity: 'Corporate IT Security Division',
@@ -1372,7 +1678,7 @@ CREATE (mit14:Mitigation {
   id: 'MIT-14',
   name: 'Corporate financial planning and analysis process',
   type: 'Inherited',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Monthly rolling forecast, variance analysis, and cash flow monitoring with board-level escalation on >5% deviation',
   owner: 'CFO',
   source_entity: 'Corporate Finance',
@@ -1384,7 +1690,7 @@ CREATE (mit15:Mitigation {
   id: 'MIT-15',
   name: 'Corporate IT disaster recovery',
   type: 'Inherited',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Multi-region disaster recovery infrastructure with RTO 4h / RPO 1h for critical business systems',
   owner: 'IT Director',
   source_entity: 'Corporate IT Division',
@@ -1396,10 +1702,51 @@ CREATE (mit16:Mitigation {
   id: 'MIT-16',
   name: 'Corporate security awareness training',
   type: 'Inherited',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Mandatory quarterly security awareness training and monthly phishing simulation campaigns for all employees',
   owner: 'CISO',
   source_entity: 'Corporate HR & Security',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smcyberins:Mitigation {
+  id: 'SM-CYBER-INS',
+  name: 'Cyber insurance tower',
+  type: 'Inherited',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  coverage_amount: 50.0,
+  description: '$50M limit, $5M deductible, BI cover after 72h, war/state-actor exclusion (Canon: Insurance). Pays down financial impact but not attribution-disputed loss.',
+  owner: 'CFO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smbridgefacility:Mitigation {
+  id: 'SM-BRIDGE-FACILITY',
+  name: 'Committed bridge financing facility',
+  type: 'Inherited',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  coverage_amount: 60.0,
+  description: 'Drawable facility to hold FCF above the -$100M trigger ahead of the IPO.',
+  owner: 'CFO',
+  source_entity: '',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+CREATE (smauroravariance:Mitigation {
+  id: 'SM-AURORA-VARIANCE',
+  name: 'AURORA stage-gate funding & budget variance control',
+  type: 'Inherited',
+  status: 'on-going',
+  financial_effect: 'impact_reducing',
+  description: 'Release AURORA funds against PDR/sub-system stage-gates with monthly variance analysis, catching an overrun before it breaches the company FCF envelope (financial-layer counterpart of MIT-14).',
+  owner: 'CFO',
+  source_entity: '',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -1410,7 +1757,7 @@ CREATE (mit17:Mitigation {
   id: 'MIT-17',
   name: 'ECSS Space Product Assurance framework',
   type: 'Baseline',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Compliance with ECSS-Q-ST-20C (quality assurance) and ECSS-Q-ST-80C (software product assurance) for all flight hardware and software',
   owner: 'VP Compliance & Quality',
   source_entity: 'ECSS Standards',
@@ -1422,7 +1769,7 @@ CREATE (mit18:Mitigation {
   id: 'MIT-18',
   name: 'NIST Cybersecurity Framework implementation',
   type: 'Baseline',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Full implementation of NIST CSF 2.0 across all IT and OT systems with annual maturity assessment',
   owner: 'CISO',
   source_entity: 'NIST CSF 2.0',
@@ -1434,7 +1781,7 @@ CREATE (mit19:Mitigation {
   id: 'MIT-19',
   name: 'FCC regulatory compliance program',
   type: 'Baseline',
-  status: 'In Progress',
+  status: 'on-going',
   description: 'Systematic compliance tracking for all FCC license conditions with automated reporting and exception management',
   owner: 'VP Compliance & Quality',
   source_entity: 'FCC 47 CFR Parts 25 & 97',
@@ -1446,7 +1793,7 @@ CREATE (mit20:Mitigation {
   id: 'MIT-20',
   name: 'ITAR compliance management system',
   type: 'Baseline',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Comprehensive ITAR compliance program including technology control plans, deemed export procedures, and annual audit',
   owner: 'VP Compliance & Quality',
   source_entity: 'ITAR 22 CFR Parts 120-130',
@@ -1458,7 +1805,7 @@ CREATE (mit21:Mitigation {
   id: 'MIT-21',
   name: 'ISO 27001 ISMS certification',
   type: 'Baseline',
-  status: 'Implemented',
+  status: 'existing',
   description: 'Certified Information Security Management System covering all ODT operations with annual surveillance audits',
   owner: 'CISO',
   source_entity: 'ISO/IEC 27001:2022',
@@ -1477,11 +1824,24 @@ CREATE (bpleo:ContextNode {
   id: 'BP-LEO',
   name: 'HORIZON-LEO Programme',
   pl_holder: 'HORIZON-LEO Business Unit',
-  ebit_baseline: 45.0,
+  ebit_baseline: 13.0,
   fcf_baseline: -30.0,
   currency: 'USD_M',
   spice_assessed: false,
-  description: 'P&L-bearing unit for the HORIZON-LEO constellation programme',
+  description: 'P&L-bearing unit for the HORIZON-LEO constellation programme. ebit_baseline 13.0 = the company\'s canon EBIT, borne entirely by LEO (GEO is pre-revenue, ebit 0); fcf_baseline -30 is LEO\'s share of the canon consolidated -40 FCF. (CAN-01/CAN-03 EBIT leg closed 2026-06-26: AURORA dev-spend capitalised, so consolidated EBIT = LEO 13 + GEO 0.)',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bpgeo:ContextNode {
+  node_type: 'business_perimeter',
+  id: 'BP-GEO',
+  name: 'AURORA-GEO Programme',
+  pl_holder: 'AURORA-GEO Programme',
+  ebit_baseline: 0.0,
+  fcf_baseline: -10.0,
+  currency: 'USD_M',
+  spice_assessed: false,
+  description: 'Pre-revenue development perimeter for the AURORA-GEO optical-relay programme. ebit_baseline 0 (no service revenue yet); fcf_baseline -10 is ODT\'s FY2028 internal-share development burn (Phase-C ramp) of a ~$50M Phase-A/B->PDR budget co-funded ~60% by ESA/NASA. Consolidates with BP-LEO (-30) to the canon company FCF of -40. Risk metric is schedule & co-funding (TPO-05 PDR gate), not EBIT.',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -1511,6 +1871,15 @@ CREATE (ep01:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (ep02:ContextNode {
+  node_type: 'entry_point',
+  id: 'EP-02',
+  name: 'MSSP privileged remote access',
+  description: 'The managed-security provider\'s (SOC) privileged remote access into the ground segment — the S1 entry vector. Broad reach into the shared identity plane; abused via stolen/over-scoped MSSP credentials.',
+  exploitability: 'High',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // --- Attackers ---
 
@@ -1520,6 +1889,15 @@ CREATE (atk01:ContextNode {
   name: 'APT-Stellar (state-sponsored)',
   description: 'Well-resourced state-sponsored actor targeting space IP and supply chains',
   capability_level: 9,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (atk02:ContextNode {
+  node_type: 'attacker',
+  id: 'ATK-02',
+  name: 'APT-Eclipse (state-aligned, service-denial)',
+  description: 'State-aligned, attribution-averse actor contesting ODT\'s government customers — objective is to take the constellation offline (break SLAs, shake government confidence), not to deploy ransomware. The S1 actor.',
+  capability_level: 8,
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -1538,6 +1916,77 @@ CREATE (tpplm:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (tpait:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-AIT',
+  name: 'Satellite AIT clean-room facility',
+  description: 'Assembly-Integration-Test clean room where tier-1 components are received, integrated into the satellite bus and qualified to the Phase-4 certification gate. Single integration line on the deployment critical path (ROM-04 owner: Plant Director). Location not pinned in canon.',
+  type: 'Manufacturing / AIT',
+  criticality: 5,
+  external_id: 'AIT-CR-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpnoc:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-NOC',
+  name: 'NOC / mission control & service operations',
+  description: 'Network Operations Centre commanding the on-orbit constellation (TT&C) and running the LEO broadband service (capacity allocation, provisioning). Denver primary / Dublin backup share an identity/PAM plane (the S1 weakness).',
+  type: 'Ground segment / Mission control',
+  location: 'Denver (primary) / Dublin (backup)',
+  criticality: 5,
+  external_id: 'NOC-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpidp:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-IDP',
+  name: 'Shared Denver/Dublin identity & PAM plane',
+  description: 'The single identity / privileged-access-management plane spanning both NOCs — a deliberate, realistic weakness: one compromise cascades to both sites, so the Dublin backup is NOT a backup against an identity-plane attack (the S1 flaw).',
+  type: 'Identity & access management',
+  location: 'Denver / Dublin (single sign-on + common privileged-access tooling)',
+  criticality: 5,
+  external_id: 'IDP-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpnms:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-NMS',
+  name: 'Network Management System (NMS)',
+  description: '"The commercial brain" — payload reconfiguration, beam plans, capacity allocation and routing. A corrupt beam/capacity config pushed here trips fleet-wide safe-mode (S1).',
+  type: 'OT / Service management',
+  location: 'NOC (Denver primary / Dublin backup)',
+  criticality: 5,
+  external_id: 'NMS-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpgw:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-GW',
+  name: 'Ground gateways & secondary stations',
+  description: 'Gateway and secondary ground stations remotely administered from Denver (Dublin backup). Ransomware / IT→OT lateral movement targets (SEC-04/14).',
+  type: 'Ground segment',
+  location: 'Fairbanks, Tromsø, Singapore, Perth (+ 12 secondary)',
+  criticality: 4,
+  external_id: 'GW-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpbill:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-BILL',
+  name: 'Billing & provisioning platform',
+  description: 'Activates / deactivates customer terminals. Mass deactivation can mimic an outage at low technical cost — the S1 backup path; DDoS/API-abuse target (SEC-10).',
+  type: 'Corporate IT / Cloud',
+  location: 'Corporate IT / cloud',
+  criticality: 3,
+  external_id: 'BILL-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // --- Sponsors ---
 
@@ -1546,6 +1995,14 @@ CREATE (spn01:ContextNode {
   id: 'SPN-01',
   name: 'Foreign Intelligence Agency',
   description: 'State sponsor directing the intrusion to acquire satellite design IP',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (spn02:ContextNode {
+  node_type: 'sponsor',
+  id: 'SPN-02',
+  name: 'State-aligned sponsor (government-contract contestation)',
+  description: 'State-aligned backer of the S1 disruption — motive is to deny ODT legitimate fleet control long enough to break SLAs and shake government confidence, damaging the IPO narrative. Attribution-averse (and conveniently inside the cyber tower\'s war/state-actor exclusion).',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -1561,6 +2018,51 @@ CREATE (ft01:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (ftctrl:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-CTRL',
+  name: 'Legitimate fleet command authority (TT&C)',
+  description: 'Authoritative command & control of the constellation (signed TT&C). The S1 objective: seize or deny it so the fleet trips fleet-wide safe-mode — "loss of legitimate control."',
+  classification: 'Mission-critical / OT',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ftcomp:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-COMP',
+  name: 'Qualified flight components',
+  description: 'Tier-1 supplier components qualified for flight — RF transponders (Teledyne), space-grade batteries (Saft), composite bus structures (Northrop/Spirit), attitude control (Moog/Orbital ATK). The supply-chain inputs to the build.',
+  classification: 'Flight hardware / ITAR-controlled',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ftsat:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-SAT',
+  name: 'Integrated & tested satellite (flight unit)',
+  description: 'A satellite assembled, integrated and tested through the AIT line and passed through the Phase-4 certification gate — the ~$3.4M/sat unit (incl. launch).',
+  classification: 'Flight hardware / ITAR-controlled',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ftconst:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-CONST',
+  name: 'Deployed on-orbit constellation capacity',
+  description: 'The 80-satellite HORIZON-LEO constellation (8 polar planes, 550 km) once launched and commissioned — the capacity that carries the service.',
+  classification: 'Operational asset',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ftsvc:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-SVC',
+  name: 'LEO broadband service',
+  description: 'The connectivity service ODT sells (corporate / government / wholesale telco) — the revenue-bearing output of the whole production chain.',
+  classification: 'Commercial service',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // --- Business Activities ---
 
@@ -1569,6 +2071,223 @@ CREATE (ba01:ContextNode {
   id: 'BA-01',
   name: 'Engineering - Design',
   description: 'Design engineering activity that produces and uses the satellite design data',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (baproc:ContextNode {
+  node_type: 'business_activity',
+  id: 'BA-PROC',
+  name: 'Supplier procurement & component qualification',
+  description: 'Sourcing and qualifying tier-1 flight components; manages the Teledyne / Saft single-source dependencies and the Airbus DS dual-source qualification.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bamfg:ContextNode {
+  node_type: 'business_activity',
+  id: 'BA-MFG',
+  name: 'Satellite manufacturing, assembly & test (AIT)',
+  description: 'Integration of qualified components into the satellite bus and test to the Phase-4 certification gate — the AIT line (target ~1 satellite/month).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (balaunch:ContextNode {
+  node_type: 'business_activity',
+  id: 'BA-LAUNCH',
+  name: 'Launch & early-orbit operations',
+  description: 'Manifesting flight units on SpaceX / Rocket Lab, launch, and commissioning into the constellation — the launch-availability dependency (ROL-01).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (basvc:ContextNode {
+  node_type: 'business_activity',
+  id: 'BA-SVC',
+  name: 'Constellation operations & service delivery',
+  description: 'Operating the on-orbit fleet (TT&C) and delivering the LEO broadband service — capacity allocation, provisioning, SLAs.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+// =============================================================================
+// OWNERS  (accountability layer — BEARS / STEWARDS)
+// =============================================================================
+
+CREATE (ownceo:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-CEO',
+  name: 'Elena Vasquez',
+  role: 'CEO / co-founder',
+  entity: 'Executive',
+  email: 'elena.vasquez@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (owncfo:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-CFO',
+  name: 'Diane Marchetti',
+  role: 'CFO',
+  entity: 'Finance',
+  email: 'diane.marchetti@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (owncto:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-CTO',
+  name: 'Raj Patel',
+  role: 'CTO / co-founder',
+  entity: 'Engineering & Technology',
+  email: 'raj.patel@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownciso:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-CISO',
+  name: 'Tom Reuter',
+  role: 'CISO',
+  entity: 'Office of the CISO (→ CTO)',
+  email: 'tom.reuter@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpcq:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPCQ',
+  name: 'Amara Diallo',
+  role: 'VP Compliance & Quality',
+  entity: 'Compliance & Quality',
+  email: 'amara.diallo@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvplo:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPLO',
+  name: 'Yuki Tanaka',
+  role: 'VP Launch Operations',
+  entity: 'Launch Operations',
+  email: 'yuki.tanaka@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpeng:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPENG',
+  name: 'Priya Nair',
+  role: 'VP Engineering',
+  entity: 'Engineering',
+  email: 'priya.nair@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpmsc:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPMSC',
+  name: 'Carlos Mendes',
+  role: 'VP Manufacturing & Supply Chain',
+  entity: 'Manufacturing & Supply Chain',
+  email: 'carlos.mendes@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpgo:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPGO',
+  name: 'Sofia Adler',
+  role: 'VP Ground & Operations',
+  entity: 'Ground & Operations',
+  email: 'sofia.adler@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownapd:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-APD',
+  name: 'Henrik Sorensen',
+  role: 'VP Program Management (AURORA-GEO)',
+  entity: 'Program Management',
+  email: 'henrik.sorensen@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownvpsales:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-VPSALES',
+  name: 'VP Sales',
+  role: 'VP Sales',
+  entity: 'Commercial / Sales',
+  email: 'vp.sales@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownlsa:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-LSA',
+  name: 'Lead Software Architect',
+  role: 'Lead Software Architect',
+  entity: 'Engineering — Payload Software',
+  email: 'payload.swlead@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (owntsl:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-TSL',
+  name: 'Thermal Subsystem Lead',
+  role: 'Thermal Subsystem Lead',
+  entity: 'Engineering — Thermal',
+  email: 'thermal.lead@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownace:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-ACE',
+  name: 'AURORA Chief Engineer',
+  role: 'AURORA Chief Engineer',
+  entity: 'Engineering — AURORA-GEO',
+  email: 'aurora.ce@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownqm:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-QM',
+  name: 'Quality Manager',
+  role: 'Quality Manager',
+  entity: 'Compliance & Quality',
+  email: 'quality.mgr@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownpd:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-PD',
+  name: 'Plant Director',
+  role: 'Plant Director',
+  entity: 'Manufacturing (AIT)',
+  email: 'plant.director@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownhrd:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-HRD',
+  name: 'HR Director',
+  role: 'HR Director',
+  entity: 'Human Resources',
+  email: 'hr.director@orbitaldynamics.example',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ownitd:ContextNode {
+  node_type: 'owner',
+  id: 'OWN-ITD',
+  name: 'IT Director',
+  role: 'IT Director',
+  entity: 'Corporate IT',
+  email: 'it.director@orbitaldynamics.example',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -1589,6 +2308,8 @@ MATCH (tpo:ContextNode {id: 'TPO-04'}), (tco:ContextNode {id: 'TCO-03'})
 CREATE (tpo)-[:CONTRIBUTES_TO {id: 'CTR-05', created_at: datetime()}]->(tco);
 MATCH (tpo:ContextNode {id: 'TPO-05'}), (tco:ContextNode {id: 'TCO-03'})
 CREATE (tpo)-[:CONTRIBUTES_TO {id: 'CTR-06', created_at: datetime()}]->(tco);
+MATCH (tpo:ContextNode {id: 'TPO-01'}), (tco:ContextNode {id: 'TCO-04'})
+CREATE (tpo)-[:CONTRIBUTES_TO {id: 'CTR-07', created_at: datetime()}]->(tco);
 
 // =============================================================================
 // IMPACTS_TCO  (Risk → Company Objective)
@@ -1620,6 +2341,27 @@ CREATE (r)-[:IMPACTS_TCO {
   id: 'IMC-CY1',
   impact_level: 'High',
   description: 'Phase-3 slip erodes revenue ramp and the company EBITDA trajectory',
+  created_at: datetime()
+}]->(tco);
+MATCH (r:Risk {id: 'RC-01'}), (tco:ContextNode {id: 'TCO-04'})
+CREATE (r)-[:IMPACTS_TCO {
+  id: 'IMC-04',
+  impact_level: 'Critical',
+  description: 'No first-profit (EBITDA) story means no credible IPO',
+  created_at: datetime()
+}]->(tco);
+MATCH (r:Risk {id: 'RC-02'}), (tco:ContextNode {id: 'TCO-04'})
+CREATE (r)-[:IMPACTS_TCO {
+  id: 'IMC-05',
+  impact_level: 'Critical',
+  description: 'Cash-runway exhaustion forces a distressed, dilutive raise before the IPO window',
+  created_at: datetime()
+}]->(tco);
+MATCH (r:Risk {id: 'RC-03'}), (tco:ContextNode {id: 'TCO-04'})
+CREATE (r)-[:IMPACTS_TCO {
+  id: 'IMC-06',
+  impact_level: 'Critical',
+  description: 'Loss of investor confidence collapses the valuation multiple or pulls the IPO (down-round)',
   created_at: datetime()
 }]->(tco);
 
@@ -1867,6 +2609,16 @@ CREATE (source)-[:INFLUENCES {
   created_at: datetime(),
   last_validated: datetime()
 }]->(target);
+MATCH (source:Risk {id: 'RH-02'}), (target:Risk {id: 'RH-03'})
+CREATE (source)-[:INFLUENCES {
+  id: 'INF-45',
+  influence_type: 'Level2_Bus_to_Bus',
+  strength: 'Strong',
+  description: 'Suspect/degraded on-orbit capacity forces replacement units and erodes the corporate revenue target (makes SC1\'s narrative literal — INC-03)',
+  confidence: 0.8,
+  created_at: datetime(),
+  last_validated: datetime()
+}]->(target);
 MATCH (source:Risk {id: 'RC-02'}), (target:Risk {id: 'RC-03'})
 CREATE (source)-[:INFLUENCES {
   id: 'INF-25',
@@ -1944,6 +2696,26 @@ CREATE (source)-[:INFLUENCES {
   strength: 'Strong',
   description: 'Government contract failure removes high-ARPU revenue stream from EBITDA path',
   confidence: 0.85,
+  created_at: datetime(),
+  last_validated: datetime()
+}]->(target);
+MATCH (source:Risk {id: 'RH-06'}), (target:Risk {id: 'RH-03'})
+CREATE (source)-[:INFLUENCES {
+  id: 'INF-46',
+  influence_type: 'Level2_Bus_to_Bus',
+  strength: 'Moderate',
+  description: 'Ground throughput ceiling constrains corporate service quality and the revenue ramp (threads RH-06 → RH-03 → TPO-01)',
+  confidence: 0.75,
+  created_at: datetime(),
+  last_validated: datetime()
+}]->(target);
+MATCH (source:Risk {id: 'RA-04'}), (target:Risk {id: 'RA-02'})
+CREATE (source)-[:INFLUENCES {
+  id: 'INF-47',
+  influence_type: 'Level2_Bus_to_Bus',
+  strength: 'Strong',
+  description: 'Strategic-partner withdrawal forces ODT to absorb a larger AURORA budget share, driving the overrun (threads RA-04 → RA-02 → RC-02 → TCO-04)',
+  confidence: 0.8,
   created_at: datetime(),
   last_validated: datetime()
 }]->(target);
@@ -2483,6 +3255,78 @@ MATCH (a:Risk {id: 'RCY-01'}), (b:ContextNode {id: 'EP-01'})
 CREATE (a)-[:CONCERNS {id: 'CON-01', created_at: datetime()}]->(b);
 MATCH (a:Risk {id: 'RCY-02'}), (b:ContextNode {id: 'TP-PLM'})
 CREATE (a)-[:CONCERNS {id: 'CON-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BP-LEO'}), (b:ContextNode {id: 'BA-PROC'})
+CREATE (a)-[:USES {id: 'USE-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BP-LEO'}), (b:ContextNode {id: 'BA-MFG'})
+CREATE (a)-[:USES {id: 'USE-03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BP-LEO'}), (b:ContextNode {id: 'BA-LAUNCH'})
+CREATE (a)-[:USES {id: 'USE-04', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BP-LEO'}), (b:ContextNode {id: 'BA-SVC'})
+CREATE (a)-[:USES {id: 'USE-05', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BA-PROC'}), (b:ContextNode {id: 'FT-COMP'})
+CREATE (a)-[:PRODUCES {id: 'PRD-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BA-MFG'}), (b:ContextNode {id: 'FT-SAT'})
+CREATE (a)-[:PRODUCES {id: 'PRD-03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BA-LAUNCH'}), (b:ContextNode {id: 'FT-CONST'})
+CREATE (a)-[:PRODUCES {id: 'PRD-04', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BA-SVC'}), (b:ContextNode {id: 'FT-SVC'})
+CREATE (a)-[:PRODUCES {id: 'PRD-05', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-COMP'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-SAT'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-CONST'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-04', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-SVC'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-05', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-01'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROM01', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-02'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROM02', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-03'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROM03', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-04'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROM04', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-02'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC02', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROL-01'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROL01', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SPN-02'}), (b:ContextNode {id: 'ATK-02'})
+CREATE (a)-[:MANAGES {id: 'MNG-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SPN-02'}), (b:ContextNode {id: 'FT-CTRL'})
+CREATE (a)-[:SEEKS {id: 'SEK-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'ATK-02'}), (b:ContextNode {id: 'EP-02'})
+CREATE (a)-[:EXPLOITS {id: 'EXP-02', created_at: datetime(), success_probability: 0.5}]->(b);
+MATCH (a:ContextNode {id: 'EP-02'}), (b:ContextNode {id: 'TP-IDP'})
+CREATE (a)-[:COMPROMISES {id: 'CMP-02', created_at: datetime(), technique: 'Privileged credential abuse via MSSP access'}]->(b);
+MATCH (a:ContextNode {id: 'EP-02'}), (b:ContextNode {id: 'TP-NMS'})
+CREATE (a)-[:COMPROMISES {id: 'CMP-03', created_at: datetime(), technique: 'Shared identity-plane pivot Denver->Dublin; corrupt beam/capacity config'}]->(b);
+MATCH (a:ContextNode {id: 'EP-02'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:COMPROMISES {id: 'CMP-04', created_at: datetime(), technique: 'Operator credential revocation; fleet-wide safe-mode trip'}]->(b);
+MATCH (a:ContextNode {id: 'ATK-02'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:TARGETS {id: 'TGT-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'ATK-02'}), (b:ContextNode {id: 'TP-NMS'})
+CREATE (a)-[:TARGETS {id: 'TGT-03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-CTRL'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-06', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-01'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC01', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-04'}), (b:ContextNode {id: 'TP-GW'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC04', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-05'}), (b:ContextNode {id: 'TP-NMS'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC05', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-08'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC08', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-10'}), (b:ContextNode {id: 'TP-BILL'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC10', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-14'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC14', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'HX-01'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-HX01', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'HX-02'}), (b:ContextNode {id: 'EP-01'})
+CREATE (a)-[:CONCERNS {id: 'CON-HX02', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'HX-03'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-HX03', created_at: datetime()}]->(b);
 
 // =============================================================================
 // SPICE — MITIGATION OBJECTIVES (ADDRESSES targets)
@@ -2608,100 +3452,27 @@ CREATE (mofn13:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
-
-// =============================================================================
-// SPICE — FINANCIAL / OPERATIONAL MITIGATIONS
-// =============================================================================
-
-CREATE (smcyberins:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-CYBER-INS',
-  name: 'Cyber insurance tower',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  coverage_amount: 50.0,
-  description: '$50M limit, $5M deductible, BI cover after 72h, war/state-actor exclusion (Canon: Insurance). Pays down financial impact but not attribution-disputed loss.',
+CREATE (moga11:ContextNode {
+  node_type: 'mitigation_objective',
+  id: 'MO-GA1-1',
+  name: 'De-risk optical ISL to TRL 4+ ahead of the PDR gate',
+  description: 'Retire the technology-maturation cost/schedule driver (RA-03/ROE-03) before it forces an overrun.',
   created_at: datetime(),
   updated_at: datetime()
 });
-CREATE (smctrlrecovery:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-CTRL-RECOVERY',
-  name: 'Clean control-plane recovery capability',
-  type: 'recovery_accelerating',
-  status: 'planned',
-  description: 'Offline golden images + rebuild runbook to restore legitimate control fast.',
+CREATE (moga12:ContextNode {
+  node_type: 'mitigation_objective',
+  id: 'MO-GA1-2',
+  name: 'Hold AURORA spend within the company FCF envelope',
+  description: 'Stage-gate funding + variance control so a GEO overrun does not push consolidated FCF through the -$60M IPO-bridge assumption.',
   created_at: datetime(),
   updated_at: datetime()
 });
-CREATE (smidentitysplit:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-IDENTITY-SPLIT',
-  name: 'Denver/Dublin identity & PAM plane separation',
-  type: 'impact_reducing',
-  status: 'planned',
-  description: 'Break the shared identity/privileged-access plane so one compromise cannot trip the fleet.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smcleanbuild:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-CLEAN-BUILD',
-  name: 'Clean-build & unit re-verification line',
-  type: 'recovery_accelerating',
-  status: 'recommended',
-  description: 'Re-qualify suspect Phase-4 units to certified-clean state.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smplmintegrity:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-PLM-INTEGRITY',
-  name: 'PLM integrity monitoring & supplier access governance',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  description: 'Tamper-evidence on build/test/config records + supplier least-privilege.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smaccredenclave:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-ACCRED-ENCLAVE',
-  name: 'Audited accreditation enclave + remediation playbook',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  description: 'Isolated, continuously-audited accredited environment with a pre-cleared remediation plan.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smdualsource:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-DUAL-SOURCE',
-  name: 'RF dual-source + multi-launcher framework',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  description: 'Pre-negotiated second-source RF framework and multi-launcher slots (financial-layer counterpart of MIT-01 / MIT-02) plus buffer stock.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smbridgefacility:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-BRIDGE-FACILITY',
-  name: 'Committed bridge financing facility',
-  type: 'impact_reducing',
-  status: 'ongoing',
-  coverage_amount: 60.0,
-  description: 'Drawable facility to hold FCF above the -$100M trigger ahead of the IPO.',
-  created_at: datetime(),
-  updated_at: datetime()
-});
-CREATE (smrevenuediversify:ContextNode {
-  node_type: 'spice_mitigation',
-  id: 'SM-REVENUE-DIVERSIFY',
-  name: 'Commercial / government revenue diversification program',
-  type: 'impact_reducing',
-  status: 'planned',
-  description: 'Reduce 30% gov-segment concentration; broaden commercial backlog.',
+CREATE (moga13:ContextNode {
+  node_type: 'mitigation_objective',
+  id: 'MO-GA1-3',
+  name: 'Secure ESA/NASA co-funding continuity & partner commitment',
+  description: 'Governance/relationship objective against partner withdrawal (RA-04) — no purchasable control (deliberate coverage gap).',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -2775,6 +3546,70 @@ CREATE (bsts1pessimistic:SpiceScenario {
   fcf_impact_total: -118.0,
   operational_recovery_days: 42,
   financial_recovery_years: 3,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bsts1bestmitigated:SpiceScenario {
+  id: 'BST-S1-best-mitigated',
+  name: 'NOC / Ground-Segment Compromise (best, mitigated)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000001',
+  version_number: 2,
+  case_type: 'best',
+  status_in_family: 'draft',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'Projected S1 with the two planned cyber controls funded (identity/PAM plane separation + clean control-plane recovery). Pessimistic FCF held above the -$100M liquidity trigger (-82 vs -118 base); the S1 → FN1 path is severed. Benefit vs base: FCF +22/+25/+36 (best/realistic/pessimistic).',
+  cause_type: 'security',
+  ebit_impact_y1: -20.0,
+  ebit_impact_y2: -3.0,
+  ebit_impact_total: -23.0,
+  fcf_impact_y1: -38.0,
+  fcf_impact_total: -38.0,
+  operational_recovery_days: 6,
+  financial_recovery_years: 1,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bsts1realisticmitigated:SpiceScenario {
+  id: 'BST-S1-realistic-mitigated',
+  name: 'NOC / Ground-Segment Compromise (realistic, mitigated)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000001',
+  version_number: 2,
+  case_type: 'realistic',
+  status_in_family: 'draft',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'Projected S1 with the two planned cyber controls funded (identity/PAM plane separation + clean control-plane recovery). Pessimistic FCF held above the -$100M liquidity trigger (-82 vs -118 base); the S1 → FN1 path is severed. Benefit vs base: FCF +22/+25/+36 (best/realistic/pessimistic).',
+  cause_type: 'security',
+  ebit_impact_y1: -32.0,
+  ebit_impact_y2: -8.0,
+  ebit_impact_total: -40.0,
+  fcf_impact_y1: -54.0,
+  fcf_impact_total: -54.0,
+  operational_recovery_days: 9,
+  financial_recovery_years: 2,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bsts1pessimisticmitigated:SpiceScenario {
+  id: 'BST-S1-pessimistic-mitigated',
+  name: 'NOC / Ground-Segment Compromise (pessimistic, mitigated)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000001',
+  version_number: 2,
+  case_type: 'pessimistic',
+  status_in_family: 'draft',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'Projected S1 with the two planned cyber controls funded (identity/PAM plane separation + clean control-plane recovery). Pessimistic FCF held above the -$100M liquidity trigger (-82 vs -118 base); the S1 → FN1 path is severed. Benefit vs base: FCF +22/+25/+36 (best/realistic/pessimistic).',
+  cause_type: 'security',
+  ebit_impact_y1: -46.0,
+  ebit_impact_y2: -14.0,
+  ebit_impact_y3: -4.0,
+  ebit_impact_total: -64.0,
+  fcf_impact_y1: -82.0,
+  fcf_impact_total: -82.0,
+  operational_recovery_days: 16,
+  financial_recovery_years: 2,
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -3033,6 +3868,72 @@ CREATE (bstfn1pessimistic:SpiceScenario {
   updated_at: datetime()
 });
 
+// --- BST-GA1 — AURORA-GEO Development Overrun & Co-Funding Shock ---
+
+CREATE (bstga1best:SpiceScenario {
+  id: 'BST-GA1-best',
+  name: 'AURORA-GEO Development Overrun & Co-Funding Shock (best)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000006',
+  version_number: 1,
+  case_type: 'best',
+  status_in_family: 'current',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
+  cause_type: 'other',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the capitalise treatment of AURORA dev-spend (CAN-01, decided 2026-06-26). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  ebit_impact_y1: 0.0,
+  ebit_impact_total: 0.0,
+  fcf_impact_y1: -6.0,
+  fcf_impact_total: -6.0,
+  operational_recovery_days: 90,
+  financial_recovery_years: 1,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bstga1realistic:SpiceScenario {
+  id: 'BST-GA1-realistic',
+  name: 'AURORA-GEO Development Overrun & Co-Funding Shock (realistic)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000006',
+  version_number: 1,
+  case_type: 'realistic',
+  status_in_family: 'current',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
+  cause_type: 'other',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the capitalise treatment of AURORA dev-spend (CAN-01, decided 2026-06-26). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  ebit_impact_y1: 0.0,
+  ebit_impact_total: 0.0,
+  fcf_impact_y1: -12.0,
+  fcf_impact_total: -12.0,
+  operational_recovery_days: 180,
+  financial_recovery_years: 2,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bstga1pessimistic:SpiceScenario {
+  id: 'BST-GA1-pessimistic',
+  name: 'AURORA-GEO Development Overrun & Co-Funding Shock (pessimistic)',
+  scenario_family_id: 'a1e6b2c0-1f47-4c8e-9b21-000000000006',
+  version_number: 1,
+  case_type: 'pessimistic',
+  status_in_family: 'current',
+  assessment_date: date('2028-02-15'),
+  validated: 'business',
+  cause_description: 'The GEO-perimeter case: optical-ISL maturation difficulty drives a Phase A/B-to-C development overrun, compounded in the tail by an ESA/NASA co-funding/partner shock — draining ODT\'s cash exactly while FCF discipline gates the IPO. The second perimeter reaching the IPO story.',
+  cause_type: 'other',
+  hypothesis: 'AURORA-GEO is pre-revenue, so the impact is borne via FCF (incremental cash burn on the BP-GEO perimeter), not operating EBIT — ebit_impact is set to 0 by design, consistent with BP-GEO ebit_baseline 0 and the capitalise treatment of AURORA dev-spend (CAN-01, decided 2026-06-26). Cases consolidate with the canon FY2028 plan FCF of -40: best -46, realistic -52, pessimistic -64 — the pessimistic case alone breaches the -60 IPO-bridge assumption. operational_recovery_days encodes the PDR-gate schedule slip.',
+  ebit_impact_y1: 0.0,
+  ebit_impact_total: 0.0,
+  fcf_impact_y1: -24.0,
+  fcf_impact_total: -24.0,
+  operational_recovery_days: 365,
+  financial_recovery_years: 3,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
 // =============================================================================
 // SPICE EDGES  (ILLUSTRATES / CAUSED_BY / ASSESSED_AGAINST / OCCURS_AT)
 // =============================================================================
@@ -3045,6 +3946,8 @@ MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Risk {id: 'SEC-08'})
 CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-S1-SEC-08', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'BP-LEO'})
 CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-S1', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:OCCURS_AT {id: 'OCC-BST-S1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:Risk {id: 'RH-02'})
 CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-SC1-RH-02', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:Risk {id: 'SEC-02'})
@@ -3063,6 +3966,8 @@ MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'BP-LEO'}
 CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-RG1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'RH-04'})
 CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GP1-RH-04', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'RA-02'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GP1-RA-02', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'ROM-01'})
 CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-GP1-ROM-01', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'ROL-01'})
@@ -3077,9 +3982,17 @@ MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:Risk {id: 'RC-03'})
 CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-FN1-RC-03', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'BP-LEO'})
 CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-FN1', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Risk {id: 'RA-02'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GA1-RA-02', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Risk {id: 'RA-04'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GA1-RA-04', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Risk {id: 'ROE-03'})
+CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-GA1-ROE-03', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'BP-GEO'})
+CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-GA1', created_at: datetime()}]->(b);
 
 // =============================================================================
-// SPICE EDGES  (ADDRESSES / MITIGATED_BY_SPICE — realistic case)
+// SPICE EDGES  (ADDRESSES / MITIGATED_BY — realistic case)
 // =============================================================================
 
 MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'MO-S1-1'})
@@ -3088,85 +4001,287 @@ MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'MO-S1-2'}
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-S1-MO-S1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'MO-S1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-S1-MO-S1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'SM-CYBER-INS'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-S1-SM-CYBER-INS', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'SM-CTRL-RECOVERY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-S1-SM-CTRL-RECOVERY', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'SM-IDENTITY-SPLIT'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-S1-SM-IDENTITY-SPLIT', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Mitigation {id: 'SM-CYBER-INS'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-S1-SM-CYBER-INS', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Mitigation {id: 'SM-CTRL-RECOVERY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-S1-SM-CTRL-RECOVERY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Mitigation {id: 'SM-IDENTITY-SPLIT'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-S1-SM-IDENTITY-SPLIT', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'MO-SC1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-SC1-MO-SC1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'MO-SC1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-SC1-MO-SC1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'MO-SC1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-SC1-MO-SC1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'SM-CLEAN-BUILD'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-SC1-SM-CLEAN-BUILD', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:ContextNode {id: 'SM-PLM-INTEGRITY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-SC1-SM-PLM-INTEGRITY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:Mitigation {id: 'SM-CLEAN-BUILD'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-SC1-SM-CLEAN-BUILD', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:Mitigation {id: 'SM-PLM-INTEGRITY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-SC1-SM-PLM-INTEGRITY', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'MO-RG1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-RG1-MO-RG1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'MO-RG1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-RG1-MO-RG1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'MO-RG1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-RG1-MO-RG1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'SM-ACCRED-ENCLAVE'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-RG1-SM-ACCRED-ENCLAVE', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'SM-REVENUE-DIVERSIFY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-RG1-SM-REVENUE-DIVERSIFY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:Mitigation {id: 'SM-ACCRED-ENCLAVE'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-RG1-SM-ACCRED-ENCLAVE', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:Mitigation {id: 'SM-REVENUE-DIVERSIFY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-RG1-SM-REVENUE-DIVERSIFY', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:ContextNode {id: 'MO-GP1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GP1-MO-GP1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:ContextNode {id: 'MO-GP1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GP1-MO-GP1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:ContextNode {id: 'MO-GP1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GP1-MO-GP1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:ContextNode {id: 'SM-DUAL-SOURCE'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-GP1-SM-DUAL-SOURCE', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Mitigation {id: 'SM-DUAL-SOURCE'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-GP1-SM-DUAL-SOURCE', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'MO-FN1-1'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-FN1-MO-FN1-1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'MO-FN1-2'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-FN1-MO-FN1-2', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'MO-FN1-3'})
 CREATE (a)-[:ADDRESSES {id: 'ADR-BST-FN1-MO-FN1-3', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'SM-BRIDGE-FACILITY'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-FN1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:ContextNode {id: 'SM-CYBER-INS'})
-CREATE (a)-[:MITIGATED_BY_SPICE {id: 'MBS-BST-FN1-SM-CYBER-INS', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:Mitigation {id: 'SM-BRIDGE-FACILITY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-FN1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-FN1-realistic'}), (b:Mitigation {id: 'SM-CYBER-INS'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-FN1-SM-CYBER-INS', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-1'})
+CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-1', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-2'})
+CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-2', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:ContextNode {id: 'MO-GA1-3'})
+CREATE (a)-[:ADDRESSES {id: 'ADR-BST-GA1-MO-GA1-3', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Mitigation {id: 'SM-AURORA-DERISK'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-GA1-SM-AURORA-DERISK', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Mitigation {id: 'SM-AURORA-VARIANCE'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-GA1-SM-AURORA-VARIANCE', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GA1-realistic'}), (b:Mitigation {id: 'SM-BRIDGE-FACILITY'})
+CREATE (a)-[:MITIGATED_BY {id: 'MBY-BST-GA1-SM-BRIDGE-FACILITY', created_at: datetime()}]->(b);
 
 // =============================================================================
-// SPICE EDGES  (FULFILS — spice mitigation → objective)
+// SPICE EDGES  (FULFILS — mitigation → objective; re-homed CR-01)
 // =============================================================================
 
-MATCH (a:ContextNode {id: 'SM-CYBER-INS'}), (b:ContextNode {id: 'MO-FN1-2'})
+MATCH (a:Mitigation {id: 'SM-CYBER-INS'}), (b:ContextNode {id: 'MO-FN1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-CYBER-INS-MO-FN1-2', created_at: datetime(), contribution_weight: 80.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-CTRL-RECOVERY'}), (b:ContextNode {id: 'MO-S1-3'})
+MATCH (a:Mitigation {id: 'SM-CTRL-RECOVERY'}), (b:ContextNode {id: 'MO-S1-3'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-CTRL-RECOVERY-MO-S1-3', created_at: datetime(), contribution_weight: 90.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-IDENTITY-SPLIT'}), (b:ContextNode {id: 'MO-S1-1'})
+MATCH (a:Mitigation {id: 'SM-IDENTITY-SPLIT'}), (b:ContextNode {id: 'MO-S1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-IDENTITY-SPLIT-MO-S1-1', created_at: datetime(), contribution_weight: 100.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-IDENTITY-SPLIT'}), (b:ContextNode {id: 'MO-S1-2'})
+MATCH (a:Mitigation {id: 'SM-IDENTITY-SPLIT'}), (b:ContextNode {id: 'MO-S1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-IDENTITY-SPLIT-MO-S1-2', created_at: datetime(), contribution_weight: 40.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-CLEAN-BUILD'}), (b:ContextNode {id: 'MO-SC1-1'})
+MATCH (a:Mitigation {id: 'SM-CLEAN-BUILD'}), (b:ContextNode {id: 'MO-SC1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-CLEAN-BUILD-MO-SC1-1', created_at: datetime(), contribution_weight: 90.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-PLM-INTEGRITY'}), (b:ContextNode {id: 'MO-SC1-2'})
+MATCH (a:Mitigation {id: 'SM-PLM-INTEGRITY'}), (b:ContextNode {id: 'MO-SC1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-PLM-INTEGRITY-MO-SC1-2', created_at: datetime(), contribution_weight: 80.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-PLM-INTEGRITY'}), (b:ContextNode {id: 'MO-SC1-3'})
+MATCH (a:Mitigation {id: 'SM-PLM-INTEGRITY'}), (b:ContextNode {id: 'MO-SC1-3'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-PLM-INTEGRITY-MO-SC1-3', created_at: datetime(), contribution_weight: 50.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-ACCRED-ENCLAVE'}), (b:ContextNode {id: 'MO-RG1-1'})
+MATCH (a:Mitigation {id: 'SM-ACCRED-ENCLAVE'}), (b:ContextNode {id: 'MO-RG1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-ACCRED-ENCLAVE-MO-RG1-1', created_at: datetime(), contribution_weight: 70.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-ACCRED-ENCLAVE'}), (b:ContextNode {id: 'MO-RG1-2'})
+MATCH (a:Mitigation {id: 'SM-ACCRED-ENCLAVE'}), (b:ContextNode {id: 'MO-RG1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-ACCRED-ENCLAVE-MO-RG1-2', created_at: datetime(), contribution_weight: 60.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-DUAL-SOURCE'}), (b:ContextNode {id: 'MO-GP1-1'})
+MATCH (a:Mitigation {id: 'SM-DUAL-SOURCE'}), (b:ContextNode {id: 'MO-GP1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-DUAL-SOURCE-MO-GP1-1', created_at: datetime(), contribution_weight: 80.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-DUAL-SOURCE'}), (b:ContextNode {id: 'MO-GP1-3'})
+MATCH (a:Mitigation {id: 'SM-DUAL-SOURCE'}), (b:ContextNode {id: 'MO-GP1-3'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-DUAL-SOURCE-MO-GP1-3', created_at: datetime(), contribution_weight: 50.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-BRIDGE-FACILITY'}), (b:ContextNode {id: 'MO-FN1-1'})
+MATCH (a:Mitigation {id: 'SM-BRIDGE-FACILITY'}), (b:ContextNode {id: 'MO-FN1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-BRIDGE-FACILITY-MO-FN1-1', created_at: datetime(), contribution_weight: 70.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-BRIDGE-FACILITY'}), (b:ContextNode {id: 'MO-FN1-2'})
+MATCH (a:Mitigation {id: 'SM-BRIDGE-FACILITY'}), (b:ContextNode {id: 'MO-FN1-2'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-BRIDGE-FACILITY-MO-FN1-2', created_at: datetime(), contribution_weight: 40.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-RG1-3'})
+MATCH (a:Mitigation {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-RG1-3'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-REVENUE-DIVERSIFY-MO-RG1-3', created_at: datetime(), contribution_weight: 60.0}]->(b);
-MATCH (a:ContextNode {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-FN1-1'})
+MATCH (a:Mitigation {id: 'SM-REVENUE-DIVERSIFY'}), (b:ContextNode {id: 'MO-FN1-1'})
 CREATE (a)-[:FULFILS {id: 'FUL-SM-REVENUE-DIVERSIFY-MO-FN1-1', created_at: datetime(), contribution_weight: 20.0}]->(b);
+MATCH (a:Mitigation {id: 'SM-AURORA-DERISK'}), (b:ContextNode {id: 'MO-GA1-1'})
+CREATE (a)-[:FULFILS {id: 'FUL-SM-AURORA-DERISK-MO-GA1-1', created_at: datetime(), contribution_weight: 80.0}]->(b);
+MATCH (a:Mitigation {id: 'SM-AURORA-VARIANCE'}), (b:ContextNode {id: 'MO-GA1-2'})
+CREATE (a)-[:FULFILS {id: 'FUL-SM-AURORA-VARIANCE-MO-GA1-2', created_at: datetime(), contribution_weight: 75.0}]->(b);
+
+// =============================================================================
+// BEARS  (owner → risk; consequence-bearer, one per risk)
+// =============================================================================
+
+MATCH (o:ContextNode {id: 'OWN-CEO'}), (r:Risk {id: 'RC-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (r:Risk {id: 'RC-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CEO'}), (r:Risk {id: 'RC-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'RC-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CEO'}), (r:Risk {id: 'RC-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-RC-05', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (r:Risk {id: 'RH-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPENG'}), (r:Risk {id: 'RH-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (r:Risk {id: 'RH-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CTO'}), (r:Risk {id: 'RH-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (r:Risk {id: 'RH-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-05', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPGO'}), (r:Risk {id: 'RH-06'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-06', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'RH-07'})
+CREATE (o)-[:BEARS {id: 'BEARS-RH-07', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-APD'}), (r:Risk {id: 'RA-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (r:Risk {id: 'RA-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CTO'}), (r:Risk {id: 'RA-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-APD'}), (r:Risk {id: 'RA-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'RA-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-RA-05', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-LSA'}), (r:Risk {id: 'ROE-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROE-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-TSL'}), (r:Risk {id: 'ROE-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROE-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-ACE'}), (r:Risk {id: 'ROE-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROE-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (r:Risk {id: 'ROM-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROM-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (r:Risk {id: 'ROM-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROM-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-QM'}), (r:Risk {id: 'ROM-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROM-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-PD'}), (r:Risk {id: 'ROM-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROM-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (r:Risk {id: 'ROL-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROL-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (r:Risk {id: 'ROL-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROL-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (r:Risk {id: 'ROC-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROC-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (r:Risk {id: 'ROC-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROC-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (r:Risk {id: 'ROF-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROF-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (r:Risk {id: 'ROF-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROF-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-HRD'}), (r:Risk {id: 'ROH-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROH-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-HRD'}), (r:Risk {id: 'ROH-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROH-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'ROR-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROR-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-ITD'}), (r:Risk {id: 'ROI-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-ROI-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-05', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-06'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-06', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-07'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-07', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-08'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-08', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-09'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-09', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-10'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-10', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-11'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-11', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-12'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-12', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-13'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-13', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'SEC-14'})
+CREATE (o)-[:BEARS {id: 'BEARS-SEC-14', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'RCY-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-RCY-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'RCY-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-RCY-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-QM'}), (r:Risk {id: 'HX-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'HX-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPGO'}), (r:Risk {id: 'HX-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (r:Risk {id: 'HX-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'HX-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-05', created_at: datetime()}]->(r);
+
+// =============================================================================
+// STEWARDS  (owner → mitigation; never a risk)
+// =============================================================================
+
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (m:Mitigation {id: 'MIT-01'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-01', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:Mitigation {id: 'MIT-02'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-02', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-HRD'}), (m:Mitigation {id: 'MIT-03'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-03', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-04'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-04', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-05'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-05', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (m:Mitigation {id: 'MIT-06'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-06', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (m:Mitigation {id: 'MIT-07'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-07', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-LSA'}), (m:Mitigation {id: 'MIT-08'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-08', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-ACE'}), (m:Mitigation {id: 'MIT-09'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-09', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-10'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-10', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPENG'}), (m:Mitigation {id: 'MIT-11'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-11', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-12'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-12', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-13'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-13', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:Mitigation {id: 'MIT-14'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-14', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-ITD'}), (m:Mitigation {id: 'MIT-15'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-15', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-16'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-16', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:Mitigation {id: 'MIT-17'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-17', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-18'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-18', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:Mitigation {id: 'MIT-19'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-19', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:Mitigation {id: 'MIT-20'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-20', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-21'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-21', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'MIT-CY1'})
+CREATE (o)-[:STEWARDS {id: 'STW-MIT-CY1', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:Mitigation {id: 'SM-CYBER-INS'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-CYBER-INS', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'SM-CTRL-RECOVERY'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-CTRL-RECOVERY', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'SM-IDENTITY-SPLIT'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-IDENTITY-SPLIT', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:Mitigation {id: 'SM-CLEAN-BUILD'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-CLEAN-BUILD', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (m:Mitigation {id: 'SM-PLM-INTEGRITY'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-PLM-INTEGRITY', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (m:Mitigation {id: 'SM-ACCRED-ENCLAVE'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-ACCRED-ENCLAVE', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPMSC'}), (m:Mitigation {id: 'SM-DUAL-SOURCE'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-DUAL-SOURCE', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:Mitigation {id: 'SM-BRIDGE-FACILITY'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-BRIDGE-FACILITY', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-VPSALES'}), (m:Mitigation {id: 'SM-REVENUE-DIVERSIFY'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-REVENUE-DIVERSIFY', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-ACE'}), (m:Mitigation {id: 'SM-AURORA-DERISK'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-AURORA-DERISK', created_at: datetime()}]->(m);
+MATCH (o:ContextNode {id: 'OWN-CFO'}), (m:Mitigation {id: 'SM-AURORA-VARIANCE'})
+CREATE (o)-[:STEWARDS {id: 'STW-SM-AURORA-VARIANCE', created_at: datetime()}]->(m);
 
 
 // =============================================================================
@@ -3258,16 +4373,61 @@ RETURN s.id AS Scenario, r.id AS BusinessRisk, bp.id AS Perimeter
 ORDER BY Scenario;
 
 // Mitigation-objective fulfilment: total declared contribution per objective
-// (MAY exceed 100% — surfaced as over-coverage, not an error)
-MATCH (sm:ContextNode {node_type: 'spice_mitigation'})-[f:FULFILS]->(o:ContextNode {node_type: 'mitigation_objective'})
+// (MAY exceed 100% — surfaced as over-coverage, not an error). CR-01: FULFILS now
+// originates from the consolidated core Mitigation registry.
+MATCH (m:Mitigation)-[f:FULFILS]->(o:ContextNode {node_type: 'mitigation_objective'})
 RETURN o.id AS Objective, o.name AS Name,
-       collect(sm.id) AS Mitigations, sum(f.contribution_weight) AS TotalWeightPct
+       collect(m.id) AS Mitigations, sum(f.contribution_weight) AS TotalWeightPct
 ORDER BY Objective;
 
+// CR-01 consolidation check: financial-layer controls (carry FULFILS and/or a
+// MITIGATED_BY citation) are now core Mitigation nodes. List them with their
+// financial_effect, lifecycle status, and committed/coverage figures.
+MATCH (m:Mitigation)
+WHERE m.financial_effect IS NOT NULL
+RETURN m.id AS Mitigation, m.type AS Type, m.status AS Status,
+       m.financial_effect AS FinancialEffect,
+       m.committed_budget AS CommittedBudget, m.coverage_amount AS Coverage
+ORDER BY m.id;
+
+// Scenario mitigated-re-assessment citations (MITIGATED_BY → Mitigation)
+MATCH (s:SpiceScenario)-[:MITIGATED_BY]->(m:Mitigation)
+RETURN s.id AS Scenario, collect(m.id) AS CitedMitigations
+ORDER BY Scenario;
+
 // Convergence proof: every scenario family ultimately illustrates a risk that
-// influences the company EBITDA objective (TCO-01) — the bestiary thesis
+// influences the IPO objective (TCO-04) — the bestiary thesis. TCO-04 is the
+// apex; the financial-risk cluster (RC-01/RC-02/RC-03) IMPACTS_TCO it directly.
 MATCH (s:SpiceScenario)-[:ILLUSTRATES]->(r:Risk)
-OPTIONAL MATCH path = (r)-[:INFLUENCES*0..4]->(:Risk)-[:IMPACTS_TCO]->(tco:ContextNode {id: 'TCO-01'})
+OPTIONAL MATCH path = (r)-[:INFLUENCES*0..4]->(:Risk)-[:IMPACTS_TCO]->(tco:ContextNode {id: 'TCO-04'})
 RETURN s.scenario_family_id AS Family, r.id AS IllustratedRisk,
-       count(path) > 0 AS ReachesEBITDA
+       count(path) > 0 AS ReachesIPO
 ORDER BY Family;
+
+// --- Owner accountability layer (BEARS / STEWARDS) ---
+
+// Bearer cardinality: distribution of Bearers-per-risk. The model invariant is
+// AT MOST ONE Bearer per risk — any row with BearersPerRisk > 1 is a violation.
+MATCH (r:Risk)
+OPTIONAL MATCH (:ContextNode {node_type: 'owner'})-[b:BEARS]->(r)
+WITH r, count(b) AS bearers
+RETURN bearers AS BearersPerRisk, count(r) AS RiskCount
+ORDER BY BearersPerRisk;
+
+// Risks with no Bearer (should be empty — every risk's consequence is owned)
+MATCH (r:Risk)
+WHERE NOT ( (:ContextNode {node_type: 'owner'})-[:BEARS]->(r) )
+RETURN r.id AS RiskWithoutBearer, r.name AS Name
+ORDER BY r.id;
+
+// STEWARDS must NEVER target a Risk (forbidden by design) — must return 0
+MATCH (:ContextNode {node_type: 'owner'})-[:STEWARDS]->(x:Risk)
+RETURN count(*) AS IllegalStewardsOnRisk;
+
+// Owner workload: risks borne and mitigations stewarded per owner
+MATCH (o:ContextNode {node_type: 'owner'})
+OPTIONAL MATCH (o)-[:BEARS]->(r:Risk)
+OPTIONAL MATCH (o)-[:STEWARDS]->(m)
+RETURN o.id AS Owner, o.name AS Name,
+       count(DISTINCT r) AS Bears, count(DISTINCT m) AS Stewards
+ORDER BY Bears DESC, Stewards DESC;

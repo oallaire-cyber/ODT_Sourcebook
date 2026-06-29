@@ -50,4 +50,6 @@ S1 is the **hero**: it converts a cyber event into the same financial wound any 
 - [[BST-SC1 Supplier Build-Chain Intrusion (Supply Chain)|SC1]] — Weak (shared PLM/MSSP access widens the attack surface)
 
 ## Graph anchoring
-`CAUSED_BY` → SEC-01, SEC-08 · `ILLUSTRATES` → RH-04 · `ASSESSED_AGAINST` → BP-LEO. See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
+`CAUSED_BY` → SEC-01, SEC-08 · `ILLUSTRATES` → RH-04 · `ASSESSED_AGAINST` → BP-LEO · `OCCURS_AT` → **TP-NOC** (W6). See [[Annex - RIM Anchoring]] · [[Data Dictionary]].
+
+**Kill-chain (W6, now in the graph; 1:1 with [[Annex - Security Architecture]] §7):** `SPN-02` (state-aligned sponsor) `MANAGES` `ATK-02` (APT-Eclipse, capability 8) which `EXPLOITS` `EP-02` (MSSP privileged remote access, p≈0.5) and `COMPROMISES` `TP-IDP` (shared Denver/Dublin identity & PAM plane), `TP-NMS` (the "commercial brain"), and `TP-NOC` — `SEEKS` `FT-CTRL` (legitimate fleet command authority) → fleet-wide safe-mode. The mitigated version's `SM-IDENTITY-SPLIT` is exactly the fix for the `TP-IDP` single-plane flaw. **λ (W6):** SEC-01 0.20/yr, SEC-08 0.10/yr (the two causes); RCY-01 0.50, RCY-02 0.33.
