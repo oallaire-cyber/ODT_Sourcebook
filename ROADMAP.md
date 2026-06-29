@@ -70,7 +70,7 @@ Eight streams (W1–W8) plus governance (W0). Each maps the owner's wants to con
 | W5 | History & Past Incidents | "some past incidents" | **L2** ✅ *(2026-06-29; timeline + HX-01..05 lifecycle incident log)* | L2 |
 | W6 | Operational & Technical Data | "operational-level info with usable data" | **L2** ✅ *(2026-06-29; S1 kill-chain + perimeters + λ/magnitude)* | L2 |
 | W7 | Management Operating Rhythm (decision support) | (the core thesis) | **L2** ✅ *(2026-06-28; ROC charter + DM-01 worked)* | L2 |
-| W8 | Consumption Surfaces (workshop / crisis / training) | "workshop, crisis exercise, training" | L1 | L2 |
+| W8 | Consumption Surfaces (workshop / crisis / training) | "workshop, crisis exercise, training" | **L2** ✅ *(2026-06-29; runnable S1 crisis tabletop + training-path capstone)* | L2 |
 
 ### W0 — Governance & data integrity *(continuous)*
 Keep the spine clean while the rest grows. Canon-first, CCB triage of the open tickets ([INC-04](00%20-%20Index%20%26%20Canon/Canon%20Change%20%26%20Issue%20Register.md), DEC-03, ENH-01/02/03/04), generator validation on every regeneration, the Depth Reviews of §3.
@@ -144,8 +144,11 @@ Stand up the decision-support backbone. **W1** ✅ (objectives + opportunity reg
 ### Wave 4 — *"Depth where the demo bites"*  ← ✅ **COMPLETE (2026-06-29)**
 The data-dense layer. **W4** ✅ (supplier map + production graph; [[Annex - Supply Chain & Production]]), **W6** ✅ (S1 kill-chain + 4 perimeters/ENH-04 + λ/magnitude pass), **W3** ✅ (external constraints; [[Annex - External Environment & Constraints]]). Outcome: the graph is dense and queryable; the architecture annex maps 1:1; suppliers and regulators are modelled (as risk subtypes + annexes — promotion to first-class nodes is **[[CR-02 - External Entities (Supplier & Regulatory)|CR-02]]**, in discussion with RIM). **→ next: Wave 5.**
 
-### Wave 5 — *"History & the runnable kit"*  ← **in progress**
-**W5** ✅ *(2026-06-29 — timeline + HX-01..05 incident log; [[ODT Company History & Incident Log]])*, **W8** (crisis-exercise pack + deepen scaffolds + training path). Outcome: ODT has a believable past and a kit you can actually run a workshop/crisis exercise from.
+### Wave 5 — *"History & the runnable kit"*  ← ✅ **COMPLETE (2026-06-29)**
+**W5** ✅ (timeline + HX-01..05 incident log; [[ODT Company History & Incident Log]]), **W8** ✅ (runnable S1 crisis tabletop; [[Crisis Exercise - S1 NOC Compromise]] + [[Training Path]] capstone). Outcome: ODT has a believable past and a kit you can actually run a crisis exercise from. **→ the planned three-wave arc (Waves 3–5) is complete.**
+
+> [!success] Waves 3–5 complete (2026-06-29)
+> All eight workstreams have reached their target tier: **W0** (continuous) · **W1 ✅** · **W2 ✅** (CR-01 Applied) · **W3 ✅** · **W4 ✅** · **W5 ✅** · **W6 ✅** · **W7 ✅** · **W8 ✅**. The "most real ODT we can" spine, depth layer, history and runnable kit are all in place. **What's next is owner-directed** — candidates: the [[CR-02 - External Entities (Supplier & Regulatory)|CR-02]] regeneration if RIM accepts; deepen the flagship S1 path to **L3** (run the crisis exercise for real, reconcile figures); author the other families' mitigated versions (W2 polish); or a new bestiary family (DEC-03).
 
 *(W0 governance and the Depth Reviews run continuously across all waves.)*
 

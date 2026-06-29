@@ -33,6 +33,7 @@ The map of the whole set. Each line below is a "product type"; click into its in
 
 ## ⑤ GM Kit — *facilitator-only*
 - [[Elicitation Prompt Tables]] (runbook / cheat-sheet / quant pack live in the external kit)
+- [[Crisis Exercise - S1 NOC Compromise]] — runnable 90-min crisis tabletop (injects, decision points, the live DM-01 call)
 
 ## ⑥ Player Handbook — *attendee-facing*
 - [[Player Handbook Index]] · [[Influence Map]]
