@@ -4,7 +4,7 @@
 # Edit HERE.  Never hand-edit demo_seed.cypher directly.
 # After editing, regenerate: python "09 - Engine Room/generate_seed.py"
 #
-# Schema reference : _inputs/schema.yaml v3.0
+# Schema reference : _inputs/schema.canonical.yaml v3.0  (RIM's secure canonical schema; replaces schema.yaml)
 # Canon reference  : 00 - Index & Canon/Canon & Figures Register.md
 # =============================================================================
 
@@ -1764,6 +1764,134 @@ context_nodes:
         Operating the on-orbit fleet (TT&C) and delivering the LEO broadband service
         — capacity allocation, provisioning, SLAs.
 
+  # ─── External suppliers (CR-02) ─────────────────────────────────────────────
+  # First-class supply-chain nodes. node_type 'supplier'.
+  # Fields: name, tier {Tier 1/2/3/Internal}, criticality {Critical/Important/Standard},
+  #         single_source (bool), country, lead_time (optional), description.
+  # Edge SUPPLIES → business_activity (components → BA-PROC; launch → BA-LAUNCH).
+  # Denormalised from the supply_chain risk subtype (zero migration; names canon, §4 CR-02).
+  suppliers:
+    - id: SUP-01
+      name: Teledyne
+      tier: Tier 1
+      criticality: Critical
+      single_source: true
+      country: United States
+      description: >-
+        Sole-source Ku/Ka-band RF transponder modules — the choke point ROM-01 tracks
+        (also the firmware-integrity surface behind SEC-02 and incident HX-01). No qualified
+        alternative qualified for flight.
+    - id: SUP-02
+      name: Saft
+      tier: Tier 1
+      criticality: Critical
+      single_source: true
+      country: France
+      lead_time: 9–12 months
+      description: >-
+        Sole-source space-grade Li-ion battery cells (ROM-02); 9–12-month procurement
+        lead time and no qualified second source.
+    - id: SUP-03
+      name: Northrop Grumman
+      tier: Tier 1
+      criticality: Important
+      single_source: false
+      country: United States
+      description: >-
+        Composite satellite bus structures (ROM-03) — dual-sourced with Spirit AeroSystems.
+    - id: SUP-04
+      name: Spirit AeroSystems
+      tier: Tier 1
+      criticality: Important
+      single_source: false
+      country: United States
+      description: >-
+        Composite satellite bus structures — the second qualified source alongside
+        Northrop Grumman (ROM-03).
+    - id: SUP-05
+      name: Moog
+      tier: Tier 1
+      criticality: Important
+      single_source: false
+      country: United States
+      description: >-
+        Attitude-control / propulsion components — dual-sourced with Orbital ATK.
+    - id: SUP-06
+      name: Orbital ATK
+      tier: Tier 1
+      criticality: Important
+      single_source: false
+      country: United States
+      description: >-
+        Attitude-control / propulsion components — the second source alongside Moog.
+    - id: SUP-07
+      name: SpaceX
+      tier: Tier 1
+      criticality: Important
+      single_source: false
+      country: United States
+      description: >-
+        Launch services (Falcon 9) — primary manifest provider feeding BA-LAUNCH (ROL-01).
+    - id: SUP-08
+      name: Rocket Lab
+      tier: Tier 1
+      criticality: Important
+      single_source: false
+      country: United States
+      description: >-
+        Launch services (Electron) — diversification provider for BA-LAUNCH (ROL-01).
+
+  # ─── External regulators / regimes (CR-02) ──────────────────────────────────
+  # Shared constraint nodes. node_type 'regulator'.
+  # Fields: name, kind {regulator/export_control/accreditation/partnership},
+  #         authority, standard, jurisdiction, description.
+  # Edge GOVERNS → risk. Denormalised from the regulatory_compliance subtype (names canon, §4 CR-02).
+  regulators:
+    - id: REG-01
+      name: FCC
+      kind: regulator
+      authority: US Federal Communications Commission
+      standard: 47 CFR Part 25
+      jurisdiction: United States
+      description: >-
+        Spectrum / earth-station licensing and ongoing deployment-milestone conditions
+        (ROR-01, RC-04; incident HX-05).
+    - id: REG-02
+      name: ITU
+      kind: regulator
+      authority: International Telecommunication Union
+      standard: ITU Radio Regulations
+      jurisdiction: International
+      description: >-
+        Frequency coordination and priority filing with incumbent operators (RH-07, RC-04).
+    - id: REG-03
+      name: US DDTC / ITAR
+      kind: export_control
+      authority: US DDTC (State Dept)
+      standard: ITAR 22 CFR 120–130
+      jurisdiction: United States
+      description: >-
+        Export-control / technology-transfer authorisation governing non-US AURORA
+        partnerships (RA-05) and the ITAR-cleared workforce (ROH-02) — ODT's whole ITAR surface.
+    - id: REG-04
+      name: DoD accreditation
+      kind: accreditation
+      authority: US Department of Defense
+      standard: Security accreditation (task-order gate)
+      jurisdiction: United States
+      description: >-
+        Security accreditation gating Government & Defense task orders (RH-05) — the regime
+        behind ~30% of revenue.
+    - id: REG-05
+      name: ESA / NASA
+      kind: partnership
+      authority: ESA / NASA
+      standard: Co-funding & partnership agreements
+      jurisdiction: EU / United States
+      description: >-
+        Institutional partners co-funding AURORA-GEO (~60% of Phase-A/B) and bearing on the
+        multi-jurisdiction compliance surface (RC-04).
+
 
 # =============================================================================
 # RELATIONSHIPS
@@ -2002,6 +2130,36 @@ relationships:
     - {id: CON-HX01,  rel_type: CONCERNS,   from: HX-01,   to: TP-AIT,  from_label: Risk}
     - {id: CON-HX02,  rel_type: CONCERNS,   from: HX-02,   to: EP-01,   from_label: Risk}
     - {id: CON-HX03,  rel_type: CONCERNS,   from: HX-03,   to: TP-NOC,  from_label: Risk}
+    # ─── CR-02 external entities: SUPPLIES / SOURCED_FROM / GOVERNS (context-only) ──────────────────
+    # SUPPLIES: supplier → business_activity. Components/battery/structure/attitude → BA-PROC;
+    #           launch → BA-LAUNCH. Unlocks supplier blast-radius into the W4 production chain.
+    - {id: SUP-S01, rel_type: SUPPLIES, from: SUP-01, to: BA-PROC}
+    - {id: SUP-S02, rel_type: SUPPLIES, from: SUP-02, to: BA-PROC}
+    - {id: SUP-S03, rel_type: SUPPLIES, from: SUP-03, to: BA-PROC}
+    - {id: SUP-S04, rel_type: SUPPLIES, from: SUP-04, to: BA-PROC}
+    - {id: SUP-S05, rel_type: SUPPLIES, from: SUP-05, to: BA-PROC}
+    - {id: SUP-S06, rel_type: SUPPLIES, from: SUP-06, to: BA-PROC}
+    - {id: SUP-S07, rel_type: SUPPLIES, from: SUP-07, to: BA-LAUNCH}
+    - {id: SUP-S08, rel_type: SUPPLIES, from: SUP-08, to: BA-LAUNCH}
+    # SOURCED_FROM: risk → supplier (the supply-chain risks tied to their supplier; ROM-04 is the
+    #           internal AIT clean room = BA-MFG itself, so it has no external supplier node, per CR-02 §8).
+    - {id: SRC-ROM01, rel_type: SOURCED_FROM, from: ROM-01, to: SUP-01, from_label: Risk}
+    - {id: SRC-ROM02, rel_type: SOURCED_FROM, from: ROM-02, to: SUP-02, from_label: Risk}
+    - {id: SRC-ROM03, rel_type: SOURCED_FROM, from: ROM-03, to: SUP-03, from_label: Risk}
+    - {id: SRC-ROL01, rel_type: SOURCED_FROM, from: ROL-01, to: SUP-07, from_label: Risk}
+    - {id: SRC-SEC02, rel_type: SOURCED_FROM, from: SEC-02, to: SUP-01, from_label: Risk}
+    - {id: SRC-HX01,  rel_type: SOURCED_FROM, from: HX-01,  to: SUP-01, from_label: Risk}
+    # GOVERNS: regulator → risk (the regulatory_compliance risks + incident HX-05). Unlocks the
+    #           "everything the FCC governs" and "ODT's ITAR surface" portfolio queries (CR-02 §5).
+    - {id: GOV-RC04F, rel_type: GOVERNS, from: REG-01, to: RC-04,  to_label: Risk}
+    - {id: GOV-RC04I, rel_type: GOVERNS, from: REG-02, to: RC-04,  to_label: Risk}
+    - {id: GOV-RC04E, rel_type: GOVERNS, from: REG-05, to: RC-04,  to_label: Risk}
+    - {id: GOV-ROR01, rel_type: GOVERNS, from: REG-01, to: ROR-01, to_label: Risk}
+    - {id: GOV-HX05,  rel_type: GOVERNS, from: REG-01, to: HX-05,  to_label: Risk}
+    - {id: GOV-RH07,  rel_type: GOVERNS, from: REG-02, to: RH-07,  to_label: Risk}
+    - {id: GOV-RA05,  rel_type: GOVERNS, from: REG-03, to: RA-05,  to_label: Risk}
+    - {id: GOV-ROH02, rel_type: GOVERNS, from: REG-03, to: ROH-02, to_label: Risk}
+    - {id: GOV-RH05,  rel_type: GOVERNS, from: REG-04, to: RH-05,  to_label: Risk}
 
 
 # =============================================================================

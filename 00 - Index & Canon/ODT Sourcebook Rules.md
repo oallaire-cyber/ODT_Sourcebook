@@ -12,7 +12,7 @@ The governance for building and maintaining the set. Companion to `CLAUDE.md` an
 ## 1. Canon governance (anti-drift)
 - [[Canon & Figures Register]] is the **only** source of figures. Derived notes cite it; they never restate a different number.
 - Entities (risks, objectives, perimeters, owners) use the **real IDs** from `demo_seed.cypher`. New IDs follow [[Naming & Conventions]].
-- Schema fields/enums come from `schema.yaml` v3.0 — do not invent attributes.
+- Schema fields/enums come from `schema.canonical.yaml` v3.0 (RIM's secure canonical schema; replaces the former `schema.yaml`) — do not invent attributes.
 
 ## 2. The ten product lines
 A note belongs to exactly one line (its folder). Cross-line links are encouraged; cross-line *content duplication* is not — link instead.

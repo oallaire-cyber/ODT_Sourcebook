@@ -265,6 +265,36 @@ def owner_node(o: dict) -> str:
     return f"CREATE ({_var(o['id'])}:ContextNode {{\n" + ",\n".join(lines) + "\n});"
 
 
+def supplier_node(s: dict) -> str:
+    """External supplier context node (CR-02). SUPPLIES → business_activity."""
+    lines = [
+        f"  node_type: 'supplier'",
+        f"  id: {cypher_val(s['id'])}",
+        f"  name: {cypher_val(s['name'])}",
+    ]
+    for fld in ("tier", "criticality", "single_source", "country", "lead_time"):
+        if s.get(fld) is not None:
+            lines.append(f"  {fld}: {cypher_val(s[fld])}")
+    lines.append(f"  description: {cypher_val(s.get('description', ''))}")
+    lines += ["  created_at: datetime()", "  updated_at: datetime()"]
+    return f"CREATE ({_var(s['id'])}:ContextNode {{\n" + ",\n".join(lines) + "\n});"
+
+
+def regulator_node(g: dict) -> str:
+    """External regulator / regime context node (CR-02). GOVERNS → risk."""
+    lines = [
+        f"  node_type: 'regulator'",
+        f"  id: {cypher_val(g['id'])}",
+        f"  name: {cypher_val(g['name'])}",
+    ]
+    for fld in ("kind", "authority", "standard", "jurisdiction"):
+        if g.get(fld) is not None:
+            lines.append(f"  {fld}: {cypher_val(g[fld])}")
+    lines.append(f"  description: {cypher_val(g.get('description', ''))}")
+    lines += ["  created_at: datetime()", "  updated_at: datetime()"]
+    return f"CREATE ({_var(g['id'])}:ContextNode {{\n" + ",\n".join(lines) + "\n});"
+
+
 # ─── Relationship generators ──────────────────────────────────────────────────
 
 def contributes_to(r: dict) -> str:
@@ -652,7 +682,10 @@ MATCH (n) DETACH DELETE n;
         ("mitigation_objectives","mitigation_objective","Mitigation Objectives"),
     ]
     cn = wb.get("context_nodes", {})
-    has_any = any(cn.get(k) for k, _, _ in _SECTION_TYPE_MAP)
+    suppliers: list[dict] = cn.get("suppliers", [])
+    regulators: list[dict] = cn.get("regulators", [])
+    has_any = (any(cn.get(k) for k, _, _ in _SECTION_TYPE_MAP)
+               or suppliers or regulators)
     if has_any:
         out.append(banner("CONTEXT NODES"))
         for section, node_type, label in _SECTION_TYPE_MAP:
@@ -662,6 +695,17 @@ MATCH (n) DETACH DELETE n;
                 for n in nodes:
                     out.append(context_node_stmt(n, node_type))
                 out.append("")
+        # CR-02 external entities (supplier / regulator) — dedicated field sets.
+        if suppliers:
+            out.append(sub_banner("Suppliers (CR-02 — external supply-chain nodes)"))
+            for s in suppliers:
+                out.append(supplier_node(s))
+            out.append("")
+        if regulators:
+            out.append(sub_banner("Regulators / regimes (CR-02 — external constraint nodes)"))
+            for g in regulators:
+                out.append(regulator_node(g))
+            out.append("")
 
     # ── OWNERS (accountability layer) ──────────────────────────────────────────
     owners: list[dict] = wb.get("owners", [])
@@ -903,6 +947,8 @@ MATCH (n) DETACH DELETE n;
     print(f"   SPICE: {n_spice_scen} scenario cases  |  {len(mobjs)} mitigation objectives  |  "
           f"{n_spice_edges} spice edges")
     print(f"   OWNERS: {len(owners)} owner nodes  |  {n_bears} BEARS  |  {n_stewards} STEWARDS")
+    print(f"   CR-02: {len(suppliers)} supplier nodes  |  {len(regulators)} regulator nodes "
+          f"(SUPPLIES / SOURCED_FROM / GOVERNS edges in context_edges)")
 
 
 if __name__ == "__main__":

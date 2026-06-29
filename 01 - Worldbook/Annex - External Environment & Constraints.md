@@ -6,23 +6,28 @@ tags: [worldbook, external, regulatory, geopolitical, market, constraints, w3, s
 aliases: ["External Environment & Constraints", "Regulatory & External", "Constraints Annex"]
 ---
 # 🌐 Annex — External Environment & Constraints
-> [!info] The boundaries ODT operates **inside**. Risks don't arise in a vacuum — they are shaped by spectrum regulators, export-control regimes, a government accreditation gate, the ESA/NASA partnership, the launch market, and the capital-market window the whole story is racing toward. This annex names those constraints, ties each to the risks it bears on, and shows how the *external* perimeter funnels into the same IPO window the bestiary converges on. Every name, standard, and figure is canon-cited from [[Canon & Figures Register]]; this annex invents none. *(Workstream **W3**; target tier **L2**.)*
+> [!info] The boundaries ODT operates **inside**. Risks don't arise in a vacuum — they are shaped by spectrum regulators, export-control regimes, a government accreditation gate, the ESA/NASA partnership, the launch market, and the capital-market window the whole story is racing toward. This annex names those constraints, ties each to the risks it bears on, and shows how the *external* perimeter funnels into the same IPO window the bestiary converges on. **The formal regulators are now first-class `regulator` nodes** (CR-02 applied 2026-06-29) that `GOVERNS`→ the risks they bear on; the launch market and capital-market window remain narrative (a future `market_factor` type). Every name, standard, and figure is canon-cited from [[Canon & Figures Register]]; this annex invents none. *(Workstream **W3**; target tier **L2** → **L3** with CR-02 regulator nodes.)*
 
 ## 1. Why this annex exists
 A board judges a New-Space company as much by the **regime it operates in** as by its technology: who licenses its spectrum, what export rules gate its partnerships, what accreditation gates its best revenue, and whether the IPO window will be open when it arrives. This annex makes that external perimeter explicit so the RIM can show a risk's *root cause living outside the company* — and so the regulatory/geopolitical families ([[BST-RG1 Accreditation Suspension (Regulatory)|RG1]], [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]]) anchor to real constraints.
 
 > [!note] How constraints are modelled (schema-true)
-> RIM v3.0 has **no `regulator` / `external_constraint` node**. Constraints are modelled two ways: (1) the **`regulatory_compliance` risk subtype** — `regulatory_body`, `applicable_standard`, `licence_stage` — populated on the six regulatory risks below; (2) this **narrative annex** for the regimes that aren't reducible to a single risk (ESA/NASA terms, launch market, macro). *A first-class constraint node (so one regulator can govern several risks/activities) is a candidate schema change — see [[CR-02 - External Entities (Supplier & Regulatory)|CR-02]], raised with RIM 2026-06-29.*
+> Since **CR-02 landed** (RIM aligned `schema.canonical.yaml`, 2026-06-29), the formal regulators are **first-class context nodes**. Constraints are modelled three ways:
+> 1. **`regulator` context nodes** — 5 nodes (REG-01..05): FCC, ITU, US DDTC/ITAR, DoD accreditation, ESA/NASA — carrying `kind` {regulator/export_control/accreditation/partnership}, `authority`, `standard`, `jurisdiction`. Each **`GOVERNS`→** the risks it bears on, so a portfolio regulatory-exposure view ("everything the FCC governs"; "ODT's whole ITAR surface") is one query.
+> 2. **The `regulatory_compliance` risk subtype** — `regulatory_body`, `applicable_standard`, `licence_stage` — **kept, denormalised** on the six regulatory risks below (CR-02 §3 Q3; the node carries the shared authority, the subtype the per-risk `licence_stage`).
+> 3. **This narrative annex** for the regimes not reducible to a node yet — the **launch market** and the **capital-market/macro window** (deferred to a future `market_factor` type, CR-02 §8).
 
 ## 2. The six-layer external perimeter
-| Layer | The constraint | Bears on (risks) | Canon |
-|---|---|---|---|
-| **Spectrum & licensing** | **FCC** Part 25 (Q3 2026 gate) · **ITU** frequency coordination / priority filing | ROR-01, RH-07, RC-04 | Programme; TPO-03 |
-| **Export control** | **ITAR / EAR** (US DDTC, 22 CFR 120–130) — gates non-US tech transfer | RA-05, ROH-02, GP1 | AURORA §6 |
-| **Government accreditation** | **DoD security accreditation** — gates 30% of revenue ($81M Gov & Defense) | RH-05, RG1 | RG1; Sec-Arch §7.3 |
-| **Partnership terms** | **ESA/NASA** AURORA co-funding (~60/40), PDR gate Q1 2027 | RA-01..05, GA1 | AURORA §4 |
-| **Launch market** | **SpaceX / Rocket Lab** (+ Axiom), committed 2025–2029; congestion | ROL-01, GP1 | Sec-Arch §7.2 |
-| **Capital markets** | **IPO window H1 2029** (~$250M Nasdaq); −$100M trigger / −$60M bridge | RC-01/02/03, FN1 | Finance; State B |
+| Layer | The constraint | Node (CR-02) | Governs (risks) | Canon |
+|---|---|---|---|---|
+| **Spectrum & licensing** | **FCC** Part 25 (Q3 2026 gate) · **ITU** frequency coordination / priority filing | **REG-01** FCC · **REG-02** ITU | ROR-01, RH-07, RC-04 | Programme; TPO-03 |
+| **Export control** | **ITAR / EAR** (US DDTC, 22 CFR 120–130) — gates non-US tech transfer | **REG-03** US DDTC/ITAR | RA-05, ROH-02, GP1 | AURORA §6 |
+| **Government accreditation** | **DoD security accreditation** — gates 30% of revenue ($81M Gov & Defense) | **REG-04** DoD accreditation | RH-05, RG1 | RG1; Sec-Arch §7.3 |
+| **Partnership terms** | **ESA/NASA** AURORA co-funding (~60/40), PDR gate Q1 2027 | **REG-05** ESA/NASA *(kind: partnership)* | RA-01..05, GA1, RC-04 | AURORA §4 |
+| **Launch market** | **SpaceX / Rocket Lab** (+ Axiom), committed 2025–2029; congestion | *(narrative — future `market_factor`; suppliers are `supplier` nodes SUP-07/08)* | ROL-01, GP1 | Sec-Arch §7.2 |
+| **Capital markets** | **IPO window H1 2029** (~$250M Nasdaq); −$100M trigger / −$60M bridge | *(narrative — future `market_factor`)* | RC-01/02/03, FN1 | Finance; State B |
+
+The 5 `regulator` nodes `GOVERNS`→ their risks: **REG-01 FCC** → ROR-01, RC-04, *HX-05* (incident); **REG-02 ITU** → RH-07, RC-04; **REG-03 DDTC** → RA-05, ROH-02; **REG-04 DoD** → RH-05; **REG-05 ESA/NASA** → RC-04. So "everything the FCC governs" (ROR-01 + RC-04 + the HX-05 incident) and "ODT's whole ITAR surface" (RA-05 + ROH-02) are single traversals.
 
 ## 3. Spectrum & licensing — FCC + ITU
 - **FCC (47 CFR Part 25).** Operational approval targeted **Q3 2026** (TPO-03) — a prerequisite for Phase-1 launches. Tracked by **ROR-01** (`regulatory_body: FCC`, `licence_stage: Part 25 operational approval`); owner **[[Amara Diallo (VP Compliance & Quality)|Amara Diallo]]**.
@@ -57,14 +62,15 @@ The external constraint that makes all the others *converge*: the **H1 2029 ~$25
 Public markets **re-rate on churn** (LTV:CAC): a visible incident can move the multiple ODT trades at ([[Annex - Finance & Unit Economics]] §6.4). There is **no separate macro/recession risk node** (a known gap) — macro deterioration is captured only through FN1's distressed-raise branch.
 
 ## 10. How RIM reads this
-- **Regulatory exposure:** filter risks by `regulatory_body` → the FCC / ITU / ITAR / DoD clusters surface; `licence_stage` shows where each sits (e.g. FCC "Part 25 approval, Q3 2026 gate").
+- **Regulatory exposure (CR-02):** start from a `regulator` node and traverse `GOVERNS`→ — `MATCH (c:regulator {authority:'US DDTC (State Dept)'})-[:GOVERNS]->(r:Risk)` returns RA-05 + ROH-02, ODT's whole ITAR surface in one query; the same from REG-01 returns everything the FCC governs (incl. the HX-05 incident). The denormalised `regulatory_body`/`licence_stage` subtype fields still rank where each risk sits (e.g. FCC "Part 25 approval, Q3 2026 gate").
 - **External → internal:** the annex makes each family's *root cause outside the company* explicit — GP1 (export/launch), RG1 (accreditation), RA-04/05 (ESA-NASA/ITAR) — all threading to the **same IPO window** (TCO-04) via the financial cluster RC-01/02/03.
 - **Owner:** the spectrum/export/accreditation perimeter is concentrated on **[[Amara Diallo (VP Compliance & Quality)|Amara Diallo]]** (FCC, ITU, ITAR/EAR, accreditation) — a named owner to interview/escalate.
 
 ## 11. Forward work
-- **[[CR-02 - External Entities (Supplier & Regulatory)|CR-02]] (raised 2026-06-29)** — propose a first-class **`regulator`/`external_constraint`** node (+ a `supplier` node) so one regulator can `GOVERNS` several risks/activities and a regulatory-exposure view is a graph query, not an annex read. Until agreed, constraints stay on-risk (`regulatory_compliance` subtype) + this annex.
-- **Macro risk node** — consider an explicit "capital-market / rate shock" risk feeding FN1 (today macro lives only in the FN1 narrative).
+- ~~**[[CR-02 - External Entities (Supplier & Regulatory)|CR-02]] (raised 2026-06-29)**~~ **DONE — CR-02 APPLIED (2026-06-29).** RIM aligned `schema.canonical.yaml` with `regulator` (+ `supplier`) context nodes and `GOVERNS` (+ `SUPPLIES`/`SOURCED_FROM`) edges; ODT regenerated — 5 regulator nodes `GOVERNS`→ the 6 regulatory risks (+ incident HX-05). Regulatory-exposure is now a graph query (§2, §10). The `regulatory_compliance` subtype stays denormalised.
+- **`market_factor` node (deferred)** — the **launch market** and **capital-market/IPO window** stayed narrative under CR-02 (§8). A future `market_factor` type would let them become nodes feeding ROL-01/GP1 (launch) and RC-01/02/03/FN1 (capital). Today macro lives only in the FN1 narrative.
 - **National launch-country authorities** — currently folded into RC-04; split out if a launch-licensing scenario is needed.
 
 ## Changelog
+- 2026-06-29: **CR-02 applied — regulators promoted to first-class nodes.** RIM landed `schema.canonical.yaml` (the secure canonical schema, replacing `schema.yaml`) with the `regulator` context node + `GOVERNS` edge. Reframed §intro + §1 modelling note (no longer "RIM has no regulator node"); added node IDs (REG-01..05) + the `GOVERNS` map to the §2 perimeter table; added the regulator-node exposure query to §10; closed the §11 CR-02 forward item (launch/capital markets deferred to a future `market_factor`). `regulatory_compliance` subtype kept denormalised; ESA/NASA modelled as `kind: partnership`. Seed regenerated (5 regulator nodes, 9 `GOVERNS` incl. RC-04 fan-in + incident HX-05). No new canon figures.
 - 2026-06-29: **Annex created (W3 — external environment & constraints, target L2).** Documented the six-layer external perimeter (spectrum/FCC+ITU, export-control/ITAR, DoD accreditation, ESA/NASA partnership terms, launch market, capital-market/IPO window) and tied each to the risks it bears on. Populated the **`regulatory_compliance` subtype** (`regulatory_body`/`applicable_standard`/`licence_stage`) on **6 risks** — RC-04, RH-05, RH-07, RA-05, ROH-02, ROR-01 — in the workbook; generator extended to emit them; seed regenerated (`demo_seed.cypher`, 4296 lines). All names/figures canon-cited; **no new canon figures.** Wired into [[Sourcebook Index]]. Raised **[[CR-02 - External Entities (Supplier & Regulatory)|CR-02]]** with RIM (first-class supplier + regulator/constraint nodes). Open: macro risk node; national launch authorities.

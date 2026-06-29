@@ -164,32 +164,29 @@ entities:
       type: float
       required: false
       default: null
-      description: 'Frequency (U16): annual Poisson event rate λ in events/year. Populated
-        by analyst direct entry (priority) or the likelihood_to_lambda lookup-table
-        fallback — no SPICE dependency. Distinct from the 1–10 likelihood score, which
-        is unchanged and still drives exposure.'
+      description: 'Frequency (U16): annual Poisson event rate λ in events/year. Populated by
+        analyst direct entry (priority) or the likelihood_to_lambda lookup-table fallback — no
+        SPICE dependency. Distinct from the 1–10 likelihood score, which is unchanged and still
+        drives exposure.'
     - name: magnitude_point_estimate
       type: float
       required: false
       default: null
-      description: 'Magnitude Tier-2 fallback (U18): expert single expected/median
-        loss for this Business Risk (perimeter currency), used when no current SPICE
-        coverage exists. Priority: SPICE-fitted > this analyst estimate > YAML domain
-        default.'
+      description: 'Magnitude Tier-2 fallback (U18): expert single expected/median loss for this
+        Business Risk (perimeter currency), used when no current SPICE coverage exists. Priority:
+        SPICE-fitted > this analyst estimate > YAML domain default.'
     - name: magnitude_low
       type: float
       required: false
       default: null
-      description: Optional P10 (low) loss for the Tier-2 fallback — pairs with magnitude_high
-        to shape the distribution tail; if omitted, spread inherits the domain YAML
-        default.
+      description: 'Optional P10 (low) loss for the Tier-2 fallback — pairs with magnitude_high to
+        shape the distribution tail; if omitted, spread inherits the domain YAML default.'
     - name: magnitude_high
       type: float
       required: false
       default: null
-      description: Optional P90 (high) loss for the Tier-2 fallback — pairs with magnitude_low
-        to shape the distribution tail; if omitted, spread inherits the domain YAML
-        default.
+      description: 'Optional P90 (high) loss for the Tier-2 fallback — pairs with magnitude_low to
+        shape the distribution tail; if omitted, spread inherits the domain YAML default.'
     custom_attributes: []
     subtypes:
     - id: generic
@@ -443,18 +440,16 @@ entities:
       type: enum
       required: false
       default: null
-      description: 'Financial-layer effect (CR-01, promoted from SpiceMitigation.type):
-        impact_reducing (reduces EBIT/FCF impact) | recovery_accelerating (shortens
-        recovery). Nullable — null = no financial-layer effect (operational-only control).
-        Decoupled from whether MITIGATES exists (a dual-acting control may set it
-        AND carry MITIGATES).'
+      choices:
+      - impact_reducing
+      - recovery_accelerating
+      description: 'Financial-layer effect (CR-01, promoted from SpiceMitigation.type): impact_reducing
+        | recovery_accelerating. Nullable (null = operational-only). Decoupled from MITIGATES.'
     - name: committed_budget
       type: float
       required: false
       default: null
-      description: Committed spend for a 'planned' control before it is capitalised
-        — distinct from capex/opex (lets a planned control show money + intent before
-        it is fully costed).
+      description: Committed spend for a 'planned' control before it is capitalised — distinct from capex/opex.
     - name: target_date
       type: date
       required: false
@@ -469,8 +464,7 @@ entities:
       type: float
       required: false
       default: null
-      description: Insurance limit / contractual cap (e.g. the cyber tower) — carried
-        from SpiceMitigation.
+      description: Insurance limit / contractual cap — carried from SpiceMitigation.
     custom_attributes: []
 relationships:
   influences:
@@ -679,14 +673,75 @@ ui:
         enabled: false
       mitigations:
         enabled: true
+# Pillar 5 — SPICE Core type (Option B: distinct Neo4j label + core flag, generic CRUD/IO).
+# SpiceScenario is read by the financial MagnitudeCalibrator (U18); it is NOT part of graph
+# exposure propagation. One of three sibling cases per (scenario_family_id, version_number).
+frequency_model:
+  curve_type: piecewise_linear
+  calibrated: false
+  likelihood_to_lambda:
+  - score: 1
+    label: Exceptional
+    central_lambda: 0.003
+    return_period_years: 300
+  - score: 2
+    label: Very rare
+    central_lambda: 0.008
+    return_period_years: 130
+  - score: 3
+    label: Rare
+    central_lambda: 0.015
+    return_period_years: 65
+  - score: 4
+    label: Unlikely
+    central_lambda: 0.035
+    return_period_years: 30
+  - score: 5
+    label: Possible
+    central_lambda: 0.075
+    return_period_years: 13
+  - score: 6
+    label: Moderate
+    central_lambda: 0.15
+    return_period_years: 7
+  - score: 7
+    label: Likely
+    central_lambda: 0.28
+    return_period_years: 3.5
+  - score: 8
+    label: Very likely
+    central_lambda: 0.47
+    return_period_years: 2
+  - score: 9
+    label: Probable
+    central_lambda: 0.93
+    return_period_years: 1
+  - score: 10
+    label: Near-certain
+    central_lambda: 2.0
+    return_period_years: 0.5
+loss_model:
+  frequency_mapping: piecewise_linear
+  magnitude_distribution: lognormal
+  monte_carlo_runs: 10000
+  var_confidence_levels:
+  - 0.95
+  - 0.99
+  - 0.995
+  resilience_thresholds:
+    robust_exceedance_probability: 0.2
+    fragile_exceedance_probability: 0.05
+  magnitude_fallback:
+    coefficient_of_variation: 1.5
+    median: null
 additional_entities:
 - id: spice_scenario
   label: SPICE Scenario
   neo4j_label: SpiceScenario
   core: true
-  description: Financially quantified stress-test of how a Business Risk can catastrophically
-    materialise (Pillar 5). EBIT/FCF per-year impact trajectories are read by the
-    MagnitudeCalibrator (U18). Not part of graph exposure propagation.
+  description: 'Financially quantified stress-test of how a Business Risk can catastrophically
+    materialise (Pillar 5). EBIT/FCF per-year impact trajectories are read by the MagnitudeCalibrator
+    (U18). Not part of graph exposure propagation.'
   color: '#a93226'
   shape: triangle
   emoji: 🎯
@@ -706,14 +761,12 @@ additional_entities:
     type: string
     required: false
     default: null
-    description: Assumptions and caveats underpinning this assessment (hypothesis
-      / caveat)
+    description: Assumptions and caveats underpinning this assessment (hypothesis / caveat)
   - name: scenario_family_id
     type: string
     required: true
     default: null
-    description: UUID shared by all versions and the three cases of one conceptual
-      scenario
+    description: UUID shared by all versions and the three cases of one conceptual scenario
   - name: version_number
     type: integer
     required: true
@@ -728,8 +781,7 @@ additional_entities:
     - best
     - realistic
     - pessimistic
-    description: Which of the three independently-assessed consequence trajectories
-      this is
+    description: Which of the three independently-assessed consequence trajectories this is
   - name: assessment_date
     type: date
     required: true
@@ -743,8 +795,7 @@ additional_entities:
     - draft
     - current
     - superseded
-    description: Exactly one 'current' per family; the MagnitudeCalibrator reads only
-      'current'
+    description: 'Exactly one ''current'' per family; the MagnitudeCalibrator reads only ''current'''
   - name: cause_description
     type: string
     required: false
@@ -869,64 +920,7 @@ additional_entities:
     required: false
     default: null
     description: Version label of the SPICE exercise
-frequency_model:
-  curve_type: piecewise_linear
-  calibrated: false
-  likelihood_to_lambda:
-  - score: 1
-    label: Exceptional
-    central_lambda: 0.003
-    return_period_years: 300
-  - score: 2
-    label: Very rare
-    central_lambda: 0.008
-    return_period_years: 130
-  - score: 3
-    label: Rare
-    central_lambda: 0.015
-    return_period_years: 65
-  - score: 4
-    label: Unlikely
-    central_lambda: 0.035
-    return_period_years: 30
-  - score: 5
-    label: Possible
-    central_lambda: 0.075
-    return_period_years: 13
-  - score: 6
-    label: Moderate
-    central_lambda: 0.15
-    return_period_years: 7
-  - score: 7
-    label: Likely
-    central_lambda: 0.28
-    return_period_years: 3.5
-  - score: 8
-    label: Very likely
-    central_lambda: 0.47
-    return_period_years: 2
-  - score: 9
-    label: Probable
-    central_lambda: 0.93
-    return_period_years: 1
-  - score: 10
-    label: Near-certain
-    central_lambda: 2.0
-    return_period_years: 0.5
-loss_model:
-  frequency_mapping: piecewise_linear
-  magnitude_distribution: lognormal
-  monte_carlo_runs: 10000
-  var_confidence_levels:
-  - 0.95
-  - 0.99
-  - 0.995
-  resilience_thresholds:
-    robust_exceedance_probability: 0.2
-    fragile_exceedance_probability: 0.05
-  magnitude_fallback:
-    coefficient_of_variation: 1.5
-    median: null
+
 context_nodes:
   business_perimeter:
     label: Business Perimeter
@@ -1271,14 +1265,12 @@ context_nodes:
       description: ''
   mitigation_objective:
     label: Mitigation Objective
-    description: Objective declared within a SPICE scenario assessment; Mitigations
-      FULFIL it with declared contribution weights. Context — no engine reads it.
+    description: 'Objective declared within a SPICE scenario assessment; Mitigations FULFIL
+      it with declared contribution weights. Context — no engine reads it.'
     color: '#1abc9c'
     shape: box
     emoji: 🎚️
     size: 25
-    zone: lower
-    border: solid
     properties:
     - name: name
       type: string
@@ -1302,14 +1294,12 @@ context_nodes:
       description: Effectiveness ranking (1–10), parallel optional dimension
   owner:
     label: Owner
-    description: Person, team, or org unit with formal risk accountability. STEWARDS
-      execution; BEARS consequence. Enables scope traversal by responsibility. Context.
+    description: 'Person, team, or org unit with formal risk accountability. STEWARDS execution;
+      BEARS consequence. Enables scope traversal by responsibility. Context.'
     color: '#7f8c8d'
     shape: box
     emoji: 👤
     size: 25
-    zone: lower
-    border: solid
     properties:
     - name: name
       type: string
@@ -1331,6 +1321,91 @@ context_nodes:
       required: false
       default: null
       description: Contact email
+  # --- CR-02 — External entities (suppliers & regulators; first-class context, no engine reads them) ---
+  supplier:
+    label: Supplier
+    description: 'External party providing an input into ODT''s production chain (CR-02).
+      First-class node so supplier blast-radius is a graph traversal. Context — no engine reads it.'
+    color: '#af601a'
+    shape: box
+    emoji: 🏭
+    size: 25
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Supplier name (e.g. Teledyne, Saft)
+    - name: tier
+      type: string
+      required: false
+      default: null
+      description: 'Supply tier: Tier 1 / Tier 2 / Tier 3 / Internal'
+    - name: criticality
+      type: string
+      required: false
+      default: null
+      description: 'Criticality class: Critical / Important / Standard'
+    - name: single_source
+      type: boolean
+      required: false
+      default: null
+      description: True if ODT has no qualified alternative (choke point)
+    - name: country
+      type: string
+      required: false
+      default: null
+      description: Home country / state — geopolitical exposure
+    - name: lead_time
+      type: string
+      required: false
+      default: null
+      description: Typical procurement lead time (optional)
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: ''
+  regulator:
+    label: Regulator
+    description: 'External authority/regime governing one or more risks — regulator,
+      export-control, accreditation, or partnership (CR-02). First-class node for portfolio
+      regulatory-exposure queries. Context — no engine reads it.'
+    color: '#6c3483'
+    shape: box
+    emoji: ⚖️
+    size: 25
+    properties:
+    - name: name
+      type: string
+      required: true
+      default: null
+      description: Regulator / regime name (e.g. FCC, US DDTC/ITAR)
+    - name: kind
+      type: string
+      required: false
+      default: null
+      description: 'regulator / export_control / accreditation / partnership'
+    - name: authority
+      type: string
+      required: false
+      default: null
+      description: Governing authority (e.g. FCC, US DDTC)
+    - name: standard
+      type: string
+      required: false
+      default: null
+      description: Applicable standard (e.g. 47 CFR Part 25)
+    - name: jurisdiction
+      type: string
+      required: false
+      default: null
+      description: Jurisdiction / geographic scope
+    - name: description
+      type: string
+      required: false
+      default: null
+      description: ''
 context_edges:
   exploits:
     label: Exploits
@@ -1512,24 +1587,59 @@ context_edges:
     line_style: solid
     bidirectional: false
     properties: []
+  # --- CR-02 — External-entity edges (all displayable context; none enter L×S propagation) ---
+  supplies:
+    label: Supplies (supplier → activity)
+    neo4j_type: SUPPLIES
+    description: 'A supplier provides an input into a business activity (CR-02). Blast-radius
+      into the production chain. Context — no propagation math.'
+    from_node: supplier
+    to_node: business_activity
+    color: '#af601a'
+    line_style: solid
+    bidirectional: false
+    properties: []
+  governs:
+    label: Governs (regulator → risk)
+    neo4j_type: GOVERNS
+    description: 'A regulator/regime governs a risk (CR-02). Enables portfolio
+      regulatory-exposure queries. Context — no propagation math.'
+    from_node: regulator
+    to_node: risk
+    color: '#6c3483'
+    line_style: dotted
+    bidirectional: false
+    properties: []
+  sourced_from:
+    label: Sourced From (risk → supplier)
+    neo4j_type: SOURCED_FROM
+    description: 'A supply-chain risk is sourced from / tied to a supplier (CR-02).
+      Context — no propagation math.'
+    from_node: risk
+    to_node: supplier
+    color: '#af601a'
+    line_style: dashed
+    bidirectional: false
+    properties: []
+  # --- Pillar 5 — SPICE relationships (all displayable context; none enter L×S propagation) ---
   illustrates:
     label: Illustrates (scenario → business risk)
     neo4j_type: ILLUSTRATES
-    description: SPICE scenario is a concrete instantiation of how this Business Risk
-      materialises. Primary bridge between the SPICE and graph layers. App enforces
-      target = business-level risk.
+    core: true
+    description: 'SPICE scenario is a concrete instantiation of how this Business Risk
+      materialises. Primary bridge between the SPICE and graph layers. App enforces target =
+      business-level risk.'
     from_node: spice_scenario
     to_node: risk
     color: '#a93226'
     line_style: solid
     bidirectional: false
-    core: true
     properties: []
   caused_by:
     label: Caused By (scenario → operational risk)
     neo4j_type: CAUSED_BY
-    description: The scenario's cause is an existing Operational Risk in the causal
-      graph. App enforces target = operational-level risk.
+    description: 'The scenario''s cause is an existing Operational Risk in the causal graph. App
+      enforces target = operational-level risk.'
     from_node: spice_scenario
     to_node: risk
     color: '#cb4335'
@@ -1539,13 +1649,13 @@ context_edges:
   assessed_against:
     label: Assessed Against (scenario → P&L perimeter)
     neo4j_type: ASSESSED_AGAINST
+    core: true
     description: The financial impact of this scenario is assessed on this P&L perimeter.
     from_node: spice_scenario
     to_node: business_perimeter
     color: '#d35400'
     line_style: solid
     bidirectional: false
-    core: true
     properties: []
   occurs_at:
     label: Occurs At (scenario → technical perimeter)
@@ -1560,74 +1670,72 @@ context_edges:
   contains:
     label: Contains (perimeter → business risk)
     neo4j_type: CONTAINS
-    description: This P&L perimeter contains this Business Risk — defines financial
-      scope membership. App enforces target = business-level risk.
+    core: true
+    description: 'This P&L perimeter contains this Business Risk — defines financial scope
+      membership. App enforces target = business-level risk.'
     from_node: business_perimeter
     to_node: risk
     color: '#9b59b6'
     line_style: solid
     bidirectional: false
-    core: true
     properties: []
   addresses:
     label: Addresses (scenario → objective)
     neo4j_type: ADDRESSES
+    core: true
     description: The scenario declares a mitigation objective to be fulfilled.
     from_node: spice_scenario
     to_node: mitigation_objective
     color: '#1abc9c'
     line_style: solid
     bidirectional: false
-    core: true
     properties: []
   fulfils:
     label: Fulfils (mitigation → objective)
     neo4j_type: FULFILS
-    description: A Mitigation fulfils an objective with a declared contribution weight
-      (CR-01 — consolidated to the single core Mitigation registry). Sum of weights
-      per objective MAY exceed 100% (surfaced as over-coverage, not an error).
+    core: true
+    description: 'A Mitigation fulfils an objective with a declared contribution weight (CR-01 —
+      consolidated single Mitigation registry). Sum of weights per objective MAY exceed 100%
+      (surfaced as over-coverage, not an error).'
     from_node: mitigation
     to_node: mitigation_objective
     color: '#148f77'
     line_style: solid
     bidirectional: false
-    core: true
     properties:
     - name: contribution_weight
       type: float
       required: false
       default: null
-      description: This mitigation's contribution to the objective (% — may sum >100
-        per objective)
+      description: This mitigation's contribution to the objective (% — may sum >100 per objective)
   mitigated_by:
     label: Mitigated By (scenario → mitigation)
     neo4j_type: MITIGATED_BY
-    description: A Mitigation is cited in this scenario's mitigated re-assessment
-      (CR-01 — additive to the objective path; consolidated to the single core Mitigation
-      registry). Does NOT affect graph exposure.
+    core: true
+    description: 'A Mitigation is cited in this scenario''s mitigated re-assessment (CR-01 — additive
+      to the objective path; consolidated single Mitigation registry). Does NOT affect graph exposure.'
     from_node: spice_scenario
     to_node: mitigation
     color: '#16a085'
     line_style: solid
     bidirectional: false
-    core: true
     properties: []
   stewards:
     label: Stewards (owner → mitigation)
     neo4j_type: STEWARDS
-    description: Execution accountability ("I am doing this work"); owner → Mitigation
-      (CR-01 — consolidated single Mitigation registry). STEWARDS targeting any Risk
-      node is forbidden by design.
+    core: true
+    description: 'Execution accountability ("I am doing this work"); owner → Mitigation (CR-01 —
+      consolidated single Mitigation registry). STEWARDS targeting any Risk node is forbidden by design.'
     from_node: owner
     to_node: mitigation
     color: '#7f8c8d'
     line_style: dotted
     bidirectional: false
-    core: true
     properties: []
   bears:
     label: Bears (owner → risk)
     neo4j_type: BEARS
+    core: true
     description: 'Polymorphic consequence-bearing: OperationalRisk → technical consequence,
       BusinessRisk → financial consequence. At most one Bearer per risk.'
     from_node: owner
@@ -1635,7 +1743,6 @@ context_edges:
     color: '#566573'
     line_style: dotted
     bidirectional: false
-    core: true
     properties: []
 scopes:
 - id: odt_demo

@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-29 11:35
+//    Built   : 2026-06-29 18:06
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -2107,6 +2107,169 @@ CREATE (basvc:ContextNode {
   updated_at: datetime()
 });
 
+// --- Suppliers (CR-02 — external supply-chain nodes) ---
+
+CREATE (sup01:ContextNode {
+  node_type: 'supplier',
+  id: 'SUP-01',
+  name: 'Teledyne',
+  tier: 'Tier 1',
+  criticality: 'Critical',
+  single_source: true,
+  country: 'United States',
+  description: 'Sole-source Ku/Ka-band RF transponder modules — the choke point ROM-01 tracks (also the firmware-integrity surface behind SEC-02 and incident HX-01). No qualified alternative qualified for flight.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (sup02:ContextNode {
+  node_type: 'supplier',
+  id: 'SUP-02',
+  name: 'Saft',
+  tier: 'Tier 1',
+  criticality: 'Critical',
+  single_source: true,
+  country: 'France',
+  lead_time: '9–12 months',
+  description: 'Sole-source space-grade Li-ion battery cells (ROM-02); 9–12-month procurement lead time and no qualified second source.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (sup03:ContextNode {
+  node_type: 'supplier',
+  id: 'SUP-03',
+  name: 'Northrop Grumman',
+  tier: 'Tier 1',
+  criticality: 'Important',
+  single_source: false,
+  country: 'United States',
+  description: 'Composite satellite bus structures (ROM-03) — dual-sourced with Spirit AeroSystems.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (sup04:ContextNode {
+  node_type: 'supplier',
+  id: 'SUP-04',
+  name: 'Spirit AeroSystems',
+  tier: 'Tier 1',
+  criticality: 'Important',
+  single_source: false,
+  country: 'United States',
+  description: 'Composite satellite bus structures — the second qualified source alongside Northrop Grumman (ROM-03).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (sup05:ContextNode {
+  node_type: 'supplier',
+  id: 'SUP-05',
+  name: 'Moog',
+  tier: 'Tier 1',
+  criticality: 'Important',
+  single_source: false,
+  country: 'United States',
+  description: 'Attitude-control / propulsion components — dual-sourced with Orbital ATK.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (sup06:ContextNode {
+  node_type: 'supplier',
+  id: 'SUP-06',
+  name: 'Orbital ATK',
+  tier: 'Tier 1',
+  criticality: 'Important',
+  single_source: false,
+  country: 'United States',
+  description: 'Attitude-control / propulsion components — the second source alongside Moog.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (sup07:ContextNode {
+  node_type: 'supplier',
+  id: 'SUP-07',
+  name: 'SpaceX',
+  tier: 'Tier 1',
+  criticality: 'Important',
+  single_source: false,
+  country: 'United States',
+  description: 'Launch services (Falcon 9) — primary manifest provider feeding BA-LAUNCH (ROL-01).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (sup08:ContextNode {
+  node_type: 'supplier',
+  id: 'SUP-08',
+  name: 'Rocket Lab',
+  tier: 'Tier 1',
+  criticality: 'Important',
+  single_source: false,
+  country: 'United States',
+  description: 'Launch services (Electron) — diversification provider for BA-LAUNCH (ROL-01).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
+// --- Regulators / regimes (CR-02 — external constraint nodes) ---
+
+CREATE (reg01:ContextNode {
+  node_type: 'regulator',
+  id: 'REG-01',
+  name: 'FCC',
+  kind: 'regulator',
+  authority: 'US Federal Communications Commission',
+  standard: '47 CFR Part 25',
+  jurisdiction: 'United States',
+  description: 'Spectrum / earth-station licensing and ongoing deployment-milestone conditions (ROR-01, RC-04; incident HX-05).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (reg02:ContextNode {
+  node_type: 'regulator',
+  id: 'REG-02',
+  name: 'ITU',
+  kind: 'regulator',
+  authority: 'International Telecommunication Union',
+  standard: 'ITU Radio Regulations',
+  jurisdiction: 'International',
+  description: 'Frequency coordination and priority filing with incumbent operators (RH-07, RC-04).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (reg03:ContextNode {
+  node_type: 'regulator',
+  id: 'REG-03',
+  name: 'US DDTC / ITAR',
+  kind: 'export_control',
+  authority: 'US DDTC (State Dept)',
+  standard: 'ITAR 22 CFR 120–130',
+  jurisdiction: 'United States',
+  description: 'Export-control / technology-transfer authorisation governing non-US AURORA partnerships (RA-05) and the ITAR-cleared workforce (ROH-02) — ODT\'s whole ITAR surface.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (reg04:ContextNode {
+  node_type: 'regulator',
+  id: 'REG-04',
+  name: 'DoD accreditation',
+  kind: 'accreditation',
+  authority: 'US Department of Defense',
+  standard: 'Security accreditation (task-order gate)',
+  jurisdiction: 'United States',
+  description: 'Security accreditation gating Government & Defense task orders (RH-05) — the regime behind ~30% of revenue.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (reg05:ContextNode {
+  node_type: 'regulator',
+  id: 'REG-05',
+  name: 'ESA / NASA',
+  kind: 'partnership',
+  authority: 'ESA / NASA',
+  standard: 'Co-funding & partnership agreements',
+  jurisdiction: 'EU / United States',
+  description: 'Institutional partners co-funding AURORA-GEO (~60% of Phase-A/B) and bearing on the multi-jurisdiction compliance surface (RC-04).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+
 // =============================================================================
 // OWNERS  (accountability layer — BEARS / STEWARDS)
 // =============================================================================
@@ -3327,6 +3490,52 @@ MATCH (a:Risk {id: 'HX-02'}), (b:ContextNode {id: 'EP-01'})
 CREATE (a)-[:CONCERNS {id: 'CON-HX02', created_at: datetime()}]->(b);
 MATCH (a:Risk {id: 'HX-03'}), (b:ContextNode {id: 'TP-NOC'})
 CREATE (a)-[:CONCERNS {id: 'CON-HX03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SUP-01'}), (b:ContextNode {id: 'BA-PROC'})
+CREATE (a)-[:SUPPLIES {id: 'SUP-S01', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SUP-02'}), (b:ContextNode {id: 'BA-PROC'})
+CREATE (a)-[:SUPPLIES {id: 'SUP-S02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SUP-03'}), (b:ContextNode {id: 'BA-PROC'})
+CREATE (a)-[:SUPPLIES {id: 'SUP-S03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SUP-04'}), (b:ContextNode {id: 'BA-PROC'})
+CREATE (a)-[:SUPPLIES {id: 'SUP-S04', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SUP-05'}), (b:ContextNode {id: 'BA-PROC'})
+CREATE (a)-[:SUPPLIES {id: 'SUP-S05', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SUP-06'}), (b:ContextNode {id: 'BA-PROC'})
+CREATE (a)-[:SUPPLIES {id: 'SUP-S06', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SUP-07'}), (b:ContextNode {id: 'BA-LAUNCH'})
+CREATE (a)-[:SUPPLIES {id: 'SUP-S07', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SUP-08'}), (b:ContextNode {id: 'BA-LAUNCH'})
+CREATE (a)-[:SUPPLIES {id: 'SUP-S08', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-01'}), (b:ContextNode {id: 'SUP-01'})
+CREATE (a)-[:SOURCED_FROM {id: 'SRC-ROM01', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-02'}), (b:ContextNode {id: 'SUP-02'})
+CREATE (a)-[:SOURCED_FROM {id: 'SRC-ROM02', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-03'}), (b:ContextNode {id: 'SUP-03'})
+CREATE (a)-[:SOURCED_FROM {id: 'SRC-ROM03', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROL-01'}), (b:ContextNode {id: 'SUP-07'})
+CREATE (a)-[:SOURCED_FROM {id: 'SRC-ROL01', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-02'}), (b:ContextNode {id: 'SUP-01'})
+CREATE (a)-[:SOURCED_FROM {id: 'SRC-SEC02', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'HX-01'}), (b:ContextNode {id: 'SUP-01'})
+CREATE (a)-[:SOURCED_FROM {id: 'SRC-HX01', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-01'}), (b:Risk {id: 'RC-04'})
+CREATE (a)-[:GOVERNS {id: 'GOV-RC04F', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-02'}), (b:Risk {id: 'RC-04'})
+CREATE (a)-[:GOVERNS {id: 'GOV-RC04I', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-05'}), (b:Risk {id: 'RC-04'})
+CREATE (a)-[:GOVERNS {id: 'GOV-RC04E', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-01'}), (b:Risk {id: 'ROR-01'})
+CREATE (a)-[:GOVERNS {id: 'GOV-ROR01', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-01'}), (b:Risk {id: 'HX-05'})
+CREATE (a)-[:GOVERNS {id: 'GOV-HX05', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-02'}), (b:Risk {id: 'RH-07'})
+CREATE (a)-[:GOVERNS {id: 'GOV-RH07', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-03'}), (b:Risk {id: 'RA-05'})
+CREATE (a)-[:GOVERNS {id: 'GOV-RA05', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-03'}), (b:Risk {id: 'ROH-02'})
+CREATE (a)-[:GOVERNS {id: 'GOV-ROH02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'REG-04'}), (b:Risk {id: 'RH-05'})
+CREATE (a)-[:GOVERNS {id: 'GOV-RH05', created_at: datetime()}]->(b);
 
 // =============================================================================
 // SPICE — MITIGATION OBJECTIVES (ADDRESSES targets)
