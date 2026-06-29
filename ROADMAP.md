@@ -68,7 +68,7 @@ Eight streams (W1–W8) plus governance (W0). Each maps the owner's wants to con
 | W3 | External Constraints & Environment | "external constraints" | L1 | L2 |
 | W4 | Supply Chain | "a supply chain" | **L2** ✅ *(2026-06-29; supplier map + production graph)* | L2 |
 | W5 | History & Past Incidents | "some past incidents" | L0 | L2 |
-| W6 | Operational & Technical Data | "operational-level info with usable data" | L1 | L2 |
+| W6 | Operational & Technical Data | "operational-level info with usable data" | **L2** ✅ *(2026-06-29; S1 kill-chain + perimeters + λ/magnitude)* | L2 |
 | W7 | Management Operating Rhythm (decision support) | (the core thesis) | **L2** ✅ *(2026-06-28; ROC charter + DM-01 worked)* | L2 |
 | W8 | Consumption Surfaces (workshop / crisis / training) | "workshop, crisis exercise, training" | L1 | L2 |
 
@@ -122,7 +122,7 @@ Writing ODT's first risk-manager artefact (`_inputs/ODT Risk Status & Executive 
 
 | # | Gap surfaced | Feeds |
 |---|---|---|
-| 1 | No quantified likelihood/frequency (`annual_probability` λ) or magnitude estimates → no aggregate **loss-exceedance curve** for the board | **W6** |
+| 1 | ~~No quantified likelihood/frequency (`annual_probability` λ) or magnitude estimates → no aggregate **loss-exceedance curve**~~ ✅ **Addressed 2026-06-29 (W6)** — λ on every risk (Moderate band) + magnitude fallback on the 7 SPICE-uncovered business risks | **W6** ✅ |
 | 2 | No **incident history** to calibrate likelihoods or show "this has happened before" | **W5** |
 | 3 | No company **risk-appetite / tolerance statement** beyond the −$100M trigger — so "is this exposure acceptable?" is unanswerable from data | **W1 / W7** |
 | 4 | **Insurance / financing options not modelled** (cost of state-actor cover; bridge-facility covenants) — D2 of the brief | **W3 / W2** |
@@ -142,7 +142,7 @@ Breadth-first within each wave; Depth & Completeness Review at every boundary.
 Stand up the decision-support backbone. **W1** ✅ (objectives + opportunity register), **W2** (owner layer ✅ · controls portfolio ⏳ gated on [CR-01](09%20-%20Engine%20Room/CR-01%20-%20Mitigation%20Consolidation%20%26%20SPICE%20Re-assessment.md)), **W7** ✅ (committee + first worked decision DM-01). Outcome (already demonstrable): the RIM can be shown *informing a management choice*, with named owners and both sides of the ledger. **Only remaining Wave-3 item:** the W2 controls regeneration, which unblocks the moment RIM aligns the schema per CR-01.
 
 ### Wave 4 — *"Depth where the demo bites"*  ← **in progress**
-The data-dense layer. **W4** ✅ *(2026-06-29 — supplier map + production graph; [[Annex - Supply Chain & Production]])*, **W6** (kill-chain + perimeters + usable quant), **W3** (external constraints). Outcome: the graph is dense and queryable; the architecture annex maps 1:1; suppliers and regulators are first-class.
+The data-dense layer. **W4** ✅ *(2026-06-29 — supplier map + production graph; [[Annex - Supply Chain & Production]])*, **W6** ✅ *(2026-06-29 — S1 kill-chain + 4 perimeters/ENH-04 + λ/magnitude pass)*, **W3** (external constraints — last Wave-4 item). Outcome: the graph is dense and queryable; the architecture annex maps 1:1; suppliers and regulators are first-class.
 
 ### Wave 5 — *"History & the runnable kit"*
 **W5** (incident log + lifecycle history), **W8** (crisis-exercise pack + deepen scaffolds + training path). Outcome: ODT has a believable past and a kit you can actually run a workshop/crisis exercise from.

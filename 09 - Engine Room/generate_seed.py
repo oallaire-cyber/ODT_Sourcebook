@@ -43,6 +43,26 @@ def cypher_val(v: object) -> str:
     return f"'{esc(v)}'"
 
 
+# ─── Frequency calibration (W6) ───────────────────────────────────────────────
+# likelihood_to_lambda fallback (schema `annual_probability` U16): map the qualitative
+# likelihood score → annual Poisson event rate λ (events/year). Owner-confirmed
+# "Moderate" band (2026-06-29); documented in the Canon & Figures Register. An explicit
+# `annual_probability` on a risk always wins; this is the fallback for risks without one.
+LIKELIHOOD_TO_LAMBDA = {
+    1: 0.02, 2: 0.05, 3: 0.10, 4: 0.20, 5: 0.33, 6: 0.50,
+    7: 0.70, 8: 0.90, 9: 1.20, 10: 1.50,   # monotone extension above the 1–6 band
+}
+
+
+def lambda_for(r: dict) -> float | None:
+    """Resolve a risk's λ: explicit annual_probability wins; else the score→λ fallback."""
+    if r.get("annual_probability") is not None:
+        return float(r["annual_probability"])
+    if r.get("probability") is not None:
+        return LIKELIHOOD_TO_LAMBDA.get(int(round(float(r["probability"]))))
+    return None
+
+
 # ─── Node generators ──────────────────────────────────────────────────────────
 
 def risk_node(r: dict) -> str:
@@ -63,12 +83,16 @@ def risk_node(r: dict) -> str:
         "current_score_type": r.get("current_score_type", "Qualitative_4x4"),
     }
     for opt in ("activation_condition", "activation_decision_date",
-                "annual_probability", "magnitude_point_estimate",
-                "magnitude_low", "magnitude_high",
+                "magnitude_point_estimate", "magnitude_low", "magnitude_high",
                 # supply_chain risk subtype (W4): supplier dependency descriptors
                 "supplier_tier", "criticality_class", "single_source"):
         if r.get(opt) is not None:
             fields[opt] = r[opt]
+
+    # Frequency λ (W6): explicit annual_probability wins; else likelihood→λ fallback.
+    lam = lambda_for(r)
+    if lam is not None:
+        fields["annual_probability"] = lam
 
     # datetime fields rendered literally (not as strings)
     review_days = r.get("review_days", 90)
@@ -564,7 +588,9 @@ MATCH (n) DETACH DELETE n;
     risks: list[dict] = wb.get("risks", [])
 
     def prefix_matches(rid: str, prefixes: str) -> bool:
-        return any(rid.startswith(p) for p in prefixes.split())
+        # Match on the prefix-up-to-hyphen so "RC" does not also catch "RCY-*"
+        # (every risk id is PREFIX-NN). Prevents the RCY-01/02 double-emit.
+        return any(rid.startswith(p + "-") for p in prefixes.split())
 
     out.append(banner("RISKS"))
     for group_name, prefixes in _RISK_GROUPS:

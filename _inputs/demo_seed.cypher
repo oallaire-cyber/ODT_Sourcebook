@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-29 10:22
+//    Built   : 2026-06-29 10:52
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -34,6 +34,7 @@ CREATE (rc01:Risk {
   severity: 10.0,
   exposure: 60.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -54,6 +55,7 @@ CREATE (rc02:Risk {
   severity: 10.0,
   exposure: 50.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -74,6 +76,7 @@ CREATE (rc03:Risk {
   severity: 9.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -94,6 +97,7 @@ CREATE (rc04:Risk {
   severity: 8.0,
   exposure: 32.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -114,50 +118,11 @@ CREATE (rc05:Risk {
   severity: 9.0,
   exposure: 27.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
   next_review_date: datetime() + duration({days: 90})
-});
-
-CREATE (rcy01:Risk {
-  id: 'RCY-01',
-  name: 'Initial compromise of engineering VPN entry point',
-  description: 'Adversary gains an initial foothold via the internet-facing engineering VPN',
-  level: 'Operational',
-  scope: 'Security Operations',
-  status: 'Active',
-  origin: 'New',
-  categories: ['Security', 'IT'],
-  owner: 'CISO',
-  probability: 6.0,
-  severity: 6.0,
-  exposure: 36.0,
-  current_score_type: 'Qualitative_4x4',
-  created_at: datetime(),
-  updated_at: datetime(),
-  last_review_date: datetime(),
-  next_review_date: datetime() + duration({days: 60})
-});
-
-CREATE (rcy02:Risk {
-  id: 'RCY-02',
-  name: 'PLM compromise - satellite design data integrity & exfiltration',
-  description: 'Adversary reaches the PLM via lateral movement, exfiltrating and corrupting design data',
-  level: 'Operational',
-  scope: 'Security Operations',
-  status: 'Active',
-  origin: 'New',
-  categories: ['Security', 'Product'],
-  owner: 'CISO',
-  probability: 5.0,
-  severity: 9.0,
-  exposure: 45.0,
-  current_score_type: 'Qualitative_4x4',
-  created_at: datetime(),
-  updated_at: datetime(),
-  last_review_date: datetime(),
-  next_review_date: datetime() + duration({days: 60})
 });
 
 // --- HORIZON-LEO Programme Business Risks ---
@@ -176,6 +141,10 @@ CREATE (rh01:Risk {
   severity: 8.0,
   exposure: 56.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 22.0,
+  magnitude_low: 11.0,
+  magnitude_high: 45.0,
+  annual_probability: 0.7,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -196,6 +165,7 @@ CREATE (rh02:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -216,6 +186,10 @@ CREATE (rh03:Risk {
   severity: 7.0,
   exposure: 42.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 14.0,
+  magnitude_low: 7.0,
+  magnitude_high: 28.0,
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -236,6 +210,7 @@ CREATE (rh04:Risk {
   severity: 8.0,
   exposure: 48.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -256,6 +231,7 @@ CREATE (rh05:Risk {
   severity: 8.0,
   exposure: 40.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -278,6 +254,10 @@ CREATE (rh06:Risk {
   current_score_type: 'Qualitative_4x4',
   activation_condition: 'If Phase 3 satellites exceed 40 active beams per satellite in high-demand zones',
   activation_decision_date: '2026-06-30',
+  magnitude_point_estimate: 8.0,
+  magnitude_low: 4.0,
+  magnitude_high: 16.0,
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -298,6 +278,10 @@ CREATE (rh07:Risk {
   severity: 8.0,
   exposure: 32.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 22.0,
+  magnitude_low: 11.0,
+  magnitude_high: 45.0,
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -320,6 +304,10 @@ CREATE (ra01:Risk {
   severity: 7.0,
   exposure: 42.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 14.0,
+  magnitude_low: 7.0,
+  magnitude_high: 28.0,
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -340,6 +328,7 @@ CREATE (ra02:Risk {
   severity: 6.0,
   exposure: 42.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.7,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -360,6 +349,10 @@ CREATE (ra03:Risk {
   severity: 9.0,
   exposure: 45.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 35.0,
+  magnitude_low: 18.0,
+  magnitude_high: 70.0,
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -382,6 +375,7 @@ CREATE (ra04:Risk {
   current_score_type: 'Qualitative_4x4',
   activation_condition: 'If partner M&A activity is confirmed or strategic review initiated',
   activation_decision_date: '2026-12-31',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -402,6 +396,10 @@ CREATE (ra05:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  magnitude_point_estimate: 14.0,
+  magnitude_low: 7.0,
+  magnitude_high: 28.0,
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -424,6 +422,7 @@ CREATE (roe01:Risk {
   severity: 9.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -444,6 +443,7 @@ CREATE (roe02:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -464,6 +464,7 @@ CREATE (roe03:Risk {
   severity: 8.0,
   exposure: 40.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -489,6 +490,7 @@ CREATE (rom01:Risk {
   supplier_tier: 'Tier 1',
   criticality_class: 'Critical',
   single_source: true,
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -512,6 +514,7 @@ CREATE (rom02:Risk {
   supplier_tier: 'Tier 1',
   criticality_class: 'Critical',
   single_source: true,
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -535,6 +538,7 @@ CREATE (rom03:Risk {
   supplier_tier: 'Tier 1',
   criticality_class: 'Important',
   single_source: false,
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -558,6 +562,7 @@ CREATE (rom04:Risk {
   supplier_tier: 'Internal',
   criticality_class: 'Critical',
   single_source: false,
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -583,6 +588,7 @@ CREATE (rol01:Risk {
   supplier_tier: 'Tier 1',
   criticality_class: 'Important',
   single_source: false,
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -603,6 +609,7 @@ CREATE (rol02:Risk {
   severity: 10.0,
   exposure: 20.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.05,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -625,6 +632,7 @@ CREATE (roc01:Risk {
   severity: 6.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -645,6 +653,7 @@ CREATE (roc02:Risk {
   severity: 5.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -667,6 +676,7 @@ CREATE (rof01:Risk {
   severity: 5.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -687,6 +697,7 @@ CREATE (rof02:Risk {
   severity: 7.0,
   exposure: 28.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -707,6 +718,7 @@ CREATE (roh01:Risk {
   severity: 7.0,
   exposure: 49.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.7,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -727,6 +739,7 @@ CREATE (roh02:Risk {
   severity: 6.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -747,6 +760,7 @@ CREATE (ror01:Risk {
   severity: 9.0,
   exposure: 27.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -767,6 +781,7 @@ CREATE (roi01:Risk {
   severity: 8.0,
   exposure: 24.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -789,6 +804,7 @@ CREATE (sec01:Risk {
   severity: 10.0,
   exposure: 40.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -812,6 +828,7 @@ CREATE (sec02:Risk {
   supplier_tier: 'Tier 1',
   criticality_class: 'Critical',
   single_source: false,
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -832,6 +849,7 @@ CREATE (sec03:Risk {
   severity: 9.0,
   exposure: 27.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -852,6 +870,7 @@ CREATE (sec04:Risk {
   severity: 9.0,
   exposure: 45.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -872,6 +891,7 @@ CREATE (sec05:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -892,6 +912,7 @@ CREATE (sec06:Risk {
   severity: 9.0,
   exposure: 45.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -912,6 +933,7 @@ CREATE (sec07:Risk {
   severity: 8.0,
   exposure: 16.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.05,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -932,6 +954,7 @@ CREATE (sec08:Risk {
   severity: 7.0,
   exposure: 21.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -952,6 +975,7 @@ CREATE (sec09:Risk {
   severity: 6.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -972,6 +996,7 @@ CREATE (sec10:Risk {
   severity: 5.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -992,6 +1017,7 @@ CREATE (sec11:Risk {
   severity: 6.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1012,6 +1038,7 @@ CREATE (sec12:Risk {
   severity: 10.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1032,6 +1059,7 @@ CREATE (sec13:Risk {
   severity: 10.0,
   exposure: 20.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.05,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1052,6 +1080,7 @@ CREATE (sec14:Risk {
   severity: 9.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1074,6 +1103,7 @@ CREATE (rcy01:Risk {
   severity: 6.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1094,6 +1124,7 @@ CREATE (rcy02:Risk {
   severity: 9.0,
   exposure: 45.0,
   current_score_type: 'Qualitative_4x4',
+  annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1701,6 +1732,15 @@ CREATE (ep01:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (ep02:ContextNode {
+  node_type: 'entry_point',
+  id: 'EP-02',
+  name: 'MSSP privileged remote access',
+  description: 'The managed-security provider\'s (SOC) privileged remote access into the ground segment — the S1 entry vector. Broad reach into the shared identity plane; abused via stolen/over-scoped MSSP credentials.',
+  exploitability: 'High',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // --- Attackers ---
 
@@ -1710,6 +1750,15 @@ CREATE (atk01:ContextNode {
   name: 'APT-Stellar (state-sponsored)',
   description: 'Well-resourced state-sponsored actor targeting space IP and supply chains',
   capability_level: 9,
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (atk02:ContextNode {
+  node_type: 'attacker',
+  id: 'ATK-02',
+  name: 'APT-Eclipse (state-aligned, service-denial)',
+  description: 'State-aligned, attribution-averse actor contesting ODT\'s government customers — objective is to take the constellation offline (break SLAs, shake government confidence), not to deploy ransomware. The S1 actor.',
+  capability_level: 8,
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -1743,11 +1792,59 @@ CREATE (tpnoc:ContextNode {
   node_type: 'technical_perimeter',
   id: 'TP-NOC',
   name: 'NOC / mission control & service operations',
-  description: 'Network Operations Centre commanding the on-orbit constellation (TT&C) and running the LEO broadband service (capacity allocation, provisioning). Denver primary / Dublin backup share an identity/PAM plane (the S1 weakness — W6 will enrich the kill-chain here).',
+  description: 'Network Operations Centre commanding the on-orbit constellation (TT&C) and running the LEO broadband service (capacity allocation, provisioning). Denver primary / Dublin backup share an identity/PAM plane (the S1 weakness).',
   type: 'Ground segment / Mission control',
   location: 'Denver (primary) / Dublin (backup)',
   criticality: 5,
   external_id: 'NOC-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpidp:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-IDP',
+  name: 'Shared Denver/Dublin identity & PAM plane',
+  description: 'The single identity / privileged-access-management plane spanning both NOCs — a deliberate, realistic weakness: one compromise cascades to both sites, so the Dublin backup is NOT a backup against an identity-plane attack (the S1 flaw).',
+  type: 'Identity & access management',
+  location: 'Denver / Dublin (single sign-on + common privileged-access tooling)',
+  criticality: 5,
+  external_id: 'IDP-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpnms:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-NMS',
+  name: 'Network Management System (NMS)',
+  description: '"The commercial brain" — payload reconfiguration, beam plans, capacity allocation and routing. A corrupt beam/capacity config pushed here trips fleet-wide safe-mode (S1).',
+  type: 'OT / Service management',
+  location: 'NOC (Denver primary / Dublin backup)',
+  criticality: 5,
+  external_id: 'NMS-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpgw:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-GW',
+  name: 'Ground gateways & secondary stations',
+  description: 'Gateway and secondary ground stations remotely administered from Denver (Dublin backup). Ransomware / IT→OT lateral movement targets (SEC-04/14).',
+  type: 'Ground segment',
+  location: 'Fairbanks, Tromsø, Singapore, Perth (+ 12 secondary)',
+  criticality: 4,
+  external_id: 'GW-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpbill:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-BILL',
+  name: 'Billing & provisioning platform',
+  description: 'Activates / deactivates customer terminals. Mass deactivation can mimic an outage at low technical cost — the S1 backup path; DDoS/API-abuse target (SEC-10).',
+  type: 'Corporate IT / Cloud',
+  location: 'Corporate IT / cloud',
+  criticality: 3,
+  external_id: 'BILL-01',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -1762,6 +1859,14 @@ CREATE (spn01:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (spn02:ContextNode {
+  node_type: 'sponsor',
+  id: 'SPN-02',
+  name: 'State-aligned sponsor (government-contract contestation)',
+  description: 'State-aligned backer of the S1 disruption — motive is to deny ODT legitimate fleet control long enough to break SLAs and shake government confidence, damaging the IPO narrative. Attribution-averse (and conveniently inside the cyber tower\'s war/state-actor exclusion).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // --- Functional Targets ---
 
@@ -1771,6 +1876,15 @@ CREATE (ft01:ContextNode {
   name: 'New satellite design information',
   description: 'Master design data the adversary seeks (the attack motive)',
   classification: 'Proprietary / ITAR-controlled',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ftctrl:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-CTRL',
+  name: 'Legitimate fleet command authority (TT&C)',
+  description: 'Authoritative command & control of the constellation (signed TT&C). The S1 objective: seize or deny it so the fleet trips fleet-wide safe-mode — "loss of legitimate control."',
+  classification: 'Mission-critical / OT',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -3038,6 +3152,36 @@ MATCH (a:Risk {id: 'SEC-02'}), (b:ContextNode {id: 'TP-AIT'})
 CREATE (a)-[:CONCERNS {id: 'CON-SEC02', created_at: datetime()}]->(b);
 MATCH (a:Risk {id: 'ROL-01'}), (b:ContextNode {id: 'TP-NOC'})
 CREATE (a)-[:CONCERNS {id: 'CON-ROL01', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SPN-02'}), (b:ContextNode {id: 'ATK-02'})
+CREATE (a)-[:MANAGES {id: 'MNG-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'SPN-02'}), (b:ContextNode {id: 'FT-CTRL'})
+CREATE (a)-[:SEEKS {id: 'SEK-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'ATK-02'}), (b:ContextNode {id: 'EP-02'})
+CREATE (a)-[:EXPLOITS {id: 'EXP-02', created_at: datetime(), success_probability: 0.5}]->(b);
+MATCH (a:ContextNode {id: 'EP-02'}), (b:ContextNode {id: 'TP-IDP'})
+CREATE (a)-[:COMPROMISES {id: 'CMP-02', created_at: datetime(), technique: 'Privileged credential abuse via MSSP access'}]->(b);
+MATCH (a:ContextNode {id: 'EP-02'}), (b:ContextNode {id: 'TP-NMS'})
+CREATE (a)-[:COMPROMISES {id: 'CMP-03', created_at: datetime(), technique: 'Shared identity-plane pivot Denver->Dublin; corrupt beam/capacity config'}]->(b);
+MATCH (a:ContextNode {id: 'EP-02'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:COMPROMISES {id: 'CMP-04', created_at: datetime(), technique: 'Operator credential revocation; fleet-wide safe-mode trip'}]->(b);
+MATCH (a:ContextNode {id: 'ATK-02'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:TARGETS {id: 'TGT-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'ATK-02'}), (b:ContextNode {id: 'TP-NMS'})
+CREATE (a)-[:TARGETS {id: 'TGT-03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-CTRL'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-06', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-01'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC01', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-04'}), (b:ContextNode {id: 'TP-GW'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC04', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-05'}), (b:ContextNode {id: 'TP-NMS'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC05', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-08'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC08', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-10'}), (b:ContextNode {id: 'TP-BILL'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC10', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-14'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC14', created_at: datetime()}]->(b);
 
 // =============================================================================
 // SPICE — MITIGATION OBJECTIVES (ADDRESSES targets)
@@ -3657,6 +3801,8 @@ MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Risk {id: 'SEC-08'})
 CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-S1-SEC-08', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'BP-LEO'})
 CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-S1', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:OCCURS_AT {id: 'OCC-BST-S1', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:Risk {id: 'RH-02'})
 CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-SC1-RH-02', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-SC1-realistic'}), (b:Risk {id: 'SEC-02'})

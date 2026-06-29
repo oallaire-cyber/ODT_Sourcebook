@@ -43,7 +43,7 @@ aliases: ["Change Register", "Issue Register", "Demo Data CCB", "CCB Log"]
 | [#ENH-01](#enh-01) | ENH | `crisis_management_days` null everywhere | Low | Open | When canon defines |
 | [#ENH-02](#enh-02) | ENH | Single placeholder SPICE assessment date | Low | Open | SPICE exercise calendar |
 | [#ENH-03](#enh-03) | ENH | Deprecated `scenario` SC-01 ↔ BST-SC1 overlap | Low | Open | After U17 migration |
-| [#ENH-04](#enh-04) | ENH | NMS / NOC / billing not distinct perimeter nodes | Low | Open | Enrich graph from §7 |
+| [#ENH-04](#enh-04) | ENH | NMS / NOC / billing not distinct perimeter nodes | Low | **Applied 2026-06-29 (W6)** | 4 new perimeters + S1 kill-chain |
 | [#ENH-05](#enh-05) | ENH | RC-02 / RC-03 don't reach the IPO apex (GA1/AURORA convergence proof) | Med | Applied | — (2026-06-26, via TCO-04) |
 | [#ENH-06](#enh-06) | ENH | S1 control mitigations carry no cost (return-on-spend) | Low | Applied | — (2026-06-26, ~$4M + ~$1.5M capex) |
 | [#ENH-07](#enh-07) | ENH | RH-06 / RA-04 thread to no objective (W1 completeness) | Low | Applied | — (2026-06-28, INF-46/INF-47) |
@@ -138,8 +138,8 @@ All 5 families use `assessment_date: 2028-02-15`. Vary per family when a SPICE-e
 The deprecated `scenario` context node `SC-01` (in the cyber kill-chain) conceptually overlaps the new `BST-SC1` `SpiceScenario`. Retained during the schema migration window; remove `SC-01` after the U17 Cypher migration runs.
 
 ### ENH-04
-**NMS / NOC mission-control / billing-provisioning are not distinct `technical_perimeter` nodes.** `Sev Low · Open`
-[[Annex - Security Architecture]] §7 (Context v2.2) describes several control-plane assets — NOC mission-control/TT&C, the network management system (NMS, "the commercial brain"), the ground gateways, and the billing/provisioning platform — but only `TP-PLM` exists as a `technical_perimeter` in the seed. Enrich the workbook with these nodes (and `OCCURS_AT` edges from the relevant SPICE scenarios, e.g. S1 → NOC) so the architecture annex maps 1:1 to the graph.
+**NMS / NOC mission-control / billing-provisioning are not distinct `technical_perimeter` nodes.** `Sev Low · Applied 2026-06-29 (W6)`
+[[Annex - Security Architecture]] §7 (Context v2.2) describes several control-plane assets — NOC mission-control/TT&C, the network management system (NMS, "the commercial brain"), the ground gateways, and the billing/provisioning platform — but only `TP-PLM` existed as a `technical_perimeter`. **Resolved (W6):** added `TP-NOC` (W4) + `TP-IDP`, `TP-NMS`, `TP-GW`, `TP-BILL` (7 perimeters total), wired the S1 NOC kill-chain and `OCCURS_AT` (S1 → TP-NOC), and mapped each ground-segment `SEC-*` risk via `CONCERNS`. Architecture annex §7 now cites the node IDs 1:1.
 
 ### ENH-05
 **RC-02 / RC-03 don't reach the apex objective — AURORA (GA1) convergence not provable by the automated query.** `Sev Med · Applied (2026-06-26)`
@@ -171,6 +171,7 @@ Building the W1 [[Annex - Objectives & Opportunities]] surfaced that, of the 17 
 ---
 
 ## Changelog
+- 2026-06-29: **ENH-04 Applied + λ/magnitude calibration + generator bug fix (W6).** Wired the **S1 NOC kill-chain** in the graph (SPN-02→ATK-02→EP-02→COMPROMISES TP-IDP/TP-NMS/TP-NOC→SEEKS FT-CTRL) and added **4 new `technical_perimeter` nodes** (TP-IDP, TP-NMS, TP-GW, TP-BILL — closes **ENH-04**; 7 perimeters total), S1 `OCCURS_AT` TP-NOC, and 6 `SEC-* CONCERNS` asset edges. Added the **frequency/magnitude calibration** (new canon section): **λ** via the `likelihood_to_lambda` **Moderate** band (owner-confirmed) on every risk; **magnitude** Tier-2 fallback on the 7 SPICE-uncovered business risks. **Generator bug fixed:** `prefix_matches` treated `RC` as a prefix of `RCY`, double-emitting RCY-01/02 as duplicate Risk nodes — now matches on `prefix + "-"` (50 risk nodes, was emitting 52). Regenerated `demo_seed.cypher` (4278 lines, 159 relationships). All figures order-of-magnitude (Rule 6); λ band owner-confirmed 2026-06-29. Still open: **ENH-01** (`crisis_management_days` null — canon doesn't define war-room duration).
 - 2026-06-28: **ENH-07 raised & Applied — risk→objective threading completed (W1).** Building [[Annex - Objectives & Opportunities]] surfaced two orphaned business risks (RH-06, RA-04) with no path to any objective. Added `INFLUENCES` INF-46 (RH-06→RH-03) + INF-47 (RA-04→RA-02); regenerated `demo_seed.cypher` (3883 lines, 126 relationships). 17/17 business risks now thread. No canon figures changed. *(Same session: added the canonical **Opportunity Register OPP-01..05** to [[Canon & Figures Register]] — narrative anchors, no schema change — per the owner-confirmed distinct-OPP model.)*
 - 2026-06-28: **+INC-05** — contingent activation dates (2026) predate the State B (2028) reporting position; raised while writing the risk-manager brief. Parked with ENH-02 for the next time-axis pass.
 - 2026-06-28: **DEC-02 Applied — owner accountability layer seeded** (Wave 3 / W2). Un-deferred per owner decision. Added `owners:` to the workbook (18 owner nodes, 10 named cast + 8 functional roles, keyed by the existing owner-strings); gave each spice_mitigation an `owner`; extended `generate_seed.py` to emit `BEARS` (50, one per risk) and `STEWARDS` (33 = 22 core + 11 SPICE) plus VERIFY invariants. Regenerated `demo_seed.cypher` (3863 lines). One-bearer-per-risk holds by construction; STEWARDS never targets a Risk. [[Data Dictionary]] + Cast Roster updated. Not yet committed.

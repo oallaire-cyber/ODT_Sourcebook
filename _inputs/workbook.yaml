@@ -124,6 +124,9 @@ risks:
     severity: 8.0
     exposure: 56.0
     review_days: 30
+    magnitude_point_estimate: 22.0   # W6 Tier-2 fallback (sev 8; no SPICE coverage), USD_M
+    magnitude_low: 11.0
+    magnitude_high: 45.0
 
   - id: RH-02
     name: On-orbit satellite performance degradation
@@ -156,6 +159,9 @@ risks:
     severity: 7.0
     exposure: 42.0
     review_days: 30
+    magnitude_point_estimate: 14.0   # W6 Tier-2 fallback (sev 7; no SPICE coverage), USD_M
+    magnitude_low: 7.0
+    magnitude_high: 28.0
 
   - id: RH-04
     name: Loss of competitive positioning vs mega-constellations
@@ -204,6 +210,9 @@ risks:
     severity: 6.0
     exposure: 30.0
     review_days: 90
+    magnitude_point_estimate: 8.0    # W6 Tier-2 fallback (sev 6; no SPICE coverage), USD_M
+    magnitude_low: 4.0
+    magnitude_high: 16.0
     activation_condition: >-
       If Phase 3 satellites exceed 40 active beams per satellite in high-demand zones
     activation_decision_date: "2026-06-30"
@@ -223,6 +232,9 @@ risks:
     severity: 8.0
     exposure: 32.0
     review_days: 90
+    magnitude_point_estimate: 22.0   # W6 Tier-2 fallback (sev 8; no SPICE coverage), USD_M
+    magnitude_low: 11.0
+    magnitude_high: 45.0
 
   # ─── AURORA-GEO Programme Business Risks ───────────────────────────────────
 
@@ -241,6 +253,9 @@ risks:
     severity: 7.0
     exposure: 42.0
     review_days: 60
+    magnitude_point_estimate: 14.0   # W6 Tier-2 fallback (sev 7; no SPICE coverage), USD_M
+    magnitude_low: 7.0
+    magnitude_high: 28.0
 
   - id: RA-02
     name: Development budget overrun
@@ -273,6 +288,9 @@ risks:
     severity: 9.0
     exposure: 45.0
     review_days: 60
+    magnitude_point_estimate: 35.0   # W6 Tier-2 fallback (sev 9; no SPICE coverage), USD_M
+    magnitude_low: 18.0
+    magnitude_high: 70.0
 
   - id: RA-04
     name: Strategic partner withdrawal
@@ -308,6 +326,9 @@ risks:
     severity: 7.0
     exposure: 35.0
     review_days: 90
+    magnitude_point_estimate: 14.0   # W6 Tier-2 fallback (sev 7; no SPICE coverage), USD_M
+    magnitude_low: 7.0
+    magnitude_high: 28.0
 
   # ─── Operational — Engineering ──────────────────────────────────────────────
 
@@ -1436,6 +1457,13 @@ context_nodes:
       description: >-
         Remote-access VPN used by engineering and suppliers, with broad
         internal reach
+    - id: EP-02
+      name: MSSP privileged remote access
+      exploitability: High
+      description: >-
+        The managed-security provider's (SOC) privileged remote access into the
+        ground segment — the S1 entry vector. Broad reach into the shared identity
+        plane; abused via stolen/over-scoped MSSP credentials.
 
   attackers:
     - id: ATK-01
@@ -1443,6 +1471,13 @@ context_nodes:
       capability_level: 9
       description: >-
         Well-resourced state-sponsored actor targeting space IP and supply chains
+    - id: ATK-02
+      name: APT-Eclipse (state-aligned, service-denial)
+      capability_level: 8
+      description: >-
+        State-aligned, attribution-averse actor contesting ODT's government
+        customers — objective is to take the constellation offline (break SLAs,
+        shake government confidence), not to deploy ransomware. The S1 actor.
 
   technical_perimeters:
     - id: TP-PLM
@@ -1473,14 +1508,59 @@ context_nodes:
       description: >-
         Network Operations Centre commanding the on-orbit constellation (TT&C) and
         running the LEO broadband service (capacity allocation, provisioning). Denver
-        primary / Dublin backup share an identity/PAM plane (the S1 weakness — W6 will
-        enrich the kill-chain here).
+        primary / Dublin backup share an identity/PAM plane (the S1 weakness).
+    # ─── Ground-segment kill-chain assets (W6 — ENH-04; 1:1 with Annex - Security Architecture §7) ─
+    - id: TP-IDP
+      name: Shared Denver/Dublin identity & PAM plane
+      type: Identity & access management
+      location: Denver / Dublin (single sign-on + common privileged-access tooling)
+      criticality: 5
+      external_id: IDP-01
+      description: >-
+        The single identity / privileged-access-management plane spanning both NOCs —
+        a deliberate, realistic weakness: one compromise cascades to both sites, so
+        the Dublin backup is NOT a backup against an identity-plane attack (the S1 flaw).
+    - id: TP-NMS
+      name: Network Management System (NMS)
+      type: OT / Service management
+      location: NOC (Denver primary / Dublin backup)
+      criticality: 5
+      external_id: NMS-01
+      description: >-
+        "The commercial brain" — payload reconfiguration, beam plans, capacity
+        allocation and routing. A corrupt beam/capacity config pushed here trips
+        fleet-wide safe-mode (S1).
+    - id: TP-GW
+      name: Ground gateways & secondary stations
+      type: Ground segment
+      location: Fairbanks, Tromsø, Singapore, Perth (+ 12 secondary)
+      criticality: 4
+      external_id: GW-01
+      description: >-
+        Gateway and secondary ground stations remotely administered from Denver
+        (Dublin backup). Ransomware / IT→OT lateral movement targets (SEC-04/14).
+    - id: TP-BILL
+      name: Billing & provisioning platform
+      type: Corporate IT / Cloud
+      location: Corporate IT / cloud
+      criticality: 3
+      external_id: BILL-01
+      description: >-
+        Activates / deactivates customer terminals. Mass deactivation can mimic an
+        outage at low technical cost — the S1 backup path; DDoS/API-abuse target (SEC-10).
 
   sponsors:
     - id: SPN-01
       name: Foreign Intelligence Agency
       description: >-
         State sponsor directing the intrusion to acquire satellite design IP
+    - id: SPN-02
+      name: State-aligned sponsor (government-contract contestation)
+      description: >-
+        State-aligned backer of the S1 disruption — motive is to deny ODT legitimate
+        fleet control long enough to break SLAs and shake government confidence,
+        damaging the IPO narrative. Attribution-averse (and conveniently inside the
+        cyber tower's war/state-actor exclusion).
 
   functional_targets:
     - id: FT-01
@@ -1488,6 +1568,13 @@ context_nodes:
       classification: Proprietary / ITAR-controlled
       description: >-
         Master design data the adversary seeks (the attack motive)
+    - id: FT-CTRL
+      name: Legitimate fleet command authority (TT&C)
+      classification: Mission-critical / OT
+      description: >-
+        Authoritative command & control of the constellation (signed TT&C). The S1
+        objective: seize or deny it so the fleet trips fleet-wide safe-mode — "loss
+        of legitimate control."
     # ─── Production-chain outputs (W4) ─────────────────────────────────────────
     - id: FT-COMP
       name: Qualified flight components
@@ -1760,6 +1847,23 @@ relationships:
     - {id: CON-ROM04, rel_type: CONCERNS,   from: ROM-04,  to: TP-AIT, from_label: Risk}
     - {id: CON-SEC02, rel_type: CONCERNS,   from: SEC-02,  to: TP-AIT, from_label: Risk}
     - {id: CON-ROL01, rel_type: CONCERNS,   from: ROL-01,  to: TP-NOC, from_label: Risk}
+    # ─── S1 NOC / ground-segment kill-chain (W6): sponsor→attacker→entry→assets→fleet control ─────
+    - {id: MNG-02,  rel_type: MANAGES,      from: SPN-02,  to: ATK-02}
+    - {id: SEK-02,  rel_type: SEEKS,        from: SPN-02,  to: FT-CTRL}
+    - {id: EXP-02,  rel_type: EXPLOITS,     from: ATK-02,  to: EP-02,  success_probability: 0.5}
+    - {id: CMP-02,  rel_type: COMPROMISES,  from: EP-02,   to: TP-IDP, technique: "Privileged credential abuse via MSSP access"}
+    - {id: CMP-03,  rel_type: COMPROMISES,  from: EP-02,   to: TP-NMS, technique: "Shared identity-plane pivot Denver->Dublin; corrupt beam/capacity config"}
+    - {id: CMP-04,  rel_type: COMPROMISES,  from: EP-02,   to: TP-NOC, technique: "Operator credential revocation; fleet-wide safe-mode trip"}
+    - {id: TGT-02,  rel_type: TARGETS,      from: ATK-02,  to: TP-NOC}
+    - {id: TGT-03,  rel_type: TARGETS,      from: ATK-02,  to: TP-NMS}
+    - {id: HST-06,  rel_type: HOSTED_ON,    from: FT-CTRL, to: TP-NOC}
+    # ─── SEC risks CONCERNS their ground-segment asset (W6; 1:1 with Annex - Security Architecture §7) ─
+    - {id: CON-SEC01, rel_type: CONCERNS,   from: SEC-01,  to: TP-NOC,  from_label: Risk}
+    - {id: CON-SEC04, rel_type: CONCERNS,   from: SEC-04,  to: TP-GW,   from_label: Risk}
+    - {id: CON-SEC05, rel_type: CONCERNS,   from: SEC-05,  to: TP-NMS,  from_label: Risk}
+    - {id: CON-SEC08, rel_type: CONCERNS,   from: SEC-08,  to: TP-NOC,  from_label: Risk}
+    - {id: CON-SEC10, rel_type: CONCERNS,   from: SEC-10,  to: TP-BILL, from_label: Risk}
+    - {id: CON-SEC14, rel_type: CONCERNS,   from: SEC-14,  to: TP-NOC,  from_label: Risk}
 
 
 # =============================================================================
@@ -1799,6 +1903,7 @@ spice:
       illustrates: RH-04
       caused_by: [SEC-01, SEC-08]
       assessed_against: BP-LEO
+      occurs_at: TP-NOC               # W6: the triggering event occurs at the NOC / ground segment
       addresses: [MO-S1-1, MO-S1-2, MO-S1-3]
       mitigated_by: [SM-CYBER-INS, SM-CTRL-RECOVERY, SM-IDENTITY-SPLIT]
       cases:

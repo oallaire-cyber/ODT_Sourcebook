@@ -99,6 +99,31 @@ The analyst-authored mitigated version of the S1 family (`scenario_family_id …
 
 Pessimistic FCF is pulled from −118 (a −$100M-trigger breach) to **−82**, **severing the S1 → FN1 path**. SM-CYBER-INS is cited (`MITIGATED_BY`) but contributes ~0 to the projection — the $50M tower's war/state-actor exclusion vs S1's state-aligned actor (so the controls, not insurance, are the primary protection).
 
+## Frequency & magnitude calibration *(W6; order-of-magnitude by design, Rule 6)*
+The RIM frequency/magnitude engines need usable per-risk figures to build a **loss-exceedance curve** (the 2026-06-28 risk brief's #1 gap). Two calibration rules, both order-of-magnitude.
+
+**(a) λ — `annual_probability` (events/year).** The schema's `likelihood_to_lambda` fallback: the qualitative likelihood score (a risk's `probability`) maps to an annual Poisson rate. **Owner-confirmed "Moderate" band, 2026-06-29.** An explicit `annual_probability` on a risk always wins; otherwise the generator applies this map to every risk:
+
+| score | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **λ /yr** | 0.02 | 0.05 | 0.10 | 0.20 | 0.33 | 0.50 | 0.70 | 0.90 | 1.20 | 1.50 |
+
+*(e.g. ROL-01 launch-gap score 6 → 0.50/yr; ROM-01 Teledyne 4 → 0.20; SEC-02 firmware 3 → 0.10.)*
+
+**(b) Magnitude — Tier-2 fallback (`magnitude_point_estimate`/`low`/`high`, USD_M).** Used **only where no SPICE coverage exists** (SPICE-fitted magnitude wins). Applied to the **7 SPICE-uncovered Business Risks**; a severity→loss band (P50 / P10≈½·P50 / P90≈2·P50), anchored to the company scale (rev $270M; S1 realistic ≈ −$69M):
+
+| severity | P50 | P10 | P90 | risks |
+|---|---|---|---|---|
+| 9 | 35 | 18 | 70 | RA-03 |
+| 8 | 22 | 11 | 45 | RH-01, RH-07 |
+| 7 | 14 | 7 | 28 | RH-03, RA-01, RA-05 |
+| 6 | 8 | 4 | 16 | RH-06 |
+
+*(SPICE-covered business risks — RH-02/04/05, RC-01/02/03, RA-02/04 — carry no fallback; their magnitude is SPICE-fitted.)*
+
+## Ground-segment kill-chain (S1) — graph actors & assets *(W6)*
+S1's NOC/ground-segment compromise is now a graph path (1:1 with [[Annex - Security Architecture]] §7). Sponsor **SPN-02** (state-aligned, government-contract contestation) manages attacker **ATK-02** (APT-Eclipse, capability 8) which **EXPLOITS** entry point **EP-02** (MSSP privileged remote access, p≈0.5) and **COMPROMISES** the shared **TP-IDP** (Denver/Dublin identity & PAM plane — the single-plane flaw), **TP-NMS** (Network Management System, "the commercial brain"), and **TP-NOC**, seizing **FT-CTRL** (legitimate fleet command authority) → fleet-wide safe-mode. New perimeters close **ENH-04**: TP-IDP, TP-NMS, **TP-GW** (gateways: Fairbanks/Tromsø/Singapore/Perth + 12 secondary), **TP-BILL** (billing/provisioning). Dublin is *not* a backup against an identity-plane attack.
+
 ## Programme (HORIZON-LEO)
 80 LEO sats, 8 polar planes, 550 km · ~$3.4M/sat incl. launch · programme budget **$273.5M** · NOC **Denver** (primary) + **Dublin** (backup, shared identity plane) · gateways **Fairbanks, Tromsø, Singapore, Perth**.
 

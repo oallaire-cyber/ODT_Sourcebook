@@ -11,19 +11,22 @@ This is where the **digital control of the business actually lives — the red-t
 
 ## 7.1 Control planes
 - **Constellation control (TT&C).** Telemetry, tracking & command flows from the gateways to the NOC mission-control software. Commands are **signed**; key management is operated by the NOC engineering team. Satellites enter **autonomous safe-mode** if ground contact or command integrity is lost — the fleet-wide trip behind S1.
-  *Graph:* `technical_perimeter` (NOC mission-control / TT&C). Risks `SEC-01` (APT on C2), `SEC-13` (command-auth key compromise), `SEC-12` (firmware mod).
+  *Graph:* `technical_perimeter` **`TP-NOC`** (NOC mission-control / TT&C). Risks `SEC-01` (APT on C2 — `CONCERNS TP-NOC`), `SEC-13` (command-auth key compromise), `SEC-12` (firmware mod).
 - **Payload & network management (NMS).** The software-defined payload (beam plans, capacity allocation, routing) is reconfigured from the NOC through the network management system. **This is the commercial brain: it decides who gets service.**
-  *Graph:* `technical_perimeter` (NMS). Risks `ROE-01` (payload reconfig defect), `SEC-05` (jamming/spoofing).
+  *Graph:* `technical_perimeter` **`TP-NMS`** (NMS). Risks `ROE-01` (payload reconfig defect), `SEC-05` (jamming/spoofing — `CONCERNS TP-NMS`).
 - **Ground infrastructure.** 4 gateways + 12 secondary stations, remotely administered from **Denver**; **Dublin** backup NOC synchronised near-real-time and **sharing the same identity and management plane** (single sign-on, common privileged-access tooling) — **a deliberate, realistic weakness** (the single-plane flaw behind S1).
-  *Graph:* `technical_perimeter` (gateways, ground segment). Risks `SEC-04` (ransomware on ground), `SEC-07` (physical breach), `SEC-14` (IT→OT lateral movement).
+  *Graph:* `technical_perimeter` **`TP-GW`** (gateways/ground segment) + **`TP-IDP`** (the shared Denver/Dublin identity & PAM plane). Risks `SEC-04` (ransomware — `CONCERNS TP-GW`), `SEC-07` (physical breach), `SEC-14` (IT→OT lateral — `CONCERNS TP-NOC`).
 
 ## 7.2 Corporate & support systems
 - **Corporate IT:** ERP (finance, supply chain), CRM, **billing & provisioning platform** (activates/deactivates customer terminals — a mass-deactivation here mimics an outage at low technical cost; see §8.2 chain 3), HR, email/collaboration.
-  *Graph:* `technical_perimeter` (corporate IT). Risk `ROI-01` (NOC/IT outage), `SEC-10` (DDoS on portal/API).
+  *Graph:* `technical_perimeter` **`TP-BILL`** (billing/provisioning). Risk `ROI-01` (NOC/IT outage), `SEC-10` (DDoS on portal/API — `CONCERNS TP-BILL`).
 - **Engineering environment:** **PLM**, satellite software build chain, test benches — **shared with tier-1 suppliers** (§5.2). This is `TP-PLM` (Teamcenter, Toulouse) in the graph, holding the satellite design master data (`FT-01`).
   *Graph:* `technical_perimeter` `TP-PLM` + `functional_target` `FT-01`. Risks `SEC-06` (IP exfiltration), `SEC-02` (supply-chain firmware), `RCY-02` (PLM compromise). Kill-chain: `EP-01` (engineering VPN) → `TP-PLM`.
 - **Third-party access:** **MSSP (SOC)**, terminal-logistics provider, launch partners' mission-data interface, telco partners' wholesale APIs — all holding **privileged remote access**. The MSSP path is the entry point behind S1; the supplier/PLM path is behind SC1.
-  *Graph:* `entry_point` (`EP-01` engineering VPN; MSSP privileged access). Risk `SEC-09` (social engineering), `SEC-03` (insider).
+  *Graph:* `entry_point` `EP-01` (engineering VPN, SC1) + **`EP-02`** (MSSP privileged remote access, the S1 entry vector). Risk `SEC-09` (social engineering), `SEC-03` (insider).
+
+> [!note] S1 kill-chain — now wired in the graph (W6)
+> The S1 path is a traversable chain (closes **ENH-04**; 1:1 with this section): sponsor **`SPN-02`** (state-aligned) → `MANAGES` → attacker **`ATK-02`** (APT-Eclipse) → `EXPLOITS` → **`EP-02`** (MSSP access, p≈0.5) → `COMPROMISES` → **`TP-IDP`** (shared identity plane), **`TP-NMS`**, **`TP-NOC`** → `SEEKS`/seizes **`FT-CTRL`** (legitimate fleet command authority) → fleet-wide safe-mode. **Dublin is not a backup against the identity-plane attack.** The six ground-segment `SEC-*` risks each `CONCERNS` their asset, so RIM's blast-radius traversal reaches the architecture.
 
 ## 7.3 Stated security posture (State B)
 The deliberately-imperfect posture that makes the scenarios plausible:
