@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-29 11:11
+//    Built   : 2026-06-29 11:35
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -777,7 +777,7 @@ CREATE (ror01:Risk {
   current_score_type: 'Qualitative_4x4',
   regulatory_body: 'FCC',
   applicable_standard: '47 CFR Part 25',
-  licence_stage: 'Part 25 operational approval (target Q3 2026; gates Phase-1 launches)',
+  licence_stage: 'Granted Q3 2026 — ongoing deployment-milestone conditions (the breach risk)',
   annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),
@@ -1147,6 +1147,127 @@ CREATE (rcy02:Risk {
   updated_at: datetime(),
   last_review_date: datetime(),
   next_review_date: datetime() + duration({days: 60})
+});
+
+// --- Historical Incidents & Closed Risks ---
+
+CREATE (hx01:Risk {
+  id: 'HX-01',
+  name: '[2026] Teledyne RF transponder lot quality escape',
+  description: 'A Ku/Ka-band transponder lot from Teledyne showed an out-of-spec solder process drift; caught at incoming inspection, quarantined and re-screened. Minor schedule margin consumed; no flight impact. Closed.',
+  level: 'Operational',
+  scope: 'HORIZON-LEO',
+  status: 'Closed',
+  origin: 'Legacy',
+  categories: ['Supply Chain', 'Industrial'],
+  owner: 'Quality Manager',
+  probability: 4.0,
+  severity: 4.0,
+  exposure: 16.0,
+  current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Critical',
+  single_source: true,
+  archive_date: '2026-08-31',
+  annual_probability: 0.2,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 365})
+});
+
+CREATE (hx02:Risk {
+  id: 'HX-02',
+  name: '[2027] Contained credential-phishing attempt on the engineering VPN',
+  description: 'A targeted phishing campaign harvested an engineer\'s password; the attempted VPN login was blocked by MFA + device-posture checks and flagged by the SOC. No access gained, no data touched — validated MIT-CY1 / MIT-13. Not a breach, and not the trigger for the cyber-quantification programme (that remains a forward-looking SPICE exercise).',
+  level: 'Operational',
+  scope: 'Security Operations',
+  status: 'Closed',
+  origin: 'New',
+  categories: ['Security'],
+  owner: 'CISO',
+  probability: 6.0,
+  severity: 3.0,
+  exposure: 18.0,
+  current_score_type: 'Qualitative_4x4',
+  archive_date: '2027-05-31',
+  annual_probability: 0.5,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 365})
+});
+
+CREATE (hx03:Risk {
+  id: 'HX-03',
+  name: '[legacy] Single-NOC design — no geographic control backup',
+  description: 'Before the Dublin backup NOC came online, constellation control ran from a single Denver site with no geographic redundancy. Superseded when Dublin was established; archived. (The residual shared-identity-plane weakness is carried forward in the S1 kill-chain via TP-IDP, not here.)',
+  level: 'Operational',
+  scope: 'Security Operations',
+  status: 'Archived',
+  origin: 'Legacy',
+  categories: ['Programme', 'Product'],
+  owner: 'VP Ground & Ops',
+  probability: 3.0,
+  severity: 8.0,
+  exposure: 24.0,
+  current_score_type: 'Qualitative_4x4',
+  archive_date: '2026-11-30',
+  annual_probability: 0.1,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 365})
+});
+
+CREATE (hx04:Risk {
+  id: 'HX-04',
+  name: 'Orbital-debris conjunction residual (accepted, watching)',
+  description: 'The residual collision exposure during deployment cannot be eliminated; the ROC formally accepted it and monitors conjunction screening. Watched for a close-approach trigger that re-activates the ROL-02 collision-avoidance response — the showcase of the accepted → watching → re-activate lifecycle.',
+  level: 'Operational',
+  scope: 'HORIZON-LEO',
+  status: 'Watching',
+  origin: 'Legacy',
+  categories: ['Product'],
+  owner: 'VP Launch Operations',
+  probability: 2.0,
+  severity: 10.0,
+  exposure: 20.0,
+  current_score_type: 'Qualitative_4x4',
+  trigger_condition: 'Predicted conjunction probability above the manoeuvre threshold (sub-1km close approach on 18th SDS conjunction data) → re-activate ROL-02.',
+  acceptance_date: '2027-03-31',
+  acceptance_owner: 'Yuki Tanaka (VP Launch Operations)',
+  annual_probability: 0.05,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 90})
+});
+
+CREATE (hx05:Risk {
+  id: 'HX-05',
+  name: 'FCC Part 25 operational-approval risk (suppressed)',
+  description: 'The risk of not securing FCC Part 25 operational approval — a Phase-1 launch gate. Approval was granted (Q3 2026), so the exposure dropped below the acceptance threshold; suppressed and retained for audit. Ongoing licence conditions remain a live risk (ROR-01).',
+  level: 'Business',
+  scope: 'HORIZON-LEO',
+  status: 'Suppressed',
+  origin: 'Legacy',
+  categories: ['Regulatory'],
+  owner: 'VP Compliance & Quality',
+  probability: 2.0,
+  severity: 7.0,
+  exposure: 14.0,
+  current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'FCC',
+  applicable_standard: '47 CFR Part 25',
+  licence_stage: 'Granted Q3 2026 — approval risk retired (conditions tracked by ROR-01)',
+  trigger_condition: 'Material new Part 25 condition or a filing lapse → re-activate as an approval-status risk.',
+  archive_date: '2026-09-30',
+  annual_probability: 0.05,
+  created_at: datetime(),
+  updated_at: datetime(),
+  last_review_date: datetime(),
+  next_review_date: datetime() + duration({days: 180})
 });
 
 // =============================================================================
@@ -3200,6 +3321,12 @@ MATCH (a:Risk {id: 'SEC-10'}), (b:ContextNode {id: 'TP-BILL'})
 CREATE (a)-[:CONCERNS {id: 'CON-SEC10', created_at: datetime()}]->(b);
 MATCH (a:Risk {id: 'SEC-14'}), (b:ContextNode {id: 'TP-NOC'})
 CREATE (a)-[:CONCERNS {id: 'CON-SEC14', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'HX-01'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-HX01', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'HX-02'}), (b:ContextNode {id: 'EP-01'})
+CREATE (a)-[:CONCERNS {id: 'CON-HX02', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'HX-03'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-HX03', created_at: datetime()}]->(b);
 
 // =============================================================================
 // SPICE — MITIGATION OBJECTIVES (ADDRESSES targets)
@@ -4074,6 +4201,16 @@ MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'RCY-01'})
 CREATE (o)-[:BEARS {id: 'BEARS-RCY-01', created_at: datetime()}]->(r);
 MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'RCY-02'})
 CREATE (o)-[:BEARS {id: 'BEARS-RCY-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-QM'}), (r:Risk {id: 'HX-01'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-01', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-CISO'}), (r:Risk {id: 'HX-02'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-02', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPGO'}), (r:Risk {id: 'HX-03'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-03', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPLO'}), (r:Risk {id: 'HX-04'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-04', created_at: datetime()}]->(r);
+MATCH (o:ContextNode {id: 'OWN-VPCQ'}), (r:Risk {id: 'HX-05'})
+CREATE (o)-[:BEARS {id: 'BEARS-HX-05', created_at: datetime()}]->(r);
 
 // =============================================================================
 // STEWARDS  (owner → mitigation; never a risk)

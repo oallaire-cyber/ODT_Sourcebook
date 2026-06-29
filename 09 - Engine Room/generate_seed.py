@@ -87,7 +87,10 @@ def risk_node(r: dict) -> str:
                 # supply_chain risk subtype (W4): supplier dependency descriptors
                 "supplier_tier", "criticality_class", "single_source",
                 # regulatory_compliance risk subtype (W3): external-constraint descriptors
-                "regulatory_body", "applicable_standard", "licence_stage"):
+                "regulatory_body", "applicable_standard", "licence_stage",
+                # lifecycle / history (W5): closed/archived/accepted/watching states
+                "trigger_condition", "acceptance_date", "acceptance_owner",
+                "archive_date"):
         if r.get(opt) is not None:
             fields[opt] = r[opt]
 
@@ -585,6 +588,7 @@ MATCH (n) DETACH DELETE n;
         ("Operational — Finance, HR & Legal",     "ROF ROH ROR ROI"),
         ("Operational — Security",                "SEC"),
         ("Cyber Kill-Chain Risks",                "RCY"),
+        ("Historical Incidents & Closed Risks",   "HX"),
     ]
 
     risks: list[dict] = wb.get("risks", [])

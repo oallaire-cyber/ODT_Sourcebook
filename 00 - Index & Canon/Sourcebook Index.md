@@ -41,7 +41,7 @@ The map of the whole set. Each line below is a "product type"; click into its in
 - [[SPICE Method Brief]] · [[RIM Scoring & LEC Mechanics]]
 
 ## ⑧ Chronicles — *fiction*
-- [[Chronicles Index]] · [[THE NUMBER - Season 1 (external)]]
+- [[Chronicles Index]] · [[THE NUMBER - Season 1 (external)]] · [[ODT Company History & Incident Log|Company History & Incident Log]] *(timeline + HX-01..05 lifecycle history)*
 
 ## ⑨ Engine Room — *the dataset*
 - [[Data Dictionary]] (source workbook → generated `demo_seed.cypher`)

@@ -14,3 +14,5 @@ In-world serials that dramatise the method. They share the [[Cast Roster|cast]] 
 | Beyond-cyber spin-offs | one per new family | [[BST-RG1 Accreditation Suspension (Regulatory)|RG1]] / [[BST-FN1 IPO Window Collapse (Financial)|FN1]] … | + new owners | new |
 
 > [!tip] Diane's line — *"I want to do this again, with a different risk entirely"* — is the canonical on-ramp from cyber to the rest of the [[Bestiary Index|bestiary]].
+
+**Reference (factual, not fiction):** [[ODT Company History & Incident Log]] — ODT's timeline (2019 → IPO 2029) and its **incident log** (HX-01..05): the operational past the serials sit on top of. The bestiary is what ODT *fears*; the incident log is what ODT has *lived* — and where the RIM lifecycle states (closed / archived / accepted-watching / suppressed) are exercised.
