@@ -85,7 +85,9 @@ def risk_node(r: dict) -> str:
     for opt in ("activation_condition", "activation_decision_date",
                 "magnitude_point_estimate", "magnitude_low", "magnitude_high",
                 # supply_chain risk subtype (W4): supplier dependency descriptors
-                "supplier_tier", "criticality_class", "single_source"):
+                "supplier_tier", "criticality_class", "single_source",
+                # regulatory_compliance risk subtype (W3): external-constraint descriptors
+                "regulatory_body", "applicable_standard", "licence_stage"):
         if r.get(opt) is not None:
             fields[opt] = r[opt]
 

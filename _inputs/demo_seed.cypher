@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-29 10:52
+//    Built   : 2026-06-29 11:11
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -97,6 +97,9 @@ CREATE (rc04:Risk {
   severity: 8.0,
   exposure: 32.0,
   current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'FCC / ITU / ESA / national authorities',
+  applicable_standard: 'Multiple (cross-jurisdiction)',
+  licence_stage: 'Various — concurrent obligations',
   annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
@@ -231,6 +234,9 @@ CREATE (rh05:Risk {
   severity: 8.0,
   exposure: 40.0,
   current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'DoD / US government accreditation authority',
+  applicable_standard: 'Security accreditation (task-order gate)',
+  licence_stage: 'Accreditation maintenance — suspension freezes new task orders',
   annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
@@ -281,6 +287,9 @@ CREATE (rh07:Risk {
   magnitude_point_estimate: 22.0,
   magnitude_low: 11.0,
   magnitude_high: 45.0,
+  regulatory_body: 'ITU',
+  applicable_standard: 'ITU Radio Regulations (frequency coordination)',
+  licence_stage: 'Priority filing / coordination with incumbent operators',
   annual_probability: 0.2,
   created_at: datetime(),
   updated_at: datetime(),
@@ -399,6 +408,9 @@ CREATE (ra05:Risk {
   magnitude_point_estimate: 14.0,
   magnitude_low: 7.0,
   magnitude_high: 28.0,
+  regulatory_body: 'US DDTC (State Dept)',
+  applicable_standard: 'ITAR 22 CFR 120–130',
+  licence_stage: 'Technology-transfer authorisation (non-US AURORA partners)',
   annual_probability: 0.33,
   created_at: datetime(),
   updated_at: datetime(),
@@ -739,6 +751,9 @@ CREATE (roh02:Risk {
   severity: 6.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'US DDTC (State Dept)',
+  applicable_standard: 'ITAR 22 CFR 120–130 (deemed-export rules)',
+  licence_stage: 'Personnel clearance — limits the ITAR-cleared workforce',
   annual_probability: 0.5,
   created_at: datetime(),
   updated_at: datetime(),
@@ -760,6 +775,9 @@ CREATE (ror01:Risk {
   severity: 9.0,
   exposure: 27.0,
   current_score_type: 'Qualitative_4x4',
+  regulatory_body: 'FCC',
+  applicable_standard: '47 CFR Part 25',
+  licence_stage: 'Part 25 operational approval (target Q3 2026; gates Phase-1 launches)',
   annual_probability: 0.1,
   created_at: datetime(),
   updated_at: datetime(),

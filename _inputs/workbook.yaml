@@ -89,6 +89,9 @@ risks:
     severity: 8.0
     exposure: 32.0
     review_days: 90
+    regulatory_body: "FCC / ITU / ESA / national authorities"   # W3
+    applicable_standard: "Multiple (cross-jurisdiction)"
+    licence_stage: "Various — concurrent obligations"
 
   - id: RC-05
     name: Reputational damage from on-orbit incident
@@ -194,6 +197,9 @@ risks:
     severity: 8.0
     exposure: 40.0
     review_days: 60
+    regulatory_body: "DoD / US government accreditation authority"   # W3 (gates 30% Gov & Defense revenue)
+    applicable_standard: "Security accreditation (task-order gate)"
+    licence_stage: "Accreditation maintenance — suspension freezes new task orders"
 
   - id: RH-06
     name: Ground segment capacity bottleneck
@@ -235,6 +241,9 @@ risks:
     magnitude_point_estimate: 22.0   # W6 Tier-2 fallback (sev 8; no SPICE coverage), USD_M
     magnitude_low: 11.0
     magnitude_high: 45.0
+    regulatory_body: "ITU"   # W3
+    applicable_standard: "ITU Radio Regulations (frequency coordination)"
+    licence_stage: "Priority filing / coordination with incumbent operators"
 
   # ─── AURORA-GEO Programme Business Risks ───────────────────────────────────
 
@@ -329,6 +338,9 @@ risks:
     magnitude_point_estimate: 14.0   # W6 Tier-2 fallback (sev 7; no SPICE coverage), USD_M
     magnitude_low: 7.0
     magnitude_high: 28.0
+    regulatory_body: "US DDTC (State Dept)"   # W3
+    applicable_standard: "ITAR 22 CFR 120–130"
+    licence_stage: "Technology-transfer authorisation (non-US AURORA partners)"
 
   # ─── Operational — Engineering ──────────────────────────────────────────────
 
@@ -596,6 +608,9 @@ risks:
     severity: 6.0
     exposure: 36.0
     review_days: 60
+    regulatory_body: "US DDTC (State Dept)"   # W3
+    applicable_standard: "ITAR 22 CFR 120–130 (deemed-export rules)"
+    licence_stage: "Personnel clearance — limits the ITAR-cleared workforce"
 
   # ─── Operational — Regulatory ───────────────────────────────────────────────
 
@@ -614,6 +629,9 @@ risks:
     severity: 9.0
     exposure: 27.0
     review_days: 90
+    regulatory_body: "FCC"   # W3
+    applicable_standard: "47 CFR Part 25"
+    licence_stage: "Part 25 operational approval (target Q3 2026; gates Phase-1 launches)"
 
   # ─── Operational — IT ───────────────────────────────────────────────────────
 

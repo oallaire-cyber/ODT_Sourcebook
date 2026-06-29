@@ -65,7 +65,7 @@ Eight streams (W1–W8) plus governance (W0). Each maps the owner's wants to con
 | W0 | Governance & data integrity | (keep canon coherent as it grows) | L2 | L3 |
 | W1 | Strategy, Objectives & **Opportunities** | "business objectives" | **L2** ✅ *(2026-06-28; OPP register + annex)* | L3 |
 | W2 | Mitigations, Controls & **Owners** | "mitigations" | owners ✅ L2 · controls ⏳ *(gated on [CR-01](09%20-%20Engine%20Room/CR-01%20-%20Mitigation%20Consolidation%20%26%20SPICE%20Re-assessment.md))* | L2 |
-| W3 | External Constraints & Environment | "external constraints" | L1 | L2 |
+| W3 | External Constraints & Environment | "external constraints" | **L2** ✅ *(2026-06-29; regulatory subtype + external-environment annex)* | L2 |
 | W4 | Supply Chain | "a supply chain" | **L2** ✅ *(2026-06-29; supplier map + production graph)* | L2 |
 | W5 | History & Past Incidents | "some past incidents" | L0 | L2 |
 | W6 | Operational & Technical Data | "operational-level info with usable data" | **L2** ✅ *(2026-06-29; S1 kill-chain + perimeters + λ/magnitude)* | L2 |
@@ -74,7 +74,7 @@ Eight streams (W1–W8) plus governance (W0). Each maps the owner's wants to con
 
 ### W0 — Governance & data integrity *(continuous)*
 Keep the spine clean while the rest grows. Canon-first, CCB triage of the open tickets ([INC-04](00%20-%20Index%20%26%20Canon/Canon%20Change%20%26%20Issue%20Register.md), DEC-03, ENH-01/02/03/04), generator validation on every regeneration, the Depth Reviews of §3.
-**Cross-project sync (RIM):** the schema is RIM-owned and RIM is the leading project / authoritative tracker; schema needs flow through **Change Requests** (either direction) — see `CLAUDE.md` → "Working with the RIM project". Sourcebook-side CRs are drafted in `09 - Engine Room` (first: [CR-01](09%20-%20Engine%20Room/CR-01%20-%20Mitigation%20Consolidation%20%26%20SPICE%20Re-assessment.md)).
+**Cross-project sync (RIM):** the schema is RIM-owned and RIM is the leading project / authoritative tracker; schema needs flow through **Change Requests** (either direction) — see `CLAUDE.md` → "Working with the RIM project". Sourcebook-side CRs are drafted in `09 - Engine Room`: [CR-01](09%20-%20Engine%20Room/CR-01%20-%20Mitigation%20Consolidation%20%26%20SPICE%20Re-assessment.md) (mitigation consolidation — **Applied 2026-06-29**); [CR-02](09%20-%20Engine%20Room/CR-02%20-%20External%20Entities%20%28Supplier%20%26%20Regulatory%29.md) (first-class `supplier` + `external_constraint` nodes — **Draft, discussion opened with RIM**).
 **Schema anchors:** the whole register + `generate_seed.py` VERIFY pass.
 
 ### W1 — Strategy, Objectives & Opportunities
@@ -141,8 +141,8 @@ Breadth-first within each wave; Depth & Completeness Review at every boundary.
 ### Wave 3 — *"ODT as a living company: the spine"*  ← **in progress (nearly complete)**
 Stand up the decision-support backbone. **W1** ✅ (objectives + opportunity register), **W2** (owner layer ✅ · controls portfolio ⏳ gated on [CR-01](09%20-%20Engine%20Room/CR-01%20-%20Mitigation%20Consolidation%20%26%20SPICE%20Re-assessment.md)), **W7** ✅ (committee + first worked decision DM-01). Outcome (already demonstrable): the RIM can be shown *informing a management choice*, with named owners and both sides of the ledger. **Only remaining Wave-3 item:** the W2 controls regeneration, which unblocks the moment RIM aligns the schema per CR-01.
 
-### Wave 4 — *"Depth where the demo bites"*  ← **in progress**
-The data-dense layer. **W4** ✅ *(2026-06-29 — supplier map + production graph; [[Annex - Supply Chain & Production]])*, **W6** ✅ *(2026-06-29 — S1 kill-chain + 4 perimeters/ENH-04 + λ/magnitude pass)*, **W3** (external constraints — last Wave-4 item). Outcome: the graph is dense and queryable; the architecture annex maps 1:1; suppliers and regulators are first-class.
+### Wave 4 — *"Depth where the demo bites"*  ← ✅ **COMPLETE (2026-06-29)**
+The data-dense layer. **W4** ✅ (supplier map + production graph; [[Annex - Supply Chain & Production]]), **W6** ✅ (S1 kill-chain + 4 perimeters/ENH-04 + λ/magnitude pass), **W3** ✅ (external constraints; [[Annex - External Environment & Constraints]]). Outcome: the graph is dense and queryable; the architecture annex maps 1:1; suppliers and regulators are modelled (as risk subtypes + annexes — promotion to first-class nodes is **[[CR-02 - External Entities (Supplier & Regulatory)|CR-02]]**, in discussion with RIM). **→ next: Wave 5.**
 
 ### Wave 5 — *"History & the runnable kit"*
 **W5** (incident log + lifecycle history), **W8** (crisis-exercise pack + deepen scaffolds + training path). Outcome: ODT has a believable past and a kit you can actually run a workshop/crisis exercise from.
