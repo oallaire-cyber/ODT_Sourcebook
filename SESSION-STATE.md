@@ -46,11 +46,7 @@ The original **scaffold → seven backlog items** arc is **complete and committe
 > [!important] ▶ NEXT SESSION — entry point
 > **The three-wave arc (Waves 3–5) is COMPLETE — W1–W8 all at target tier.** Commits: `7fa0b39` (W2), `926acd5` (W4), `e85038d` (W6), `fbef703` (W3/CR-02), `81a57ba` (W5); **W8 not yet committed** — first action: review the working tree and **commit** (branch `season2-ga1-enh06`; new `Crisis Exercise - S1 NOC Compromise` + Training-Path/index/roadmap updates; **no graph/seed change this step** — W8 is pure content). Consider whether to **merge `season2-ga1-enh06` → main** (the whole arc is on this branch).
 >
-> **What's next is owner-directed** (no queued workstream). Candidates:
-> 1. **CR-02 regeneration** — *if/when RIM accepts* the `supplier`/`external_constraint` nodes (exchange `2026-06-29-external-entities`).
-> 2. **Flagship to L3** — run the [[Crisis Exercise - S1 NOC Compromise]] for real, reconcile figures, validate on the platform (the one path taken all the way, per ROADMAP §7).
-> 3. **W2 polish** — mitigated versions for the other 5 families + dual-acting controls.
-> 4. **New bestiary family** (DEC-03) or the **macro/rate-shock risk node** (W3 forward work).
+> **What's next is owner-directed** (no queued workstream). The full candidate list is logged in **[[ROADMAP]] §8 (Proposals)**; top picks: (1) **flagship S1 → L3** (run the [[Crisis Exercise - S1 NOC Compromise]] for real, reconcile figures); (2) **CR-02 regeneration** *if RIM accepts* the supplier/constraint nodes; (3) **W2 polish** (other-family mitigated versions + dual-acting controls); (4) governance/hardening backlog.
 >
 > **Follow-ups carried forward:** (a) **joint e2e with RIM** on CR-01 (`committed_budget`-as-ROCE-denominator); (b) **Saft single-source** ROC decision; (c) **risk-status casing** normalization (Title-case dataset vs lowercase schema ids) — RIM-facing governance ticket; (d) λ/magnitude are order-of-magnitude (owner may recalibrate); (e) **ENH-01** (`crisis_management_days` null) still open. **RIM exchange log:** `C:\Users\olive\Documents\RIM_Alpha\tasks\sourcebook_exchanges`.
 

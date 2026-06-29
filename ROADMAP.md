@@ -171,3 +171,18 @@ The data-dense layer. **W4** ✅ (supplier map + production graph; [[Annex - Sup
 - ~~**Opportunity modelling (W1):** narrative-only vs a distinct register/section in canon?~~ ✅ **Resolved 2026-06-28** — owner chose the **distinct OPP register**: OPP-01..05 are canonical narrative anchors in [[Canon & Figures Register]] (no `opportunity` schema node), elaborated in [[Annex - Objectives & Opportunities]]. **W1 complete (L2).**
 - **Realism inputs:** as we go, which real figures will the owner provide (supplier names, control costs, incident history, committee decisions) vs. which stay order-of-magnitude placeholders?
 - **Depth ceiling:** which single path do we take all the way to **L3** first for the flagship demo — the S1 cyber decision, or the AURORA-GEO commitment decision?
+
+---
+
+## 8. Proposals — candidate next directions *(post-arc; the planned Waves 3–5 are complete)*
+With W1–W8 all at target tier, there is **no queued workstream** — the next move is owner-directed. Logged candidates (roughly highest-leverage first), each independent:
+
+1. **Take the S1 flagship to L3.** *Run* the [[Crisis Exercise - S1 NOC Compromise]] for real (or in a dry-run), reconcile every figure against the platform, and battle-test the S1 path end-to-end. This is the "one path all the way to L3" question from §7 — recommended pick, since S1 is already the deepest strand (kill-chain · mitigated version · DM-01 · history · crisis pack).
+2. **CR-02 regeneration** — *gated on RIM.* If RIM accepts the first-class `supplier` / `external_constraint` nodes (exchange `2026-06-29-external-entities`), align the schema and regenerate (CR-02 §4 migration: ~8 supplier + ~6 constraint nodes). Until then, W3/W4 stand at L2 on the subtype model.
+3. **W2 polish (mitigation depth).** Author the **other five families'** mitigated scenario versions (only S1 has one) + the **dual-acting controls** (BCP, buffer-stock — CR-01 §C1) so the cost/benefit/ROCE heatmap lights up across the bestiary, not just S1.
+4. **Governance / hardening backlog** *(small, high-confidence):* (a) **joint e2e with RIM** on the CR-01 model (`committed_budget`-as-ROCE-denominator); (b) **risk-status casing** normalization (Title-case dataset vs lowercase schema ids) — a RIM-facing ticket; (c) **ENH-01** (`crisis_management_days` null); (d) the **Saft single-source** ROC decision; (e) a **macro / rate-shock risk node** feeding FN1 (W3 forward work).
+5. **Breadth — a new bestiary family** (DEC-03: climate / hazard-debris / key-person), wired to the convergence thesis like the existing six.
+6. **Consumption depth (W8+).** A second crisis variant run for real; lift the remaining scaffold lines (Player Handbook, Core Rules, Session Zero) from L1 toward L2; the end-to-end training path as a guided onboarding.
+
+> [!note] How to use this section
+> This is the live backlog now that the wave plan is delivered. Pick an item, move it into `SESSION-STATE.md`'s active section, and run the §6 loop. Re-rate tiers at the next Depth & Completeness Review.
