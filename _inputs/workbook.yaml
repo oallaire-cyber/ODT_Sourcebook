@@ -376,6 +376,9 @@ risks:
     severity: 9.0
     exposure: 36.0
     review_days: 60
+    supplier_tier: Tier 1            # Teledyne — Ku/Ka transponder modules (W4)
+    criticality_class: Critical
+    single_source: true             # sole source; Airbus DS dual-source in qualification (MIT-02)
 
   - id: ROM-02
     name: Battery supplier critical delivery delay
@@ -392,6 +395,9 @@ risks:
     severity: 7.0
     exposure: 35.0
     review_days: 60
+    supplier_tier: Tier 1            # Saft — space-grade Li-ion cells, 9–12mo lead (W4)
+    criticality_class: Critical
+    single_source: true             # exclusive partner; no qualified alternate
 
   - id: ROM-03
     name: Composite structure quality deviation
@@ -408,6 +414,9 @@ risks:
     severity: 7.0
     exposure: 28.0
     review_days: 90
+    supplier_tier: Tier 1            # composite bus structures — Northrop Grumman / Spirit Aero (W4)
+    criticality_class: Important
+    single_source: false            # dual-sourced tier-1 subcontractors
 
   - id: ROM-04
     name: Clean room contamination event
@@ -424,6 +433,9 @@ risks:
     severity: 7.0
     exposure: 21.0
     review_days: 90
+    supplier_tier: Internal          # ODT's own AIT clean-room line (W4)
+    criticality_class: Critical      # single integration line on the Phase-4 critical path
+    single_source: false
 
   # ─── Operational — Launch Operations ───────────────────────────────────────
 
@@ -442,6 +454,9 @@ risks:
     severity: 8.0
     exposure: 48.0
     review_days: 30
+    supplier_tier: Tier 1            # launch — SpaceX Falcon 9 / Rocket Lab Electron (+ Axiom future) (W4)
+    criticality_class: Important
+    single_source: false            # multi-sourced manifest; congestion is the exposure
 
   - id: ROL-02
     name: Orbital debris collision during deployment
@@ -630,6 +645,9 @@ risks:
     severity: 10.0
     exposure: 30.0
     review_days: 60
+    supplier_tier: Tier 1            # firmware/hardware tampering at a tier-1 component supplier (W4)
+    criticality_class: Critical
+    single_source: false            # integrity risk across the supplier base, not a sourcing gap
 
   - id: SEC-03
     name: Insider threat - privileged TT&C access abuse
@@ -1435,6 +1453,28 @@ context_nodes:
       external_id: PLM-PROD-01
       description: >-
         Product Lifecycle Management system holding satellite design master data
+    # ─── Production-chain assets (W4) ──────────────────────────────────────────
+    - id: TP-AIT
+      name: Satellite AIT clean-room facility
+      type: Manufacturing / AIT
+      criticality: 5
+      external_id: AIT-CR-01
+      description: >-
+        Assembly-Integration-Test clean room where tier-1 components are received,
+        integrated into the satellite bus and qualified to the Phase-4 certification
+        gate. Single integration line on the deployment critical path (ROM-04 owner:
+        Plant Director). Location not pinned in canon.
+    - id: TP-NOC
+      name: NOC / mission control & service operations
+      type: Ground segment / Mission control
+      location: Denver (primary) / Dublin (backup)
+      criticality: 5
+      external_id: NOC-01
+      description: >-
+        Network Operations Centre commanding the on-orbit constellation (TT&C) and
+        running the LEO broadband service (capacity allocation, provisioning). Denver
+        primary / Dublin backup share an identity/PAM plane (the S1 weakness — W6 will
+        enrich the kill-chain here).
 
   sponsors:
     - id: SPN-01
@@ -1448,6 +1488,32 @@ context_nodes:
       classification: Proprietary / ITAR-controlled
       description: >-
         Master design data the adversary seeks (the attack motive)
+    # ─── Production-chain outputs (W4) ─────────────────────────────────────────
+    - id: FT-COMP
+      name: Qualified flight components
+      classification: Flight hardware / ITAR-controlled
+      description: >-
+        Tier-1 supplier components qualified for flight — RF transponders (Teledyne),
+        space-grade batteries (Saft), composite bus structures (Northrop/Spirit),
+        attitude control (Moog/Orbital ATK). The supply-chain inputs to the build.
+    - id: FT-SAT
+      name: Integrated & tested satellite (flight unit)
+      classification: Flight hardware / ITAR-controlled
+      description: >-
+        A satellite assembled, integrated and tested through the AIT line and passed
+        through the Phase-4 certification gate — the ~$3.4M/sat unit (incl. launch).
+    - id: FT-CONST
+      name: Deployed on-orbit constellation capacity
+      classification: Operational asset
+      description: >-
+        The 80-satellite HORIZON-LEO constellation (8 polar planes, 550 km) once
+        launched and commissioned — the capacity that carries the service.
+    - id: FT-SVC
+      name: LEO broadband service
+      classification: Commercial service
+      description: >-
+        The connectivity service ODT sells (corporate / government / wholesale telco)
+        — the revenue-bearing output of the whole production chain.
 
   business_activities:
     - id: BA-01
@@ -1455,6 +1521,27 @@ context_nodes:
       description: >-
         Design engineering activity that produces and uses the satellite
         design data
+    # ─── Production-chain steps (W4) ───────────────────────────────────────────
+    - id: BA-PROC
+      name: Supplier procurement & component qualification
+      description: >-
+        Sourcing and qualifying tier-1 flight components; manages the Teledyne /
+        Saft single-source dependencies and the Airbus DS dual-source qualification.
+    - id: BA-MFG
+      name: Satellite manufacturing, assembly & test (AIT)
+      description: >-
+        Integration of qualified components into the satellite bus and test to the
+        Phase-4 certification gate — the AIT line (target ~1 satellite/month).
+    - id: BA-LAUNCH
+      name: Launch & early-orbit operations
+      description: >-
+        Manifesting flight units on SpaceX / Rocket Lab, launch, and commissioning
+        into the constellation — the launch-availability dependency (ROL-01).
+    - id: BA-SVC
+      name: Constellation operations & service delivery
+      description: >-
+        Operating the on-orbit fleet (TT&C) and delivering the LEO broadband service
+        — capacity allocation, provisioning, SLAs.
 
 
 # =============================================================================
@@ -1653,6 +1740,26 @@ relationships:
     - {id: HST-01,  rel_type: HOSTED_ON,    from: FT-01,   to: TP-PLM}
     - {id: CON-01,  rel_type: CONCERNS,     from: RCY-01,  to: EP-01,  from_label: Risk}
     - {id: CON-02,  rel_type: CONCERNS,     from: RCY-02,  to: TP-PLM, from_label: Risk}
+    # ─── Supply-chain production graph (W4): BP-LEO USES → activity PRODUCES → target HOSTED_ON → asset ─
+    - {id: USE-02,  rel_type: USES,         from: BP-LEO,  to: BA-PROC}
+    - {id: USE-03,  rel_type: USES,         from: BP-LEO,  to: BA-MFG}
+    - {id: USE-04,  rel_type: USES,         from: BP-LEO,  to: BA-LAUNCH}
+    - {id: USE-05,  rel_type: USES,         from: BP-LEO,  to: BA-SVC}
+    - {id: PRD-02,  rel_type: PRODUCES,     from: BA-PROC,   to: FT-COMP}
+    - {id: PRD-03,  rel_type: PRODUCES,     from: BA-MFG,    to: FT-SAT}
+    - {id: PRD-04,  rel_type: PRODUCES,     from: BA-LAUNCH, to: FT-CONST}
+    - {id: PRD-05,  rel_type: PRODUCES,     from: BA-SVC,    to: FT-SVC}
+    - {id: HST-02,  rel_type: HOSTED_ON,    from: FT-COMP,   to: TP-AIT}
+    - {id: HST-03,  rel_type: HOSTED_ON,    from: FT-SAT,    to: TP-AIT}
+    - {id: HST-04,  rel_type: HOSTED_ON,    from: FT-CONST,  to: TP-NOC}
+    - {id: HST-05,  rel_type: HOSTED_ON,    from: FT-SVC,    to: TP-NOC}
+    # ─── Supply-chain risks CONCERNS their production asset (W4) ───────────────────────────────────────
+    - {id: CON-ROM01, rel_type: CONCERNS,   from: ROM-01,  to: TP-AIT, from_label: Risk}
+    - {id: CON-ROM02, rel_type: CONCERNS,   from: ROM-02,  to: TP-AIT, from_label: Risk}
+    - {id: CON-ROM03, rel_type: CONCERNS,   from: ROM-03,  to: TP-AIT, from_label: Risk}
+    - {id: CON-ROM04, rel_type: CONCERNS,   from: ROM-04,  to: TP-AIT, from_label: Risk}
+    - {id: CON-SEC02, rel_type: CONCERNS,   from: SEC-02,  to: TP-AIT, from_label: Risk}
+    - {id: CON-ROL01, rel_type: CONCERNS,   from: ROL-01,  to: TP-NOC, from_label: Risk}
 
 
 # =============================================================================
@@ -1661,15 +1768,17 @@ relationships:
 # Each family expands to 3 SpiceScenario nodes (best / realistic / pessimistic)
 # sharing scenario_family_id. The realistic (P50, current) case is the family
 # representative and carries every bridge edge (ILLUSTRATES / CAUSED_BY /
-# ASSESSED_AGAINST / OCCURS_AT / ADDRESSES / MITIGATED_BY_SPICE); best and
+# ASSESSED_AGAINST / OCCURS_AT / ADDRESSES / MITIGATED_BY); best and
 # pessimistic are data-only sibling records read by the MagnitudeCalibrator.
+# A family may also declare a `mitigated:` block — the analyst-authored mitigated
+# re-assessment as a new version_number per case (CR-01 §C4); see BST-S1.
 #
 # EBIT/FCF figures come from the bestiary stat-block tables (canon-derived):
 #   03 - Bestiary/BST-*.md  →  EBIT y1..y3 and FCF y1 per case.
 # Recovery: op_recovery_days from the table ("3 wks" → 21); crisis_management_days
 #   left null (not in canon). fin_recovery_years from the table.
-# spice_mitigation cost/coverage populated ONLY where the Canon register states a
-#   figure (cyber insurance $50M limit; $60M bridge facility); others left null.
+# Control cost/coverage (now core `Mitigation` nodes, CR-01) populated ONLY where the
+#   Canon register states a figure (cyber insurance $50M limit; $60M bridge facility).
 # =============================================================================
 
 spice:

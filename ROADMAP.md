@@ -66,7 +66,7 @@ Eight streams (W1–W8) plus governance (W0). Each maps the owner's wants to con
 | W1 | Strategy, Objectives & **Opportunities** | "business objectives" | **L2** ✅ *(2026-06-28; OPP register + annex)* | L3 |
 | W2 | Mitigations, Controls & **Owners** | "mitigations" | owners ✅ L2 · controls ⏳ *(gated on [CR-01](09%20-%20Engine%20Room/CR-01%20-%20Mitigation%20Consolidation%20%26%20SPICE%20Re-assessment.md))* | L2 |
 | W3 | External Constraints & Environment | "external constraints" | L1 | L2 |
-| W4 | Supply Chain | "a supply chain" | L0→L1 | L2 |
+| W4 | Supply Chain | "a supply chain" | **L2** ✅ *(2026-06-29; supplier map + production graph)* | L2 |
 | W5 | History & Past Incidents | "some past incidents" | L0 | L2 |
 | W6 | Operational & Technical Data | "operational-level info with usable data" | L1 | L2 |
 | W7 | Management Operating Rhythm (decision support) | (the core thesis) | **L2** ✅ *(2026-06-28; ROC charter + DM-01 worked)* | L2 |
@@ -141,8 +141,8 @@ Breadth-first within each wave; Depth & Completeness Review at every boundary.
 ### Wave 3 — *"ODT as a living company: the spine"*  ← **in progress (nearly complete)**
 Stand up the decision-support backbone. **W1** ✅ (objectives + opportunity register), **W2** (owner layer ✅ · controls portfolio ⏳ gated on [CR-01](09%20-%20Engine%20Room/CR-01%20-%20Mitigation%20Consolidation%20%26%20SPICE%20Re-assessment.md)), **W7** ✅ (committee + first worked decision DM-01). Outcome (already demonstrable): the RIM can be shown *informing a management choice*, with named owners and both sides of the ledger. **Only remaining Wave-3 item:** the W2 controls regeneration, which unblocks the moment RIM aligns the schema per CR-01.
 
-### Wave 4 — *"Depth where the demo bites"*
-The data-dense layer. **W4** (supply-chain graph), **W6** (kill-chain + perimeters + usable quant), **W3** (external constraints). Outcome: the graph is dense and queryable; the architecture annex maps 1:1; suppliers and regulators are first-class.
+### Wave 4 — *"Depth where the demo bites"*  ← **in progress**
+The data-dense layer. **W4** ✅ *(2026-06-29 — supplier map + production graph; [[Annex - Supply Chain & Production]])*, **W6** (kill-chain + perimeters + usable quant), **W3** (external constraints). Outcome: the graph is dense and queryable; the architecture annex maps 1:1; suppliers and regulators are first-class.
 
 ### Wave 5 — *"History & the runnable kit"*
 **W5** (incident log + lifecycle history), **W8** (crisis-exercise pack + deepen scaffolds + training path). Outcome: ODT has a believable past and a kit you can actually run a workshop/crisis exercise from.

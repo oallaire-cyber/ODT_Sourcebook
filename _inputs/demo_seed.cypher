@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-29 10:08
+//    Built   : 2026-06-29 10:22
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -486,6 +486,9 @@ CREATE (rom01:Risk {
   severity: 9.0,
   exposure: 36.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Critical',
+  single_source: true,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -506,6 +509,9 @@ CREATE (rom02:Risk {
   severity: 7.0,
   exposure: 35.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Critical',
+  single_source: true,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -526,6 +532,9 @@ CREATE (rom03:Risk {
   severity: 7.0,
   exposure: 28.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Important',
+  single_source: false,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -546,6 +555,9 @@ CREATE (rom04:Risk {
   severity: 7.0,
   exposure: 21.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Internal',
+  criticality_class: 'Critical',
+  single_source: false,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -568,6 +580,9 @@ CREATE (rol01:Risk {
   severity: 8.0,
   exposure: 48.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Important',
+  single_source: false,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -794,6 +809,9 @@ CREATE (sec02:Risk {
   severity: 10.0,
   exposure: 30.0,
   current_score_type: 'Qualitative_4x4',
+  supplier_tier: 'Tier 1',
+  criticality_class: 'Critical',
+  single_source: false,
   created_at: datetime(),
   updated_at: datetime(),
   last_review_date: datetime(),
@@ -1710,6 +1728,29 @@ CREATE (tpplm:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (tpait:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-AIT',
+  name: 'Satellite AIT clean-room facility',
+  description: 'Assembly-Integration-Test clean room where tier-1 components are received, integrated into the satellite bus and qualified to the Phase-4 certification gate. Single integration line on the deployment critical path (ROM-04 owner: Plant Director). Location not pinned in canon.',
+  type: 'Manufacturing / AIT',
+  criticality: 5,
+  external_id: 'AIT-CR-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (tpnoc:ContextNode {
+  node_type: 'technical_perimeter',
+  id: 'TP-NOC',
+  name: 'NOC / mission control & service operations',
+  description: 'Network Operations Centre commanding the on-orbit constellation (TT&C) and running the LEO broadband service (capacity allocation, provisioning). Denver primary / Dublin backup share an identity/PAM plane (the S1 weakness — W6 will enrich the kill-chain here).',
+  type: 'Ground segment / Mission control',
+  location: 'Denver (primary) / Dublin (backup)',
+  criticality: 5,
+  external_id: 'NOC-01',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // --- Sponsors ---
 
@@ -1733,6 +1774,42 @@ CREATE (ft01:ContextNode {
   created_at: datetime(),
   updated_at: datetime()
 });
+CREATE (ftcomp:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-COMP',
+  name: 'Qualified flight components',
+  description: 'Tier-1 supplier components qualified for flight — RF transponders (Teledyne), space-grade batteries (Saft), composite bus structures (Northrop/Spirit), attitude control (Moog/Orbital ATK). The supply-chain inputs to the build.',
+  classification: 'Flight hardware / ITAR-controlled',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ftsat:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-SAT',
+  name: 'Integrated & tested satellite (flight unit)',
+  description: 'A satellite assembled, integrated and tested through the AIT line and passed through the Phase-4 certification gate — the ~$3.4M/sat unit (incl. launch).',
+  classification: 'Flight hardware / ITAR-controlled',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ftconst:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-CONST',
+  name: 'Deployed on-orbit constellation capacity',
+  description: 'The 80-satellite HORIZON-LEO constellation (8 polar planes, 550 km) once launched and commissioned — the capacity that carries the service.',
+  classification: 'Operational asset',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (ftsvc:ContextNode {
+  node_type: 'functional_target',
+  id: 'FT-SVC',
+  name: 'LEO broadband service',
+  description: 'The connectivity service ODT sells (corporate / government / wholesale telco) — the revenue-bearing output of the whole production chain.',
+  classification: 'Commercial service',
+  created_at: datetime(),
+  updated_at: datetime()
+});
 
 // --- Business Activities ---
 
@@ -1741,6 +1818,38 @@ CREATE (ba01:ContextNode {
   id: 'BA-01',
   name: 'Engineering - Design',
   description: 'Design engineering activity that produces and uses the satellite design data',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (baproc:ContextNode {
+  node_type: 'business_activity',
+  id: 'BA-PROC',
+  name: 'Supplier procurement & component qualification',
+  description: 'Sourcing and qualifying tier-1 flight components; manages the Teledyne / Saft single-source dependencies and the Airbus DS dual-source qualification.',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (bamfg:ContextNode {
+  node_type: 'business_activity',
+  id: 'BA-MFG',
+  name: 'Satellite manufacturing, assembly & test (AIT)',
+  description: 'Integration of qualified components into the satellite bus and test to the Phase-4 certification gate — the AIT line (target ~1 satellite/month).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (balaunch:ContextNode {
+  node_type: 'business_activity',
+  id: 'BA-LAUNCH',
+  name: 'Launch & early-orbit operations',
+  description: 'Manifesting flight units on SpaceX / Rocket Lab, launch, and commissioning into the constellation — the launch-availability dependency (ROL-01).',
+  created_at: datetime(),
+  updated_at: datetime()
+});
+CREATE (basvc:ContextNode {
+  node_type: 'business_activity',
+  id: 'BA-SVC',
+  name: 'Constellation operations & service delivery',
+  description: 'Operating the on-orbit fleet (TT&C) and delivering the LEO broadband service — capacity allocation, provisioning, SLAs.',
   created_at: datetime(),
   updated_at: datetime()
 });
@@ -2893,6 +3002,42 @@ MATCH (a:Risk {id: 'RCY-01'}), (b:ContextNode {id: 'EP-01'})
 CREATE (a)-[:CONCERNS {id: 'CON-01', created_at: datetime()}]->(b);
 MATCH (a:Risk {id: 'RCY-02'}), (b:ContextNode {id: 'TP-PLM'})
 CREATE (a)-[:CONCERNS {id: 'CON-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BP-LEO'}), (b:ContextNode {id: 'BA-PROC'})
+CREATE (a)-[:USES {id: 'USE-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BP-LEO'}), (b:ContextNode {id: 'BA-MFG'})
+CREATE (a)-[:USES {id: 'USE-03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BP-LEO'}), (b:ContextNode {id: 'BA-LAUNCH'})
+CREATE (a)-[:USES {id: 'USE-04', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BP-LEO'}), (b:ContextNode {id: 'BA-SVC'})
+CREATE (a)-[:USES {id: 'USE-05', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BA-PROC'}), (b:ContextNode {id: 'FT-COMP'})
+CREATE (a)-[:PRODUCES {id: 'PRD-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BA-MFG'}), (b:ContextNode {id: 'FT-SAT'})
+CREATE (a)-[:PRODUCES {id: 'PRD-03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BA-LAUNCH'}), (b:ContextNode {id: 'FT-CONST'})
+CREATE (a)-[:PRODUCES {id: 'PRD-04', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'BA-SVC'}), (b:ContextNode {id: 'FT-SVC'})
+CREATE (a)-[:PRODUCES {id: 'PRD-05', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-COMP'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-02', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-SAT'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-03', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-CONST'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-04', created_at: datetime()}]->(b);
+MATCH (a:ContextNode {id: 'FT-SVC'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:HOSTED_ON {id: 'HST-05', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-01'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROM01', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-02'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROM02', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-03'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROM03', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROM-04'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROM04', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'SEC-02'}), (b:ContextNode {id: 'TP-AIT'})
+CREATE (a)-[:CONCERNS {id: 'CON-SEC02', created_at: datetime()}]->(b);
+MATCH (a:Risk {id: 'ROL-01'}), (b:ContextNode {id: 'TP-NOC'})
+CREATE (a)-[:CONCERNS {id: 'CON-ROL01', created_at: datetime()}]->(b);
 
 // =============================================================================
 // SPICE — MITIGATION OBJECTIVES (ADDRESSES targets)

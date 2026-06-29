@@ -59,7 +59,10 @@ EBIT/FCF figures are transcribed from the [[Bestiary Index|bestiary]] stat-block
 | Owner ([[Cast Roster|cast]]) | `ContextNode{owner}` | name, role, entity, email; `BEARS` risk, `STEWARDS` mitigation |
 
 ## Edges
-`INFLUENCES` (level1/2/3; weak→critical) · `MITIGATES` · `IMPACTS_TPO` / `IMPACTS_TCO` · `CONTRIBUTES_TO` · accountability: `BEARS` `STEWARDS` · SPICE: `ILLUSTRATES` `CAUSED_BY` `ASSESSED_AGAINST` `OCCURS_AT` `ADDRESSES` `FULFILS` (now `Mitigation→objective`) `MITIGATED_BY` (CR-01, was `MITIGATED_BY_SPICE`) · cyber path: `SEEKS` `USES` `EXPLOITS` `COMPROMISES` `EXPOSES` `AFFECTS` `TARGETS` `HOSTED_ON`.
+`INFLUENCES` (level1/2/3; weak→critical) · `MITIGATES` · `IMPACTS_TPO` / `IMPACTS_TCO` · `CONTRIBUTES_TO` · accountability: `BEARS` `STEWARDS` · SPICE: `ILLUSTRATES` `CAUSED_BY` `ASSESSED_AGAINST` `OCCURS_AT` `ADDRESSES` `FULFILS` (now `Mitigation→objective`) `MITIGATED_BY` (CR-01, was `MITIGATED_BY_SPICE`) · **production chain (W4): `USES` (perimeter→activity) `PRODUCES` (activity→target) `HOSTED_ON` (target→asset) `CONCERNS` (risk→asset)** · cyber path: `SEEKS` `EXPLOITS` `COMPROMISES` `EXPOSES` `AFFECTS` `TARGETS`.
+
+### Supply-chain production graph (W4)
+The supply chain is a graph, not prose (see [[Annex - Supply Chain & Production]]). **Suppliers are not nodes** (RIM v3.0 has no `supplier` type); they are modelled via (a) the `supply_chain` **risk subtype** — `supplier_tier` {Tier 1/2/3/Internal}, `criticality_class` {Critical/Important/Standard}, `single_source` {bool} — on ROM-01/02/03/04, ROL-01, SEC-02; (b) the **production chain** `BP-LEO`-`USES`→`business_activity`(5)-`PRODUCES`→`functional_target`(5)-`HOSTED_ON`→`technical_perimeter`; and (c) `CONCERNS` from each supply-chain risk to its asset. New assets: **TP-AIT** (clean-room integration line), **TP-NOC** (Denver/Dublin ops & service). Filter `single_source: true` → the Teledyne (RF) + Saft (battery) choke points.
 
 ### Owner accountability layer (BEARS / STEWARDS)
 The dual ownership model, seeded 2026-06-28 (resolves [[Canon Change & Issue Register#DEC-02|DEC-02]]):

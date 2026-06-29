@@ -18,7 +18,7 @@ The map of the whole set. Each line below is a "product type"; click into its in
 - [[Naming & Conventions]] — ID schemes, tags, versioning, vault conventions
 
 ## ① Worldbook — *setting*
-- [[ODT Worldbook - Core]] (slim master) → annexes: [[Annex - Objectives & Opportunities|Objectives & Opportunities]] · [[Annex - Risk & Opportunity Committee|Risk & Opportunity Committee]] · [[Annex - Finance & Unit Economics|Finance]] · [[Annex - Security Architecture|Architecture]] · [[Annex - AURORA-GEO Programme|AURORA-GEO]] · [[Annex - RIM Anchoring|RIM Anchoring]]
+- [[ODT Worldbook - Core]] (slim master) → annexes: [[Annex - Objectives & Opportunities|Objectives & Opportunities]] · [[Annex - Risk & Opportunity Committee|Risk & Opportunity Committee]] · [[Annex - Finance & Unit Economics|Finance]] · [[Annex - Security Architecture|Architecture]] · [[Annex - Supply Chain & Production|Supply Chain & Production]] · [[Annex - AURORA-GEO Programme|AURORA-GEO]] · [[Annex - RIM Anchoring|RIM Anchoring]]
 
 ## ② Cast — *dramatis personae*
 - [[Cast Roster]] — the full named org; serial characters fully described
