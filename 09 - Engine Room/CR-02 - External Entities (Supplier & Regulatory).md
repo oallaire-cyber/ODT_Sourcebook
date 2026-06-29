@@ -6,7 +6,15 @@ tags: [engine-room, change-request, schema, supply-chain, regulatory, external, 
 aliases: ["CR-02", "External Entities CR", "Supplier & Regulator nodes"]
 ---
 # 📑 CR-02 — First-class External Entities (Supplier & Regulatory/Constraint nodes)
-> **From:** ODT Sourcebook (data/narrative) · **To:** RIM platform (schema owner) · **Raised:** 2026-06-29 · **Status:** `Draft — discussion opened with RIM` · **Drives:** Wave 4 depth (W4 supply chain, W3 external constraints)
+> **From:** ODT Sourcebook (data/narrative) · **To:** RIM platform (schema owner) · **Raised:** 2026-06-29 · **Status:** `Spec CONVERGED (2026-06-29) — RIM aligning schema; ODT regen on landing` · **Drives:** Wave 4 depth (W4 supply chain, W3 external constraints)
+>
+> [!success] Final agreed contract — **spec CONVERGED 2026-06-29** (RIM ratified §9 of the exchange log `2026-06-29-external-entities`)
+> Two **context** node types + three **context** edges (no engine impact):
+> - **`supplier`**: `name` · `tier` {Tier 1/2/3/Internal} · `criticality` {Critical/Important/Standard} · `single_source` (bool) · `country` · `lead_time` (optional) · `description`
+> - **`regulator`**: `name` · `kind` {regulator/export_control/accreditation/partnership} · `authority` · `standard` · `jurisdiction` · `description`
+> - **`SUPPLIES`** : `supplier → business_activity` (**ratified** — not the FT; FT-COMP is BA-PROC's *output*) · **`GOVERNS`** : `regulator → risk` · **`SOURCED_FROM`** : `risk → supplier` (dedicated edge)
+>
+> Risk subtypes (`supply_chain`/`regulatory_compliance`) **unchanged, denormalised**. Market/macro deferred to a future `market_factor`. **Next:** RIM aligns `schema.yaml` → ODT regenerates the seed (~8 supplier + ~4–5 regulator).
 >
 > *Cross-project process per `CLAUDE.md` → "Working with the RIM project": CRs may originate from either side; **RIM is the leading project and the authoritative tracker.** This ODT-side copy is the draft spec; the agreed position will live in RIM's exchange log (`2026-06-29-external-entities`). **Do not change `schema.yaml` until agreed.***
 
@@ -69,6 +77,44 @@ Counts: ~8 supplier nodes, ~6 external-constraint nodes. No risk IDs change; exi
 - **Out of scope:** any change to the risk exposure/magnitude model; the `owner`/BEARS/STEWARDS layer; the mitigation model (that was [[CR-01 - Mitigation Consolidation & SPICE Re-assessment|CR-01]]).
 - **No ODT-side schema change until agreed.** If RIM declines, W3/W4 remain complete at L2 on the current subtype-fields + annex model (this CR is an *enhancement*, not a blocker).
 
+## 8. RIM decision & ODT confirmation (2026-06-29) — agreed contract
+**RIM accepted CR-02** with four refinements; **ODT accepted all four** and confirmed the one open item. The agreed model ODT will regenerate against once RIM aligns `schema.yaml`:
+
+| # | RIM refinement | ODT response |
+|---|---|---|
+| Q1 | `external_constraint` → **narrow to `regulator`**; defer market/macro to a future `market_factor` type | **Accepted.** FCC/ITU/DDTC-ITAR/DoD = `regulator`; ESA/NASA = `kind: partnership`. Launch market + IPO window stay **narrative** (this annex + [[Annex - External Environment & Constraints]]) until canon justifies `market_factor`. Outside-in convergence to **TCO-04** unaffected. |
+| Q2 | **Dedicated `SOURCED_FROM`** (risk → supplier), not a reuse of `CONCERNS` | **Accepted** — symmetric with `GOVERNS`; keeps `CONCERNS` for risk→asset only. |
+| Q3 | **Keep subtype fields denormalised** (zero migration) | **Accepted** — new nodes purely additive; no risk IDs change; `supplier_tier`/`single_source` (risk) ↔ `tier`/`single_source` (node) duplication intentional. |
+| Q4 | **Context-only** (no engine impact) | **Confirmed** — mirrors `business_activity`/`functional_target`. |
+
+### §5.1 `SUPPLIES` target — ODT confirmation (a correction to RIM's tentative pick)
+RIM's instinct ("supplier feeds the **input**, not the FT an activity outputs") is right — and the W4 chain shows the input is an **activity**, not a `functional_target`. `FT-COMP` is *already* an ODT output (`BA-PROC` PRODUCES it by qualifying raw supplier parts). So **`SUPPLIES` targets the consuming `business_activity`:**
+- **Component/battery/structure/attitude suppliers** (Teledyne, Saft, Northrop Grumman, Spirit Aero, Moog, Orbital ATK) → `SUPPLIES` → **`BA-PROC`** → which `PRODUCES` `FT-COMP` → consumed by `BA-MFG` → `FT-SAT`.
+- **Launch suppliers** (SpaceX, Rocket Lab) → `SUPPLIES` → **`BA-LAUNCH`** → `PRODUCES` `FT-CONST` (resolves RIM's launch→FT-CONST note — FT-CONST is the activity's *output*).
+- *(MSSP = service supplier → optional `BA-SVC`; internal AIT clean-room = `BA-MFG` itself, not a supplier node.)*
+
+This keeps the **entire W4 production chain intact** (no `PRODUCES` edge retired) — `supplier` nodes + `SUPPLIES` edges are purely additive. Needs RIM to allow `SUPPLIES: supplier → business_activity` (CR-02 §3A offered FT *or* activity, so inside the envelope). **Fallback** if RIM insists on an FT target: point at `FT-COMP` as input and retire `PRD-02`/`PRD-04` so it's unambiguously a procured input — costs two `PRODUCES` edges; ODT prefers the activity target.
+
+### Regeneration scope (once RIM aligns the schema)
+~8 `supplier` nodes + `SUPPLIES` → BA-PROC/BA-LAUNCH + optional `SOURCED_FROM` from the 6 supply-chain risks; ~4–5 `regulator` nodes + `GOVERNS` → the 6 `regulatory_compliance` risks; existing subtype strings unchanged.
+
+## 9. Spec converged — final build contract (2026-06-29)
+RIM **ratified `SUPPLIES → business_activity`** (and declined the FT-COMP fallback — no reason to mutate the intact W4 chain). Spec is **CONVERGED**; RIM now aligns the demo schema, then ODT regenerates. The contract ODT will build to:
+
+| Element | Spec |
+|---|---|
+| **`supplier`** (context node) | `name` · `tier` {Tier 1/2/3/Internal} · `criticality` {Critical/Important/Standard} · `single_source` (bool) · `country` · `lead_time` (optional) · `description` |
+| **`regulator`** (context node) | `name` · `kind` {regulator/export_control/accreditation/partnership} · `authority` · `standard` · `jurisdiction` · `description` |
+| **`SUPPLIES`** (context edge) | `supplier → business_activity` — components/battery/structure/attitude → **BA-PROC**; launch → **BA-LAUNCH**; (optional MSSP → BA-SVC) |
+| **`GOVERNS`** (context edge) | `regulator → risk` — the 6 `regulatory_compliance` risks |
+| **`SOURCED_FROM`** (context edge) | `risk → supplier` — the 6 supply-chain risks (optional tie) |
+
+**Blast-radius unlocked:** `(:supplier)-[:SUPPLIES]->(:business_activity)-[:PRODUCES]->(:functional_target)-[:HOSTED_ON]->(:technical_perimeter)`. Risk subtypes unchanged (denormalised); all context-only (no `core`, no `engine_contract.py`, no propagation math).
+
+**Regeneration plan (ODT, on schema landing):** add `suppliers:`/`regulators:` blocks to `workbook.yaml` (~8 supplier + ~4–5 regulator) + the `SUPPLIES`/`GOVERNS`/`SOURCED_FROM` edges; extend `generate_seed.py` with node/edge emitters; regenerate `demo_seed.cypher`; update [[Annex - Supply Chain & Production]] §6 + [[Annex - External Environment & Constraints]] (supplier/regulator now graph nodes) + Data Dictionary + Canon register. No new canon figures expected (names/figures already canonical).
+
 ## Changelog
+- 2026-06-29: **CR-02 spec CONVERGED — `SUPPLIES → business_activity` ratified by RIM.** RIM accepted ODT's §5.1 correction in full (FT-COMP is BA-PROC's output, so suppliers feed the consuming *activity*, not the FT) and declined the FT-COMP fallback. Final build contract pinned (§9): `supplier` + `regulator` context nodes; `SUPPLIES` (supplier→business_activity) / `GOVERNS` (regulator→risk) / `SOURCED_FROM` (risk→supplier) context edges; subtypes denormalised; context-only. Status `Accepted` → **`Spec CONVERGED`**. **Next:** RIM aligns `schema.yaml`, then ODT runs the regeneration (workbook + generator + seed + annex/dictionary updates). Exchange §9 + README index reflect convergence.
+- 2026-06-29: **CR-02 ACCEPTED (with refinements) — RIM decision logged + ODT confirmation posted.** RIM accepted both node types: `supplier` as drafted; `external_constraint` **narrowed to `regulator`** (market/macro deferred to a future `market_factor`); dedicated **`SOURCED_FROM`** edge added; subtype fields **kept denormalised**; **context-only** confirmed. ODT accepted all four refinements and **confirmed the open §5.1 item with a correction**: `SUPPLIES` targets the consuming `business_activity` (**BA-PROC** for components, **BA-LAUNCH** for launch), not the FT — keeps the W4 chain intact (FT-COMP-as-input fallback documented). Status `Draft` → **`Accepted (with refinements)`**. Posted as §8 of the RIM exchange (`2026-06-29-external-entities`); README index updated. **Next:** RIM ratifies the `SUPPLIES` endpoint + aligns `schema.yaml`, then ODT regenerates the seed. Not a blocker meanwhile (W3/W4 complete at L2).
 - 2026-06-29: **Enriched by W5 (incident history).** The new incident log attributes **HX-01 to Teledyne** (supplier) and **HX-05 to the FCC** (regulator) — concrete evidence that the same external entity recurs across active risks *and* past incidents, which the current string-attribute model can't link. Added as worked example §5.4. Strengthens the case; no change to the proposal.
 - 2026-06-29: **CR-02 drafted & discussion opened with RIM.** Two Wave-4 workstreams (W4 supply chain, W3 external constraints) each surfaced the same gap — an external entity multiple risks depend on, modelled only as a repeated risk attribute. Proposed first-class `supplier` and `external_constraint` context nodes with `SUPPLIES` / `GOVERNS` edges, grounded in canon (Teledyne/Saft choke points; FCC/ITU/ITAR/DoD regimes) with worked queries (§5). Opening exchange posted to RIM (`tasks/sourcebook_exchanges/2026-06-29-external-entities.md`). Status `Draft` — awaiting RIM appetite/scope decision; no ODT-side schema change until agreed.
