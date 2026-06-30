@@ -81,7 +81,7 @@ Run the injects in order; after each, ask the table "**what does the RIM show, a
 - **Insurance:** $50M limit, $5M deductible, BI after 72h, **war/state-actor exclusion**.
 - **Economics:** revenue ~$0.74M/day (corp+gov ~$0.52M/day); **~75% fixed cost** → outage hits margin ~1:1; baseline EBIT **+$13M**.
 - **Kill-chain:** `SPN-02`→`ATK-02`→`EP-02` (MSSP)→`TP-IDP`/`TP-NMS`/`TP-NOC`→`FT-CTRL` → safe-mode. Dublin shares TP-IDP (not a backup).
-- **Apex:** S1 illustrates RH-04; RC-01/02/03 `IMPACTS_TCO` **TCO-04** (the IPO).
+- **Apex:** S1 illustrates RC-05 (reputational harm from the outage); RC-05 → RC-03 `IMPACTS_TCO` **TCO-04** (the IPO).
 
 ## 10. Inject cards (printable)
 > **INJECT 1 — T+0 DETECTION.** "NMS shows a beam/capacity config none of you pushed. Three enterprise customers report degraded service. Is this an incident?"

@@ -5,7 +5,7 @@ status: draft
 prepared-by: Risk Management, Orbital Dynamics Technologies
 reporting-position: "State B — Operator phase (FY2028 plan)"
 produced: 2026-06-28
-revised: 2026-06-29
+revised: 2026-06-30
 classification: Executive Committee / Board Risk Committee
 tags: [risk-status, executive-brief, rim, spice, status/draft]
 ---
@@ -14,7 +14,7 @@ tags: [risk-status, executive-brief, rim, spice, status/draft]
 
 **Prepared by:** Risk Management · **For:** Executive Committee & Board Risk Committee
 **Reporting position:** State B — Operator phase, FY2028 Annual Operating Plan
-**Produced:** 28 June 2026 · **Revised:** 29 June 2026 (rev. 2)
+**Produced:** 28 June 2026 · **Revised:** 30 June 2026 (rev. 3)
 
 > [!note] Scope & provenance
 > This brief reports ODT's risk position **exclusively** from the managed risk dataset (the RIM graph generated from `_inputs/workbook.yaml`) and the figures in the [[Canon & Figures Register]]. Every number is traceable to a node, an edge, or a canon line; nothing is estimated outside the dataset. Where a decision would benefit from data we do **not** yet hold, the point is flagged **`⟢ DATA GAP`** and collected in §12. Figures are order-of-magnitude by design (fiction disclaimer applies).
@@ -90,10 +90,10 @@ external cause ─▶ operational ─▶ business risks ─▶  RC-01  EBITDA mi
 
 Each family illustrates a business risk whose influence chain reaches that financial cluster:
 
-- **S1 (cyber)** → RH-04 → RH-03 → RC-01/RC-02 *(now wired as a full kill-chain — §3.3)*
+- **S1 (cyber)** → RC-05 (reputational harm from the outage) → RC-03 → the financial cluster *(now wired as a full kill-chain — §3.3)*
 - **SC1 (supply-chain)** → RH-02 → RH-03 → RC-01 *(now on a supplier→production graph — §6)*
 - **RG1 (regulatory)** → RH-05 government pipeline → RC-01
-- **GP1 (geopolitical)** → RH-04 *and* RA-02 → RC-02 — the cross-perimeter reach
+- **GP1 (geopolitical)** → RH-01 (launch slip) → RC-01 *and* RA-05 (export-control) → RA-04 → RA-02 → RC-02 — the cross-perimeter reach, now via the export-control risk
 - **GA1 (AURORA-GEO)** → RA-02 / RA-04 → RC-02
 - **FN1 (financial)** → RC-01/02/03 directly — the sink where the others land
 
@@ -113,10 +113,10 @@ SPICE quantifies each family across three independently-assessed cases, as EBIT 
 
 | Family (scenario) | Illustrates | Realistic EBIT | Realistic FCF | Pessimistic FCF | Note |
 |---|---|---:|---:|---:|---|
-| **S1** NOC / ground compromise (cyber) | RH-04 | **−$69M** | −$79M | **−$118M** | hero scenario; pess. breaches −$100M |
+| **S1** NOC / ground compromise (cyber) | RC-05 | **−$69M** | −$79M | **−$118M** | hero scenario; pess. breaches −$100M |
 | **SC1** Supplier build-chain intrusion | RH-02 | −$36M | −$42M | −$70M | no outage; schedule + IP + integrity |
 | **RG1** Accreditation suspension | RH-05 | −$48M | −$55M | −$90M | freezes $81M of gov task orders |
-| **GP1** Export-control & launch disruption | RH-04, RA-02 | −$30M | −$34M | −$62M | cross-perimeter into AURORA |
+| **GP1** Export-control & launch disruption | RH-01, RA-05 | −$30M | −$34M | −$62M | cross-perimeter into AURORA (RA-05 → RA-02) |
 | **GA1** AURORA-GEO overrun & co-funding shock | RA-02, RA-04 | $0 (capitalised) | −$12M | −$24M | **consolidated −$64M breaches −$60M bridge** |
 | **FN1** IPO-window collapse (the sink) | RC-01/02/03 | $0 | **−$100M** | **−$140M** | realistic sits *on* the trigger |
 
@@ -285,5 +285,6 @@ Status of the seven gaps the first issue raised, plus what remains:
 ---
 
 ## Revision history
+- **Rev. 3 — 2026-06-30.** Corrected two SPICE scenario→business-risk bridges that named only *indirect* risks ([[Canon Change & Issue Register|INC-06]], supersedes INC-02): **S1** (cyber) now illustrates **RC-05** (reputational harm from the service outage) instead of RH-04; **GP1** (geopolitical) now illustrates **RH-01 + RA-05** (its launch-disruption and export-control halves) instead of RH-04 + RA-02. AURORA's budget (RA-02) remains reachable indirectly via RA-05 → RA-04 → RA-02. Updated §3.2 convergence list and the §4 priced-tail table. No figures changed; all six families still converge on TCO-04.
 - **Rev. 2 — 2026-06-29.** Refreshed for the Wave 3–5 risk-management programme: closed gaps #1 (λ/magnitude, §3.3) and #2 (incident history, §7); added the S1 funded "after" (§4.1), the consolidated 33-control register and CR-01 mechanism (§5), supply-chain & external-constraint exposure and the wired S1 kill-chain (§6), crisis readiness (§11), and a new decision D8 (Saft second source). Updated portfolio count to 55 (50 active + 5 historical). Noted the ROC as the standing decision body and DM-01 as the worked D1. Recorded the CR-01/CR-02 platform evolution. No canon figures changed; all additions trace to the graph/canon.
 - **Rev. 1 — 2026-06-28.** First issue: convergence thesis, the priced tail, owner accountability, the seven-decision slate, and the seven information gaps.

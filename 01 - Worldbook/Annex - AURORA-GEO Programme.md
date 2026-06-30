@@ -152,7 +152,7 @@ The two technology/regulatory risks carry **High**-effectiveness dedicated contr
 
 > [!check] Resolved 2026-06-26 (CAN-01 / INC-02 closed)
 > - **CAN-01 (EBIT half) — closed.** AURORA dev-spend is treated as **capitalised** (hits FCF, not EBIT), so BP-GEO stays `ebit_baseline 0` and BP-LEO now carries the **true EBIT +13** (was the EBITDA-level 45). Consolidated EBIT = LEO 13 + GEO 0 = **+13** ✔, closing CAN-01 and the EBIT leg of CAN-03.
-> - **INC-02 — closed.** [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] now `ILLUSTRATES` → **RA-02** (its launch-slip effect on AURORA's budget), giving GP1 cross-perimeter reach (RA-02 → RC-02 → FN1) and aligning entry + graph with the index.
+> - **INC-02 — superseded 2026-06-30.** GP1's direct `ILLUSTRATES` → RA-02 was reverted: [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] now `ILLUSTRATES` → **RH-01** (launch slip) + **RA-05** (export-control), the risks its own narrative names. AURORA's budget keeps GP1's cross-perimeter reach **indirectly** (RA-05 → RA-04 → RA-02 → RC-02 → FN1), so the GEO-perimeter convergence still holds.
 
 ---
 *Changelog:*

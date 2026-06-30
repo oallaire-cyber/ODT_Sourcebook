@@ -2196,7 +2196,7 @@ spice:
         State-aligned actor takes the constellation offline long enough to break
         SLAs and shake government confidence — loss of legitimate control, not
         ransomware.
-      illustrates: RH-04
+      illustrates: RC-05   # corrected 2026-06-30 (supersedes the scaffold RH-04): a NOC/ground-segment outage materialises as reputational harm — RC-05's definition explicitly covers "service outage" — not market commoditisation (RH-04, a market-structure risk). Convergence preserved: RC-05 -> RC-03 (INF-28) -> TCO-04 (IMC-06) keeps S1 on the IPO apex; RC-05 -> TPO-04 (IMP-09) carries the government-confidence thread. INF-15 (SEC-01 -> RC-05) already backs the cyber->reputational cause path.
       caused_by: [SEC-01, SEC-08]
       assessed_against: BP-LEO
       occurs_at: TP-NOC               # W6: the triggering event occurs at the NOC / ground segment
@@ -2276,7 +2276,7 @@ spice:
         Shift in the export-control / sanctions environment constrains RF supply
         and launch access — slows deployment and raises cost of capital, with no
         attacker.
-      illustrates: [RH-04, RA-02]   # RA-02 added 2026-06-26 (INC-02): GP1's launch/export-control slip pressures AURORA's budget (RA-02 -> RC-02 -> FN1), giving GP1 cross-perimeter reach and aligning entry+graph with the Bestiary Index.
+      illustrates: [RH-01, RA-05]   # corrected 2026-06-30 (supersedes INC-02): GP1's two halves now map to the risks its own narrative names — launch disruption -> RH-01 (Phase-3 schedule delay), export-control tightening -> RA-05 (ITAR blocking partnerships). The prior [RH-04, RA-02] were both indirect: RH-04 is a market-structure risk and RA-02 is a downstream budget consequence. Cross-perimeter reach to AURORA's budget is preserved INDIRECTLY: RA-05 -> RA-04 (INF-31) -> RA-02 (INF-47) -> RC-02 -> FN1. RH-01 -> RC-01 (INF-21) keeps the LEO path to TCO-04.
       # NOTE: caused_by corrected from the scaffold value [ROE-01] (software defect,
       # semantically wrong for a geopolitical/supplier scenario) to the operational
       # risks GP1's own narrative names: RF sole-source supply + launch availability.

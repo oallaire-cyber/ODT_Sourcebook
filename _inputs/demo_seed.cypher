@@ -5,7 +5,7 @@
 // !! GENERATED FILE — DO NOT EDIT DIRECTLY !!
 //    Source  : _inputs/workbook.yaml
 //    Script  : 09 - Engine Room/generate_seed.py
-//    Built   : 2026-06-29 18:06
+//    Built   : 2026-06-30 09:35
 //
 // To make changes: edit workbook.yaml, then re-run generate_seed.py
 // Execute in Neo4j Browser or via cypher-shell.
@@ -4147,8 +4147,8 @@ CREATE (bstga1pessimistic:SpiceScenario {
 // SPICE EDGES  (ILLUSTRATES / CAUSED_BY / ASSESSED_AGAINST / OCCURS_AT)
 // =============================================================================
 
-MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Risk {id: 'RH-04'})
-CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-S1-RH-04', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Risk {id: 'RC-05'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-S1-RC-05', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Risk {id: 'SEC-01'})
 CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-S1-SEC-01', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-S1-realistic'}), (b:Risk {id: 'SEC-08'})
@@ -4173,10 +4173,10 @@ MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:Risk {id: 'SEC-04'})
 CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-RG1-SEC-04', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-RG1-realistic'}), (b:ContextNode {id: 'BP-LEO'})
 CREATE (a)-[:ASSESSED_AGAINST {id: 'ASG-BST-RG1', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'RH-04'})
-CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GP1-RH-04', created_at: datetime()}]->(b);
-MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'RA-02'})
-CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GP1-RA-02', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'RH-01'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GP1-RH-01', created_at: datetime()}]->(b);
+MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'RA-05'})
+CREATE (a)-[:ILLUSTRATES {id: 'ILL-BST-GP1-RA-05', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'ROM-01'})
 CREATE (a)-[:CAUSED_BY {id: 'CBY-BST-GP1-ROM-01', created_at: datetime()}]->(b);
 MATCH (a:SpiceScenario {id: 'BST-GP1-realistic'}), (b:Risk {id: 'ROL-01'})

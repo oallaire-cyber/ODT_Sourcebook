@@ -12,10 +12,10 @@ Each entry is a **priced feared-event** — a `SpiceScenario` family (three case
 ## Families seeded
 | Entry | Family | Illustrates | Cause | ≈ Realistic cost |
 |---|---|---|---|---|
-| [[BST-S1 NOC Ground Compromise (Cyber)|S1]] | Cyber | RH-04 / RC-01 | security | **$69M** |
+| [[BST-S1 NOC Ground Compromise (Cyber)|S1]] | Cyber | RC-05 | security | **$69M** |
 | [[BST-SC1 Supplier Build-Chain Intrusion (Supply Chain)|SC1]] | Supply Chain | RH-02 | security (supply-chain) | $36M |
 | [[BST-RG1 Accreditation Suspension (Regulatory)|RG1]] | Regulatory | RH-05 | other (regulatory) | $48M |
-| [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] | Geopolitical | RH-04 / RA-02 | geopolitical | $30M |
+| [[BST-GP1 Export-Control & Launch Disruption (Geopolitical)|GP1]] | Geopolitical | RH-01 / RA-05 | geopolitical | $30M |
 | [[BST-FN1 IPO Window Collapse (Financial)|FN1]] | Financial / IPO | RC-01 / RC-02 / RC-03 | other (financial) | dilution-priced |
 | [[BST-GA1 AURORA-GEO Development Overrun (Programme)|GA1]] | Programme (GEO) | RA-02 / RA-04 | other (programme) | −$12M FCF *(GEO perimeter)* |
 

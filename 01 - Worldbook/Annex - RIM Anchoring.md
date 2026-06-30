@@ -18,4 +18,4 @@ tags: [worldbook, rim, anchoring, status/new]
 | The A4 architecture | `technical_perimeter` / `entry_point` / `functional_target` |
 
 > [!example] One stitched chain
-> [[Tom Reuter (CISO)|Tom]] `BEARS` SEC-01 → `INFLUENCES` RH-04 → `IMPACTS_TCO` TCO-01, and the same risk family is priced by [[BST-S1 NOC Ground Compromise (Cyber)|S1]] which is `ASSESSED_AGAINST` BP-LEO.
+> [[Tom Reuter (CISO)|Tom]] `BEARS` SEC-01 → `INFLUENCES` RC-05 (INF-15) → `IMPACTS_TCO` TCO-03 (and on to the IPO apex TCO-04 via RC-05 → RC-03), and that same RC-05 risk is exactly what [[BST-S1 NOC Ground Compromise (Cyber)|S1]] `ILLUSTRATES`, `ASSESSED_AGAINST` BP-LEO.
